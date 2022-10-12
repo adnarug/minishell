@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/12 12:12:56 by pguranda         ###   ########.fr       */
+/*   Created: 2022/03/22 11:29:08 by pguranda          #+#    #+#             */
+/*   Updated: 2022/04/14 17:58:04 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include	"libft.h"
 
-int	main (int argc, char **argv, char **envp)
+void	ft_bzero(void *s, size_t n)
 {
-	const char	*input;
+	char				*p;
 
-	input = malloc(sizeof(char) * 6);
-	input = "Hello";
-	printf("%s", input);
-	return (0);
-}
+	p = s;
+	while (n > 0)
+	{
+		*p = '\0';
+		p++;
+		n--;
+	}
+}	

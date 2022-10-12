@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/12 12:12:56 by pguranda         ###   ########.fr       */
+/*   Created: 2022/04/12 11:19:59 by pguranda          #+#    #+#             */
+/*   Updated: 2022/05/10 15:41:52 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "libft.h"
 
-int	main (int argc, char **argv, char **envp)
+int	ft_putchar_fd(char c, int fd)
 {
-	const char	*input;
-
-	input = malloc(sizeof(char) * 6);
-	input = "Hello";
-	printf("%s", input);
-	return (0);
+	write (1, &c, fd);
+	return (1);
 }

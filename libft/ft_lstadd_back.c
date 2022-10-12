@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/12 12:12:56 by pguranda         ###   ########.fr       */
+/*   Created: 2022/04/13 11:24:08 by pguranda          #+#    #+#             */
+/*   Updated: 2022/04/21 17:12:39 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "libft.h"
 
-int	main (int argc, char **argv, char **envp)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	const char	*input;
+	t_list				*last;
 
-	input = malloc(sizeof(char) * 6);
-	input = "Hello";
-	printf("%s", input);
-	return (0);
+	if (lst == NULL)
+		return ;
+	if (*lst == NULL )
+	{
+		*lst = new;
+		return ;
+	}
+	last = ft_lstlast(*lst);
+	last -> next = new;
 }

@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/12 12:12:56 by pguranda         ###   ########.fr       */
+/*   Created: 2022/03/22 16:36:18 by pguranda          #+#    #+#             */
+/*   Updated: 2022/04/21 17:21:58 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include	"libft.h"
 
-int	main (int argc, char **argv, char **envp)
+int	ft_strlen(const char *c)
 {
-	const char	*input;
+	size_t				i;
 
-	input = malloc(sizeof(char) * 6);
-	input = "Hello";
-	printf("%s", input);
-	return (0);
+	i = 0;
+	while (c[i] != '\0')
+	{
+		i++;
+	}
+	return (i);
 }

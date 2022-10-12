@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/12 12:12:56 by pguranda         ###   ########.fr       */
+/*   Created: 2022/03/22 16:22:13 by pguranda          #+#    #+#             */
+/*   Updated: 2022/04/18 13:12:15 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include	"libft.h"
 
-int	main (int argc, char **argv, char **envp)
+int	ft_isprint(int c)
 {
-	const char	*input;
-
-	input = malloc(sizeof(char) * 6);
-	input = "Hello";
-	printf("%s", input);
+	if (c >= 32 && c < 127)
+		return (1);
 	return (0);
 }

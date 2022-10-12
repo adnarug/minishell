@@ -2,7 +2,7 @@ NAME = minishell.a
 SRC_DIR = src/
 OBJ_DIR = obj/
 FLAGS = -Werror -Wextra -Wall
-PRINTF = Printf/
+LIBFT = libft/
 CC = gcc
 SRC_FILES = main
 AR	=	ar rcs
@@ -17,9 +17,9 @@ all: $(NAME)
 OBJF = .cache_exists
 
 $(NAME): $(OBJ)
-	@make -C Printf/
+	@make -C libft/
 	@$(AR) $(NAME) $(OBJ) 
-	@$(CC) $(NAME) $(FLAGS) Printf/libftprintf.a minishell.a -o minishell
+	@$(CC) $(NAME) $(FLAGS) libft/libft.a minishell.a -o minishell
 	@echo "$(GREEN)minishell compiled$(DEF_COLOR)"
 
 $(OBJ_DIR)%.o	:	$(SRC_DIR)%.c | $(OBJF)
@@ -30,14 +30,12 @@ $(OBJF):
 
 clean:
 	@rm -r $(OBJ_DIR)
-	@rm -rf a.out
-	@make clean -C $(PRINTF)
+	@make clean -C $(LIBFT)
 
 fclean: clean
 	@rm -f $(NAME)
 	@rm -rf minishell
-	@rm -rf minishell.a
-	@make fclean -C $(PRINTF)
+	@make fclean -C $(LIBFT)
 
 re: fclean all
 

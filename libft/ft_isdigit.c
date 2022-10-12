@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/12 12:12:56 by pguranda         ###   ########.fr       */
+/*   Created: 2022/03/22 14:56:19 by pguranda          #+#    #+#             */
+/*   Updated: 2022/04/18 13:11:20 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include	"libft.h"
 
-int	main (int argc, char **argv, char **envp)
+int	ft_isdigit(int c)
 {
-	const char	*input;
-
-	input = malloc(sizeof(char) * 6);
-	input = "Hello";
-	printf("%s", input);
+	if (c >= '0' && c <= '9')
+		return (1);
 	return (0);
 }

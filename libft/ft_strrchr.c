@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/12 12:12:56 by pguranda         ###   ########.fr       */
+/*   Created: 2022/03/28 09:28:50 by pguranda          #+#    #+#             */
+/*   Updated: 2022/04/02 12:01:48 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include	"libft.h"
 
-int	main (int argc, char **argv, char **envp)
+char	*ft_strrchr(const char *s, int c)
 {
-	const char	*input;
+	char				z;
+	int					len;
 
-	input = malloc(sizeof(char) * 6);
-	input = "Hello";
-	printf("%s", input);
+	z = c;
+	len = ft_strlen(s);
+	while (len >= 0)
+	{
+		if (s[len] == z)
+			return ((char *)s + len);
+		len--;
+	}
 	return (0);
 }

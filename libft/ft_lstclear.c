@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/12 12:12:56 by pguranda         ###   ########.fr       */
+/*   Created: 2022/04/13 16:38:00 by pguranda          #+#    #+#             */
+/*   Updated: 2022/04/21 16:34:49 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "libft.h"
 
-int	main (int argc, char **argv, char **envp)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	const char	*input;
+	t_list				*curr;
+	t_list				*temp;
 
-	input = malloc(sizeof(char) * 6);
-	input = "Hello";
-	printf("%s", input);
-	return (0);
+	curr = *lst;
+	while (curr != NULL)
+	{
+		temp = curr;
+		curr = curr -> next;
+		ft_lstdelone(temp, del);
+	}
+	*lst = NULL;
 }
