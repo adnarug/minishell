@@ -4,7 +4,10 @@ OBJ_DIR = obj/
 FLAGS = -Werror -Wextra -Wall
 LIBFT = libft/
 CC = gcc
-SRC_FILES = main
+SRC_FILES = main \
+			prompt \
+			get_next_line\
+			get_next_line_utils
 AR	=	ar rcs
 DEF_COLOR = \033[0;80m
 GREEN = \033[0;92m
@@ -19,7 +22,7 @@ OBJF = .cache_exists
 $(NAME): $(OBJ)
 	@make -C libft/
 	@$(AR) $(NAME) $(OBJ) 
-	@$(CC) $(NAME) $(FLAGS) libft/libft.a minishell.a -o minishell
+	@$(CC) $(NAME) $(FLAGS) libft/libft.a minishell.a -lreadline -o minishell
 	@echo "$(GREEN)minishell compiled$(DEF_COLOR)"
 
 $(OBJ_DIR)%.o	:	$(SRC_DIR)%.c | $(OBJF)
@@ -33,7 +36,7 @@ clean:
 	@make clean -C $(LIBFT)
 
 fclean: clean
-	@rm -f $(NAME)
+	@rm -rf make  $(NAME)
 	@rm -rf minishell
 	@make fclean -C $(LIBFT)
 
