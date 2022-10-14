@@ -5,9 +5,7 @@ FLAGS = -Werror -Wextra -Wall
 LIBFT = libft/
 CC = gcc
 SRC_FILES = main \
-			prompt \
-			get_next_line\
-			get_next_line_utils
+			builtins 
 AR	=	ar rcs
 DEF_COLOR = \033[0;80m
 GREEN = \033[0;92m
