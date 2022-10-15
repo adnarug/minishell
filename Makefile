@@ -1,11 +1,13 @@
 NAME = minishell.a
 SRC_DIR = src/
 OBJ_DIR = obj/
-FLAGS = -Werror -Wextra -Wall
+FLAGS = -Werror -Wextra -g -Wall
 LIBFT = libft/
 CC = gcc
 SRC_FILES = main \
-			builtins 
+			builtins \
+			utils \
+			initialize 
 AR	=	ar rcs
 DEF_COLOR = \033[0;80m
 GREEN = \033[0;92m
