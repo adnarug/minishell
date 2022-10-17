@@ -6,17 +6,11 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 15:58:21 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/15 13:58:24 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/10/17 13:23:33 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-/*
-1. 2D array first element is echo, then what is to print
-2. Possibly, second -n
-3. If only echo, then empty line only. 
-*/
 
 int	builtin_echo(char **args_echo)
 {
@@ -52,12 +46,3 @@ int	builtin_pwd(char *args_pwd)
 		printf("%s", path);
 	return(EXIT_SUCCESS);
 }
-
-// int	builtin_cd(char *args_cd)
-// {
-// 	char	**env;
-	
-// 	env = getenv(env);
-// 	if( args_cd == NULL || env == NULL)
-// 		return (EXIT_FAILURE);
-// }
