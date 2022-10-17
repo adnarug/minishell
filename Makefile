@@ -37,7 +37,7 @@ clean:
 	@make clean -C $(LIBFT)
 
 fclean: clean
-	@rm -rf make  $(NAME)
+	@rm -rf make $(NAME)
 	@rm -rf minishell
 	@make fclean -C $(LIBFT)
 
