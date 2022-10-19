@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_lst_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fnieves <fnieves@42heilbronn.de>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 12:19:20 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/19 15:39:24 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/19 18:41:03 by fnieves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ t_env	*ft_initializer(char **dup_env)
 	{
 
 		env_params_new = ft_node_init(dup_env[i]);
-		printf("1 hasta aqui \n");
 		env_params_previous->next = NULL;
 		ft_lstadd_back_mini(&env_params_previous, env_params_new);
 		env_params_previous = env_params_new;

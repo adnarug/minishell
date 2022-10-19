@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fnieves <fnieves@42heilbronn.de>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:13:48 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/10/19 15:25:32 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/20 01:09:34 by fnieves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,23 @@
 // 	t_env **lst; //puntero a lista enlazada
 // 	return(lst);
 // }
-
-void ft_parser(char *lines)
+void init_list_token(t_list_token *list)
 {
-	printf("imprime linea en programa: %s\n", lines);
+	list = NULL;
+	list->size = 1;
+}
+
+void	creat_lst_tok(t_list_token *list, char *line)
+{
+	
+}
+
+
+void ft_parser(char *line)
+{
+	t_list_token list; // pasamos esto &*
+	
+	init_list_token(&list);
+	creat_lst_tok(&list, line);
+	printf("imprime linea en programa: %s\n", line);
 }

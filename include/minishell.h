@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fnieves <fnieves@42heilbronn.de>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/19 15:25:32 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/20 01:05:54 by fnieves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ t_env	*ft_lstnew_env(char *value, char *key);
 
 
 // DE FELIPE
+#include <stdint.h> //para trabajr desde casa
+
 // DEFINE SEPARATORS:
 # define SPACE				' '
 # define SINGLE_QUOTE		'\''
@@ -86,8 +88,16 @@ typedef struct s_nod_token
 	
 }	t_nod_token;
 
+typedef struct s_list_token
+{
+	t_nod_token	*next;
+	int	size;
+}t_list_token;
+
+
 //mis funciones 
 void ft_parser(char *lines);
+void init_list_token(t_list_token *list);
 
 
 #endif 

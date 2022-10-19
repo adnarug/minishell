@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fnieves <fnieves@42heilbronn.de>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 11:45:26 by pguranda          #+#    #+#             */
-/*   Updated: 2022/05/27 11:37:31 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/10/19 19:08:08 by fnieves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 #define LONG_MIN -2147483648
 #define LONG_MAX 2147483647
 
+/* He cambiad esta fincion par ano
+tener problemas desde casa*/
+
 int	ft_putnbr_fd(int n, int fd, int counter)
 {	
 	static int	size;
 
-	if (n > LONG_MAX || n < LONG_MIN)
-		return (0);
 	if (n == -2147483648)
 	{
 		ft_putstr_fd("2147483648", fd);
