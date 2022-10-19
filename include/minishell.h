@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/17 13:37:41 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/10/19 12:59:20 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # include <sys/param.h> //check if it is fine to include
 # include <readline/readline.h>
 # include <readline/history.h>
+
+
+
 
 typedef struct s_input
 {
@@ -53,5 +56,34 @@ void	ft_free_2d(char **table);
 t_env	*ft_lstlast_mini(t_env *lst);
 void	ft_lstadd_back_mini(t_env **lst, t_env *new);
 t_env	*ft_lstnew_env(char *value, char *key);
+
+
+// DE FELIPE
+// DEFINE SEPARATORS:
+# define SPACE				' '
+# define SINGLE_QUOTE		'\''
+# define DOUBLE_QUOTE		'\"'
+# define DOLLAR				'$'
+# define REDIRECT_IN		'<'
+# define REDIRECT_OUT		'>'
+# define PIPE				'|'
+# define SLASH				'/'
+
+//TOKEN FLAGS:
+# define T_WORD				1
+# define T_REDIRECT_IN		2
+# define T_REDIRECT_OUT		3
+# define T_APPEND			4
+# define T_HEREDOC			5
+# define T_PIPE				6
+
+// Mis estructuras
+typedef struct s_nod_token
+{
+	char	*name;
+	int		flag;
+	struct s_nod_token	*next;
+	
+}	t_nod_token;
 
 #endif 
