@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/19 11:28:49 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/19 15:38:49 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@ int	main (int argc, char **argv, char **envp)
  
 		line_buffer = readline("minishell $ ");
 		add_history(line_buffer);
-		printf("imprime linea: %s\n", line_buffer);
+		ft_parser(line_buffer);
+		//printf("hasta aqui \n");
 		dup_env = dup_matrix(envp);
 		env_lst = ft_initializer(dup_env);
+		printf("0 hasta aqui \n");
 		//print_env_lst(env_lst);
 		free(line_buffer);
 		ft_lst_free(env_lst);

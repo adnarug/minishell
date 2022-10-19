@@ -9,7 +9,7 @@ SRC_FILES = main \
 			utils \
 			lst_utils \
 			env_lst_init \
-			parser/parser.c \
+			parser/parser \
 
 AR	=	ar rcs
 DEF_COLOR = \033[0;80m
@@ -33,6 +33,7 @@ $(OBJ_DIR)%.o	:	$(SRC_DIR)%.c | $(OBJF)
 
 $(OBJF):
 	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)/parser/
 
 clean:
 	@rm -r $(OBJ_DIR)

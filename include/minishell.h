@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/19 12:59:20 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/19 15:25:32 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,9 @@ typedef struct s_nod_token
 	struct s_nod_token	*next;
 	
 }	t_nod_token;
+
+//mis funciones 
+void ft_parser(char *lines);
+
 
 #endif 
