@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_lst_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 12:19:20 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/19 11:16:53 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/19 11:38:12 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ t_env	*ft_initializer(char **dup_env)
 	t_env	*env_params_new;
 	t_env	*env_params_first;
 
-	i = 0;//add protection
+	i = 0;
+	if (dup_env == NULL || dup_env[i] == NULL)
+		return (NULL);//fix the error message
 	env_params_first = ft_node_init(dup_env[i]);
 	env_params_previous = env_params_first;
 	i++;
