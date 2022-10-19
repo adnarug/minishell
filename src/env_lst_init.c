@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_lst_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 12:19:20 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/17 13:33:07 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/10/19 11:16:53 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,14 @@ t_env	*ft_initializer(char **dup_env)
 	t_env	*env_params_new;
 	t_env	*env_params_first;
 
-	i = 0;
+	i = 0;//add protection
 	env_params_first = ft_node_init(dup_env[i]);
 	env_params_previous = env_params_first;
 	i++;
 	while (dup_env[i] != NULL)
 	{
 		env_params_new = ft_node_init(dup_env[i]);
+		env_params_previous->next = NULL;
 		ft_lstadd_back_mini(&env_params_previous, env_params_new);
 		env_params_previous = env_params_new;
 		i++;

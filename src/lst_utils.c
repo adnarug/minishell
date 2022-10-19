@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 13:14:36 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/17 13:18:01 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/10/19 11:23:32 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_lstadd_back_mini(t_env **lst, t_env *new)
 		*lst = new;
 		return ;
 	}
+
 	last = ft_lstlast_mini(*lst);
 	last -> next = new;
 }

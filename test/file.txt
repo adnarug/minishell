@@ -1,0 +1,10 @@
+total 344
+-rw-r--r--  1 fnieves-  2021_heilbronn    284 Oct 17 17:56 1execv2.c
+-rw-r--r--  1 fnieves-  2021_heilbronn    339 Oct 17 18:02 2execv2.c
+-rwxr-xr-x  1 fnieves-  2021_heilbronn  49640 Oct 17 17:43 a.out
+-rw-r--r--  1 fnieves-  2021_heilbronn    112 Oct 17 16:01 execv.c
+-rw-r--r--  1 fnieves-  2021_heilbronn      0 Oct 17 18:06 file.txt
+-rw-r--r--@ 1 fnieves-  2021_heilbronn    436 Oct 17 13:00 fork1.c
+-rwxr-xr-x  1 fnieves-  2021_heilbronn  49472 Oct 17 17:57 prog1
+-rwxr-xr-x  1 fnieves-  2021_heilbronn  49640 Oct 17 18:02 prog2
+       9      74     545
