@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:13:48 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/10/20 18:38:08 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/23 13:39:10 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,14 +228,13 @@ int main(int argc, char **argv)
 	if (argc != 2)
 	{
 		printf("numero de parametros incorrecto. Pon entre comillas\n");
-		return(0);
+		return(1);
 	}
 	ft_parser(&list, argv[1]);
-	atexit(check_leaks);
+	//atexit(check_leaks);
 	print_list(&list);
-	delete_list(&list);
-	
-	return (1);
+	delete_list(&list); //para que no queden leaks
+	return (0);
 }
 
 

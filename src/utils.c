@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:54:13 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/17 13:18:40 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/10/20 15:39:49 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,31 @@ void	print_2d(char **array)
 		printf("%s\n", array[i]);
 		i++;
 	}
+}
+
+
+//printitin list felipe . to be deleted
+void	print_list(t_list_token *list)
+{
+	t_nod_token	*temp;
+	int i = 0;
+	if (!list)
+	{
+		printf("List does not exist which does not mean is leer\n");
+		return;
+	}
+	if (!list->head)
+	{
+		printf("List exists but with no nodes\n");
+		return;
+	}
+	temp = list->head;
+	printf("-------Informacion de La lista----------\n");
+	while(temp)
+	{
+		printf("Elemnto: %i, valor= %s, tipo = %i \n",i ,temp->name, temp->flag);
+		i++;
+		temp = temp->next;
+	}
+	printf("-------END  IMPRESION  lista-------\n");
 }

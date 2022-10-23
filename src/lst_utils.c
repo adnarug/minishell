@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 13:14:36 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/19 11:23:32 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/20 17:53:06 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,79 @@ void	print_env_lst(t_env *env_lst)
 		printf("%s = %s\n", env_lst->key, env_lst->value);
 		env_lst = env_lst->next;
 	}
+}
+
+// Felipe List functiones below:
+
+/*
+	Add a new token to the end of the list
+*/
+void add_toke_list(t_list_token *list, t_nod_token *new)
+{
+	t_nod_token	*last;
+	
+	if (!list) //List does not exist >>> return
+		return;
+	if (!list->head) //Empty list. Add token
+	{
+		list->head = new;
+		return ;
+	}
+	last = find_last_node(list);
+	last->next = new;
+}
+
+/*
+	We create a node from the each word,
+	separated by a space coming from promt.
+	If there is any problem in the operation we return,
+	a pointer to NULL
+	Returns the pointer to the node.
+*/
+t_nod_token *create_tok(char *word_tok)
+{
+	t_nod_token *new_tok;
+	
+	new_tok = (t_nod_token *)malloc(sizeof(t_nod_token));
+	if (!new_tok)
+		return (NULL);
+	new_tok->name = NULL; //do we need to inicializar a null the field word?
+	new_tok->next = NULL;
+	new_tok->name = ft_strdup(word_tok);
+	if (!new_tok->name)
+	{
+		free(new_tok); //free . despues de free , se iguala new_tok = NULL?
+		return (NULL);
+	}
+	return(new_tok);
+}
+
+t_nod_token *find_last_node(t_list_token *list)
+{
+	t_nod_token	*last;
+
+	if (!list || !list->head)
+		return (NULL);
+	last = list->head;
+	while (last->next)
+		last = last->next;
+	return (last);
+}
+
+void	delete_list(t_list_token *list)
+{
+	t_nod_token	*del;
+	t_nod_token	*current;
+	
+	if (!list || !list->head)
+		return ;
+	del = list->head;
+	while (del)
+	{
+		current = del->next;
+		free(del->name);
+		free(del);
+		del = current;
+	}
+	list->head = NULL;
 }
