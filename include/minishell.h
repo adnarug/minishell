@@ -6,12 +6,15 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/23 15:17:28 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/23 20:48:59 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+#include "struct.h"
+
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -80,23 +83,6 @@ t_env	*ft_lstnew_env(char *value, char *key);
 # define T_PIPE				6
 
 /* My structures */
-
-//token node
-typedef struct s_nod_token
-{
-	char	*name;
-	int		flag;
-	struct s_nod_token	*next;
-	
-}	t_nod_token;
-
-//struct header of the token list
-typedef struct s_list_token
-{
-	t_nod_token	*head;
-	int	size;
-}t_list_token;
-
 
 //mis funciones 
 
