@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 13:14:36 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/23 15:26:22 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/23 21:14:43 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ t_nod_token *create_tok(char *word_tok)
 		return (NULL);
 	new_tok->name = NULL; //do we need to inicializar a null the field word?
 	new_tok->next = NULL;
+	new_tok->cmd_name.name = NULL; //we will need to uodat this if we developp the struct
 	new_tok->name = ft_strdup(word_tok);
 	if (!new_tok->name)
 	{
@@ -149,6 +150,7 @@ void	delete_list(t_list_token *list)
 	{
 		current = del->next;
 		free(del->name);
+		free(del->cmd_name.name);
 		free(del);
 		del = current;
 	}

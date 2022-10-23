@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:13:48 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/10/23 15:25:21 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/23 21:03:00 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	creat_lst_tok(t_list_token *list, char **array_w)
 	}
 	free_array(array_w);
 }
-
 
 
 
