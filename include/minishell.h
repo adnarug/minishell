@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/23 13:32:23 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/23 15:17:28 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,19 @@ typedef struct s_list_token
 
 
 //mis funciones 
-//void ft_parser(char *lines);
-void init_list_tok(t_list_token *list);
 
 //para borrar
+
+void	ft_parser(char *line);
+void add_toke_list(t_list_token *list, t_nod_token *new);
+t_nod_token *create_tok(char *word_tok);
+t_nod_token *find_last_node(t_list_token *list);
+void	delete_list(t_list_token *list);
+void init_list_tok(t_list_token *list);
+void	creat_lst_tok(t_list_token *list, char **array_w);
+
+void free_array_list(t_list_token *list, char **array_w);
+void	free_array(char **array_w);
 void	print_list(t_list_token *list);
 
 #endif 

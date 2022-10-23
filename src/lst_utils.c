@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 13:14:36 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/20 17:53:06 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/23 15:26:22 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,4 +153,13 @@ void	delete_list(t_list_token *list)
 		del = current;
 	}
 	list->head = NULL;
+}
+
+/*
+	inizialice values for token list
+*/
+void init_list_tok(t_list_token *list)
+{
+	list->head = NULL;
+	list->size = 0;
 }
