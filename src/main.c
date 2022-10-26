@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/23 21:21:12 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/26 16:38:21 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ int main(int argc, char **argv, char **envp)
 	char *line_buffer;
 	t_env *env_lst;
 	char **dup_env;
+	char	**after_split;
+	
+	t_list_token	list;
 
 	while (1)
 	{
@@ -26,14 +29,17 @@ int main(int argc, char **argv, char **envp)
 
 		line_buffer = readline("minishell $ ");
 		add_history(line_buffer);
-		ft_parser(line_buffer);
-		printf("till here ft_parser ok \n");
-		dup_env = dup_matrix(envp);
-		env_lst = ft_initializer(dup_env);
-		// print_env_lst(env_lst);
-		free(line_buffer);
-		ft_lst_free(env_lst);
-		ft_free_2d(dup_env);
-		system("leaks minishell");
+		// after_split = ft_split_meta(line_buffer);
+		// print_2d(after_split);
+		
+		ft_parser(&list, line_buffer);
+		// printf("till here ft_parser ok \n");
+		// dup_env = dup_matrix(envp);
+		// env_lst = ft_initializer(dup_env);
+		// // print_env_lst(env_lst);
+		// free(line_buffer);
+		// ft_lst_free(env_lst);
+		// ft_free_2d(dup_env);
+		//system("leaks minishell");
 	}
 }

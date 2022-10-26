@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/10/23 21:08:23 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/25 13:59:16 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,12 @@ typedef struct s_cmd
 typedef struct s_nod_token
 {
 	char	*name;
+	char	*new_name;
 	t_cmd	cmd_name;
 	int		flag;
+	int		simple_quote;
+	int		double_quote;
+
 	struct s_nod_token	*next;
 	
 }	t_nod_token;
@@ -54,5 +58,41 @@ typedef struct s_list_token
 	t_nod_token	*head;
 	int	size;
 }t_list_token;
+
+
+// //--------- Estas funciones las he sacdo de una hoja. Borarr
+// // Command Data Structure
+// // Describes a simple command and arguments
+
+//  struct SimpleCommand {
+// 	// Available space for arguments currently preallocated 
+// 	int _numberOfAvailableArguments;
+// 	// Number of arguments
+// 	int _numberOfArguments;
+// 	// Array of arguments
+// 	char ** _arguments;
+// 	SimpleCommand();
+// 	void insertArgument( char * argument );
+//  };
+
+// // Describes a complete command with the multiple pipes if any // and input/output redirection if any.
+// struct Command {
+
+// 	int _numberOfAvailableSimpleCommands;
+// 	int _numberOfSimpleCommands;
+// 	SimpleCommand ** _simpleCommands;
+// 	char * _outFile;
+// 	char * _inputFile;
+// 	char * _errFile;
+// 	int _background;
+// 	void prompt();
+// 	void print();
+// 	void execute();
+// 	void clear();
+// 	Command();
+// 	void insertSimpleCommand( SimpleCommand * simpleCommand );
+// 	static Command _currentCommand;
+// 	static SimpleCommand *_currentSimpleCommand;
+// };
 
 #endif

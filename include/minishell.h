@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/23 20:48:59 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/25 12:10:19 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ t_env	*ft_lstnew_env(char *value, char *key);
 
 //para borrar
 
-void	ft_parser(char *line);
+void	ft_parser(t_list_token *list, char *line);
 void add_toke_list(t_list_token *list, t_nod_token *new);
 t_nod_token *create_tok(char *word_tok);
 t_nod_token *find_last_node(t_list_token *list);

@@ -6,18 +6,34 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:13:48 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/10/23 21:03:00 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/26 20:39:02 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+/*recorremos carcater or caracter como en printf.
+Empezamos una funcion en el que el modo single quotes o double quotes este inactivo
+tenemos que ir guardando la posicion del inico de cadena y el final de cadena.
+el final de cadena lo hacemos  null terminated , y guardamos e una variable temp, 
+ese final de cadena si es uno de lo scrrractares  esp, | , , ,>
+*/
+
+void	ft_lst_tok(t_list_token *list, char *line)
+{
+	//modus quotes off 
+	while (*line)
+	{
+		
+	}
+}
+
 
 /*
 	From the array separated by spaces, coming from prompt
 	we create a node with the char , array[i],
 	and add it to the end of the list
 */
-void	creat_lst_tok(t_list_token *list, char **array_w)
+void	creat_lst_tok(t_list_token *list, char **array_w) //funcion para borrar
 {
 	int i;
 	t_nod_token *new;
@@ -71,18 +87,21 @@ void	check_leaks(void)
 	system("leaks minishell");
 }
 
-void	ft_parser(char *line)
+void	ft_parser(t_list_token *list, char *line)
 {
-	char	**array_w;
-	t_list_token	list;
+	// char	**array_w;
 
-	array_w = NULL;
-	array_w = ft_split((const char*)line, SPACE);
-	init_list_tok(&list);
-	creat_lst_tok(&list, array_w);
-	printf("imprime linea en programa ft_parser: %s\n", line);
-	print_list(&list);
-	delete_list(&list); //para que no queden leaks
+	// array_w = NULL;
+	// array_w = ft_split((const char*)line, SPACE);
+	
+	init_list_tok(list);
+	creat_lst_tok(list, line);
+	//vamos limpiando paso por paso la lista 
+	//printf("imprime linea en programa ft_parser: %s\n", line);
+	print_list(list);
+	delete_list(list); //para que no queden leaks
 	//system("leaks minishell");
 	
 }
+
+//second round parsing. Indicate if element are before a delimeter , after or in between
