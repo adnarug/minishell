@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/10/25 13:59:16 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/29 20:13:53 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,18 @@
 
 
 //this structur will be in the case we need to increase the number of paramters
+typedef struct s_lexing
+{
+	char	*buff;
+	int		c_pos;
+	char	c;
+	int		type;
+	int		simple_quote;
+	int		double_quote;
+	int		expand;
+}t_lexing;
+
+
 typedef struct s_cmd
 {
 	char	*name;
@@ -42,8 +54,6 @@ typedef struct s_cmd
 typedef struct s_nod_token
 {
 	char	*name;
-	char	*new_name;
-	t_cmd	cmd_name;
 	int		flag;
 	int		simple_quote;
 	int		double_quote;

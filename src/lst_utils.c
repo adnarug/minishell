@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 13:14:36 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/23 21:14:43 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/29 19:37:19 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,18 @@ void add_toke_list(t_list_token *list, t_nod_token *new)
 {
 	t_nod_token	*last;
 	
+	// printf("1 token creado\n");
+	// print_token(new);
+	// print_list(list);
 	if (!list) //List does not exist >>> return
 		return;
+
 	if (!list->head) //Empty list. Add token
 	{
 		list->head = new;
 		return ;
 	}
+	//system("leaks minishell");
 	last = find_last_node(list);
 	last->next = new;
 }
@@ -107,7 +112,7 @@ void add_toke_list(t_list_token *list, t_nod_token *new)
 	a pointer to NULL
 	Returns the pointer to the node.
 */
-t_nod_token *create_tok(char *word_tok)
+t_nod_token *create_tok(t_lexing *lex_struct)
 {
 	t_nod_token *new_tok;
 	
@@ -116,13 +121,14 @@ t_nod_token *create_tok(char *word_tok)
 		return (NULL);
 	new_tok->name = NULL; //do we need to inicializar a null the field word?
 	new_tok->next = NULL;
-	new_tok->cmd_name.name = NULL; //we will need to uodat this if we developp the struct
-	new_tok->name = ft_strdup(word_tok);
+	new_tok->name = ft_strdup(lex_struct->buff);
 	if (!new_tok->name)
 	{
 		free(new_tok); //free . despues de free , se iguala new_tok = NULL?
+		new_tok = NULL;
 		return (NULL);
 	}
+	new_tok->flag = lex_struct->type;
 	return(new_tok);
 }
 
@@ -150,7 +156,6 @@ void	delete_list(t_list_token *list)
 	{
 		current = del->next;
 		free(del->name);
-		free(del->cmd_name.name);
 		free(del);
 		del = current;
 	}

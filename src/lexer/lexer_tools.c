@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   lexer_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/22 16:36:18 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/29 16:58:31 by fnieves-         ###   ########.fr       */
+/*   Created: 2022/10/29 14:42:53 by fnieves-          #+#    #+#             */
+/*   Updated: 2022/10/29 15:10:44 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"libft.h"
+#include "../../include/minishell.h"
 
-int	ft_strlen(const char *c)
+/*
+	Check if char c is space, tab or next line.
+*/
+int ft_isspace(char c)
 {
-	size_t				i;
+	return (c == ' ' || c == '\t' || c == '\n');
+}
 
-	i = 0;
-	if (!c)
-		return (i);
-	while (c[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
+/*
+	Check if char c is metacharacter (|, > , <)
+*/
+int ft_ismeta(char c)
+{
+	return (c == '|' || c == '>' || c == '<');
 }

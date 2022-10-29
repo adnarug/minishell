@@ -4,12 +4,14 @@ OBJ_DIR = obj/
 FLAGS = -Werror -Wextra -g -Wall
 LIBFT = libft/
 CC = gcc
-SRC_FILES = main \
-			builtins \
-			utils \
-			lst_utils \
-			env_lst_init \
-			parser/parser \
+SRC_FILES = main				\
+			builtins			\
+			utils				\
+			lst_utils 			\
+			env_lst_init 		\
+			parser/parser 		\
+			lexer/lexer			\
+			lexer/lexer_tools	\
 
 AR	=	ar rcs
 DEF_COLOR = \033[0;80m
@@ -34,6 +36,7 @@ $(OBJ_DIR)%.o	:	$(SRC_DIR)%.c | $(OBJF)
 $(OBJF):
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(OBJ_DIR)/parser/
+	@mkdir -p $(OBJ_DIR)/lexer/
 
 clean:
 	@rm -r $(OBJ_DIR)

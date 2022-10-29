@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:54:13 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/20 15:39:49 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/29 17:28:02 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,4 +103,17 @@ void	print_list(t_list_token *list)
 		temp = temp->next;
 	}
 	printf("-------END  IMPRESION  lista-------\n");
+}
+
+void print_token(t_nod_token	*token)
+{
+	if (!token)
+	{
+		printf("token apunta  anull\n");
+		return;
+	}
+	printf("-------imprimirmpos valores det oken----------\n");
+	printf("el valor de name: %s\n", token->name);
+	printf("-------END  IMPRESION  TOKEN-------\n");
+
 }
