@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 14:42:56 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/10/29 20:24:46 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/29 20:36:29 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,5 @@ void	ft_lexer(t_list_token *list, char *line)
 		// 	printf("otros casos");
 		// }
 	}
-	//system("leaks minishell");
-
-	
+	//system("leaks minishell");	
 }
