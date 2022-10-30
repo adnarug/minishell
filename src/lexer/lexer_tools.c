@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fnieves <fnieves@42heilbronn.de>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 14:42:53 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/10/29 15:10:44 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/30 15:20:46 by fnieves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,13 @@ int ft_isspace(char c)
 int ft_ismeta(char c)
 {
 	return (c == '|' || c == '>' || c == '<');
+}
+
+/*
+	Check if char c is metacharacter (|, > , <)
+	or space, tab or next line. 
+*/
+int ft_isspecialchar(char c)
+{
+	return(ft_isspace(c) || ft_ismeta(c));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fnieves <fnieves@42heilbronn.de>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/29 19:44:27 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/30 15:21:07 by fnieves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,11 @@ void	creat_lst_tok(t_list_token *list, char **array_w);
 void	initializer_lex(t_lexing *lex_struct);
 void	ft_lexer(t_list_token *list, char *line);
 void	lexer_word(t_list_token *list, t_lexing *lex_struct, char *line);
-char *ft_strjoin_char(char *buff, char c); //poner esta en libft
 
 //lexer.tools
 int ft_isspace(char c);
 int ft_ismeta(char c);
-
+int ft_isspecialchar(char c);
 
 
 void free_array_list(t_list_token *list, char **array_w);
