@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves <fnieves@42heilbronn.de>           +#+  +:+       +#+        */
+/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/30 15:21:07 by fnieves          ###   ########.fr       */
+/*   Updated: 2022/10/30 17:13:11 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,22 +64,26 @@ t_env	*ft_lstnew_env(char *value, char *key);
 // DE FELIPE
 #include <stdint.h> //para trabajr desde casa
 
-// DEFINE SEPARATORS: metacharacter 
+// DEFINE SEPARATORS: metacharacter , they will be also used 
+//to identify the type of node
 # define SPACE				' '
 # define SINGLE_QUOTE		'\''
 # define DOUBLE_QUOTE		'\"'
 # define DOLLAR				'$'
+# define SLASH				'/'
 # define REDIRECT_IN		'<'
 # define REDIRECT_OUT		'>'
 # define PIPE				'|'
-# define SLASH				'/'
+# define APPEND				'+'
+# define HEREDOC			'-'
+# define WORD				'w'
 
-//TOKEN FLAGS:
+//TOKEN FLAGS: //Will not be used 
 # define TYP_WORD				1
 # define TYP_REDIRECT_IN		2
 # define TYP_REDIRECT_OUT		3
-# define TYP_APPEND				4
-# define TYP_HEREDOC			5
+# define TYP_APPEND				4 // >>
+# define TYP_HEREDOC			5 //<<
 # define TYP_PIPE				6
 
 /* My structures */
@@ -105,6 +109,7 @@ void	lexer_word(t_list_token *list, t_lexing *lex_struct, char *line);
 int ft_isspace(char c);
 int ft_ismeta(char c);
 int ft_isspecialchar(char c);
+int ft_isredirect(char c);
 
 
 void free_array_list(t_list_token *list, char **array_w);

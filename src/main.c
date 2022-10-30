@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/29 20:31:08 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/30 17:55:09 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ int main(int argc, char **argv, char **envp)
 		// ft_lst_free(env_lst);
 		// ft_free_2d(dup_env);
 		//atexit(check_leaks);
-		//system("leaks minishell");
+		system("leaks minishell");
 	}
+	system("leaks minishell");
 	return (0);
 }
