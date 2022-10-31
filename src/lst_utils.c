@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 13:14:36 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/31 01:10:36 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/31 12:15:39 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ t_nod_token *create_tok(t_lexing *lex_struct)
 		return (NULL);
 	new_tok->name = NULL; //do we need to inicializar a null the field word?
 	new_tok->next = NULL;
-	new_tok->name = ft_strdup(lex_struct->buff);
+	new_tok->name = ft_strdup(lex_struct->buff); // atencion: free new token name
 	if (!new_tok->name)
 	{
 		free(new_tok); //free . despues de free , se iguala new_tok = NULL?

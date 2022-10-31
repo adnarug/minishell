@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 14:42:56 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/10/31 00:47:43 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/31 13:30:04 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	lexer_word(t_minishell *data, t_lexing *lex_struct)
 	new_token = create_tok(lex_struct);
 	free(lex_struct->buff);
 	lex_struct->buff = NULL;
-	add_toke_list(data->list, new_token);
+	add_toke_list(&(data->list), new_token);
 	//system("leaks minishell");
 	//printf("2  de ha anadido list\n");
 }
@@ -38,34 +38,39 @@ void	lexer_word(t_minishell *data, t_lexing *lex_struct)
 	once we find < or >, it will check next char if 
 	we have  <<, >>. We will save the info in the 
 */
-
+//this functions is creating leaks 
 void	lex_redirect(t_minishell *data, t_lexing *lex_struct)
 {
 	int	redir_repeted;
-
+	//system("leaks minishell");
 	redir_repeted = 0;
 	if (data->line[lex_struct->c_pos] == data->line[lex_struct->c_pos + 1])
 		redir_repeted = 1;
+	//printf(" en lexredirect: %c\n", data->line[lex_struct->c_pos]);
 	if (data->line[lex_struct->c_pos] == REDIRECT_IN)
+	{
 		lex_struct->type = REDIRECT_IN;
 			if (redir_repeted)
 				lex_struct->type = HEREDOC;
+	}
 	else
+	{		
 		lex_struct->type = REDIRECT_OUT;
 			if (redir_repeted)
 				lex_struct->type = APPEND;
+	}
 	lex_struct->buff = ft_strjoin_char(lex_struct->buff, data->line[lex_struct->c_pos]);
 	lex_struct->c_pos += 1;
 	if (redir_repeted)
 		lex_struct->c_pos += 1;
-
+	//system("leaks minishell");
 }
 
 void	lexer_meta(t_minishell *data, t_lexing *lex_struct)
 {
 	t_nod_token	*new_token;
 	
-	if (ft_isredirect(data->line[lex_struct->c_pos]))
+	if (ft_isredirect(data->line[lex_struct->c_pos])) //< or >
 	{
 		lex_redirect(data, lex_struct);
 	}
@@ -81,7 +86,7 @@ void	lexer_meta(t_minishell *data, t_lexing *lex_struct)
 	new_token = create_tok(lex_struct);
 	free(lex_struct->buff);
 	lex_struct->buff = NULL;
-	add_toke_list(data->list, new_token);
+	add_toke_list(&(data->list), new_token);
 	//system("leaks minishell");
 	//printf("2  de ha anadido list\n");
 }
@@ -102,11 +107,11 @@ void	initializer_lex(t_lexing *lex_struct)
 void	ft_lexer(t_minishell *data) //(t_list_token *list, char *line)
 {
 	t_lexing lex_struct;
-	
 	data->line = ft_strtrim((const char *)data->line, " ");
 	initializer_lex(&lex_struct);
 	//de momento solo words
-	
+	//system("leaks minishell");	
+
 	while (data->line[lex_struct.c_pos]) //anador && no hay error
 	{
 		//lex_struct.c = *line;
@@ -133,8 +138,10 @@ void	ft_lexer(t_minishell *data) //(t_list_token *list, char *line)
 		// 	printf("otros casos");
 		// }
 	}
-	//system("leaks minishell");	
+	//system("leaks minishell");
 }
 
 //para pruebas
- // mi mama | me <mima >>yo 'amo>> || echo ls
+ // mi > mama|< me <mima >>yo 'amo>> ||<<
+// | > >> < << hola
+// | > >> <  hola
