@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/30 17:13:11 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/31 00:24:00 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,16 @@ void init_list_tok(t_list_token *list);
 void	creat_lst_tok(t_list_token *list, char **array_w);
 
 //lexer.c
+
 void	initializer_lex(t_lexing *lex_struct);
-void	ft_lexer(t_list_token *list, char *line);
-void	lexer_word(t_list_token *list, t_lexing *lex_struct, char *line);
+void	ft_lexer(t_minishell *data);
+void	lexer_meta(t_minishell *data, t_lexing *lex_struct);
+void	lexer_singl_quot(t_minishell *data, t_lexing *lex_struct);
+void	lexer_word(t_minishell *data, t_lexing *lex_struct);
+void	lex_redirect(t_minishell *data, t_lexing *lex_struct);
+
+
+
 
 //lexer.tools
 int ft_isspace(char c);

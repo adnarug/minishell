@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:54:13 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/29 17:28:02 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/31 00:29:25 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	print_list(t_list_token *list)
 	printf("-------Informacion de La lista----------\n");
 	while(temp)
 	{
-		printf("Elemnto: %i, valor= %s, tipo = %i \n",i ,temp->name, temp->flag);
+		printf("Elemnto: %i, valor= %s, tipo = %c \n",i ,temp->name, temp->flag);
 		i++;
 		temp = temp->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 13:14:36 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/29 19:37:19 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/31 01:10:36 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,8 @@ void	delete_list(t_list_token *list)
 */
 void init_list_tok(t_list_token *list)
 {
+
 	list->head = NULL;
+	//printf("till here ft_lexer ok \n");
 	list->size = 0;
 }

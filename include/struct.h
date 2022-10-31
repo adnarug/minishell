@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/10/30 17:30:41 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/10/31 01:18:08 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,15 @@ typedef struct s_list_token
 	t_nod_token	*head;
 	int	size;
 }t_list_token;
+
+
+//main structur. Here will pend everything but lexing struct
+typedef struct s_minishell
+{
+	char		*line;
+	t_list_token	*list; //esto hayq eu cambialo a un puntero
+	
+}t_minishell;
 
 
 // //--------- Estas funciones las he sacdo de una hoja. Borarr
