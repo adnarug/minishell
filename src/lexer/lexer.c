@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 14:42:56 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/10/31 13:30:04 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/01 23:36:10 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,50 @@ void	lex_redirect(t_minishell *data, t_lexing *lex_struct)
 	//system("leaks minishell");
 }
 
+//esta funcion igual no  hace falta
+int ft_isclose_quote(t_minishell *data, t_lexing *lex_struct)
+{
+	int i;
+
+	i = 1;
+	while (data->line[lex_struct->c_pos + i])
+	{
+		if (data->line[lex_struct->c_pos] == SINGLE_QUOTE)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+void	lexer_singl_quot(t_minishell *data, t_lexing *lex_struct)
+{
+	//string en la posicion de la primera comill
+	char *point_2nd_quote;
+	t_nod_token *new_token;
+	int pos_2nd_quote;
+	
+	point_2nd_quote = ft_strchr(data->line + lex_struct->c_pos + 1, SINGLE_QUOTE); //empieza a buscardesde l aprimera comilla
+	if (!point_2nd_quote) //usar funcion strchr
+	{
+		printf("single quote not closed. Exit");
+		exit(1);
+	}
+	pos_2nd_quote = point_2nd_quote - data->line - lex_struct->c_pos + 1;
+	//if we want to include ' in the node
+	lex_struct->buff = ft_substr(data->line, lex_struct->c_pos, pos_2nd_quote);
+	//if we do not want to include ' the word
+	//lex_struct->buff = ft_substr(data->line, lex_struct->c_pos + 1 , pos_2nd_quote - 1);
+	lex_struct->simple_quote = 1;
+	lex_struct->c_pos = lex_struct->c_pos + pos_2nd_quote;
+	new_token = create_tok(lex_struct);
+	free(lex_struct->buff);
+	lex_struct->buff = NULL;
+	add_toke_list(&(data->list), new_token);
+	lex_struct->simple_quote = 0;
+	
+	
+}
+
 void	lexer_meta(t_minishell *data, t_lexing *lex_struct)
 {
 	t_nod_token	*new_token;
@@ -97,13 +141,13 @@ void	initializer_lex(t_lexing *lex_struct)
 {
 	lex_struct->buff = NULL;
 	lex_struct->c_pos = 0;
-	lex_struct->c = '\0';
+	lex_struct->c = '\0'; //we can take out
 	lex_struct->double_quote = 0;
 	lex_struct->simple_quote = 0;
 	lex_struct->type = 0;
 }
 
-// por ahi queda un memory leak
+// por ahi queda un memory leak. Instalar valgrind y verificar
 void	ft_lexer(t_minishell *data) //(t_list_token *list, char *line)
 {
 	t_lexing lex_struct;
@@ -124,10 +168,10 @@ void	ft_lexer(t_minishell *data) //(t_list_token *list, char *line)
 		{
 			lexer_meta(data, &lex_struct); //seguimos domingo 30 despues de comer. Hacemos una funcion como word para estsp caracteres
 		}
-		// else if (data->line[lex_struct.c_pos] == SINGLE_QUOTE)
-		// {
-		// 	lexer_singl_quot(data, &lex_struct);
-		// }
+		else if (data->line[lex_struct.c_pos] == SINGLE_QUOTE)
+		{
+			lexer_singl_quot(data, &lex_struct);
+		}
 		else
 		{
 			//printf("Entra en word con posicion:%i \n", lex_struct.c_pos);			
@@ -140,8 +184,35 @@ void	ft_lexer(t_minishell *data) //(t_list_token *list, char *line)
 	}
 	//system("leaks minishell");
 }
+ /*
 
-//para pruebas
- // mi > mama|< me <mima >>yo 'amo>> ||<<
-// | > >> < << hola
-// | > >> <  hola
+para pruebas
+ mi > mama|< me <mima >>yo 'amo'>> ||<<
+  | > >> < << hola
+ | > >> <  hola
+
+feli'mimimi'mamama''mumu | lalala  --> 3 words
+fel 'mimimi' mamama''mumu --> 3 words
+
+bash-3.2$ echo 'mimama'me
+mimamame
+bash-3.2$ echo 'mimama'me
+mimamame
+bash-3.2$ echo 'mimama'|me
+bash: me: command not found
+bash-3.2$ echo "mimi"mama
+mimimama
+bash-3.2$ echo "mimi" mama
+mimi mama
+bash-3.2$ 
+bash-3.2$ 'mi' mama
+bash: mi: command not found
+bash-3.2$ 'mi'mama
+bash: mimama: command not found
+bash-3.2$ echo 'mi''mama'
+mimama
+bash-3.2$ echo 'mi''mama' me
+mimama me
+bash-3.2$ echo 'mi'mama' 'me' 
+mimama me
+ */

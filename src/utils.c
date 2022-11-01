@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:54:13 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/31 00:29:25 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/01 16:46:48 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,12 @@ void	print_list(t_list_token *list)
 	printf("-------Informacion de La lista----------\n");
 	while(temp)
 	{
-		printf("Elemnto: %i, valor= %s, tipo = %c \n",i ,temp->name, temp->flag);
+		if (temp->simple_quote )
+			printf("Elemnto: %i, valor= %s, tipo = %c, single quote ON =%i \n",i ,temp->name, temp->flag, temp->simple_quote);
+		else if (temp->double_quote)
+			printf("Elemnto: %i, valor= %s, tipo = %c, double quot ON =%i \n",i ,temp->name, temp->flag, temp->double_quote);
+		else
+			printf("Elemnto: %i, valor= %s, tipo = %c. No single/double quote \n",i ,temp->name, temp->flag);
 		i++;
 		temp = temp->next;
 	}

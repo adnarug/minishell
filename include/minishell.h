@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/31 00:24:00 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/01 16:50:29 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ int ft_isspace(char c);
 int ft_ismeta(char c);
 int ft_isspecialchar(char c);
 int ft_isredirect(char c);
+int ft_isclose_quote(t_minishell *data, t_lexing *lex_struct);
+
 
 
 void free_array_list(t_list_token *list, char **array_w);
