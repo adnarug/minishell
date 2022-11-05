@@ -12,6 +12,7 @@ SRC_FILES = main				\
 			lexer/lexer			\
 			lexer/lexer_tools	\
 			lexer/lexer_token	\
+			expand/expand		\
 			# parser/parser 		\
 
 
