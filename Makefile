@@ -9,9 +9,11 @@ SRC_FILES = main				\
 			utils				\
 			lst_utils 			\
 			env_lst_init 		\
-			parser/parser 		\
 			lexer/lexer			\
 			lexer/lexer_tools	\
+			lexer/lexer_token	\
+			# parser/parser 		\
+
 
 AR	=	ar rcs
 DEF_COLOR = \033[0;80m

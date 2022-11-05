@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/01 16:17:31 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/04 18:03:39 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct s_lexing
 	int		simple_quote;
 	int		double_quote;
 	int		expand;
+	char	quote;
+	//char	*ptr;
 }t_lexing;
 
 
@@ -57,6 +59,7 @@ typedef struct s_nod_token
 	int		flag;
 	int		simple_quote;
 	int		double_quote;
+	char	quote;
 
 	struct s_nod_token	*next;
 	

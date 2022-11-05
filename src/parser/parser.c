@@ -6,11 +6,11 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:13:48 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/10/29 16:40:36 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/02 13:38:23 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+//#include "../../include/minishell.h"
 /*recorremos carcater or caracter como en printf.
 Empezamos una funcion en el que el modo single quotes o double quotes este inactivo
 tenemos que ir guardando la posicion del inico de cadena y el final de cadena.
