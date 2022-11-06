@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 14:42:56 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/05 22:23:43 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/06 13:43:34 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,13 @@ void	ft_lexer(t_minishell *data) //(t_list_token *list, char *line)
 	while (data->line[lex_struct.c_pos]) //anador && no hay error
 	{
 		if (ft_isspace(data->line[lex_struct.c_pos]))
-		{
 			lex_struct.c_pos += 1;
-		}
 		else if (ft_ismeta(data->line[lex_struct.c_pos]) ) //uno de los 3 caracateres
-		{
 			lexer_meta(data, &lex_struct); 
-		}
 		else
-		{
 			lexer_word(data, &lex_struct);
-		}
 	}
-	system("leaks minishell");
+	//system("leaks minishell");
 }
  /*
 Parte de las comillas  para agregar 

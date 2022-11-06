@@ -6,10 +6,14 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 00:25:54 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/06 00:27:45 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/06 13:57:02 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_expand
+void	ft_expand(t_minishell *data)
+{
+	(void) data;
+	printf("\nexpand\n");
+}

@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 14:42:53 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/01 23:27:26 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/06 19:55:08 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@
 */
 int ft_isspace(char c)
 {
-	return (c == ' ' || c == '\t' || c == '\n');
+	return (c == ' ' || c == '\t');
 }
-
 
 /*
 	Check if char c is redirection 

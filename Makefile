@@ -9,9 +9,11 @@ SRC_FILES = main				\
 			utils				\
 			lst_utils 			\
 			env_lst_init 		\
-			lexer/lexer			\
+			lexer/lexer_main	\
 			lexer/lexer_tools	\
 			lexer/lexer_token	\
+			lexer/lexer_word	\
+			lexer/lexer_meta	\
 			expand/expand		\
 			# parser/parser 		\
 
@@ -40,6 +42,7 @@ $(OBJF):
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(OBJ_DIR)/parser/
 	@mkdir -p $(OBJ_DIR)/lexer/
+	@mkdir -p $(OBJ_DIR)/expand/
 
 clean:
 	@rm -r $(OBJ_DIR)

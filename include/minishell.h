@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/05 19:01:03 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/06 13:19:22 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,11 +128,15 @@ int ft_isspecialchar(char c);
 int ft_isredirect(char c);
 
 
-
+//List tools
 void free_array_list(t_list_token *list, char **array_w);
 void	free_array(char **array_w);
 void	print_list(t_list_token *list);
 void print_token(t_nod_token	*token);
+
+//Expansion
+void	ft_expand(t_minishell *data);
+
 
 
 void	check_leaks(void);
