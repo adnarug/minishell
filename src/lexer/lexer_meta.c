@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 13:50:12 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/06 13:50:41 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/07 15:51:45 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	lex_redirect(t_minishell *data, t_lexing *lex_struct)
 				lex_struct->type = APPEND;
 	}
 	lex_struct->buff = ft_strjoin_char(lex_struct->buff, data->line[lex_struct->c_pos]);
-	lex_struct->c_pos += 1;
+	lex_struct->c_pos += 1; //puedo poner esto y borro lo de abajo >>> lex_struct->c_pos =  lex_struct->c_pos + 1 + redir_repeted;
 	if (redir_repeted)
 		lex_struct->c_pos += 1;
 }

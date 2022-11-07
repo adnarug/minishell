@@ -11,10 +11,11 @@ SRC_FILES = main				\
 			env_lst_init 		\
 			lexer/lexer_main	\
 			lexer/lexer_tools	\
-			lexer/lexer_token	\
+			lexer/lexer_quote	\
 			lexer/lexer_word	\
 			lexer/lexer_meta	\
 			expand/expand		\
+			expand/expand_tools	\
 			# parser/parser 		\
 
 

@@ -1,16 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_token.c                                      :+:      :+:    :+:   */
+/*   lexer_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 11:46:51 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/06 13:50:39 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/07 17:32:24 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+/*
+	Knowing that all quotation marks are correctly closed,
+	if a first quotation mark is encountered, it switches
+	to quotation mark ON mode until it encounters the same
+	type of quotation mark and returns to quotation mark OFF mode.
+	FAQ
+	Is it correct to pass a pointer to a char that is not a string?
+	(i.e. not ending in \0)?
+*/
+void	change_quot_modus(char *quote, char c)
+{
+	if (*quote == QUOTE_OFF)
+		*quote = c;
+	else 
+	{
+		if ((*quote == SINGLE_QUOTE || *quote == DOUBLE_QUOTE ) && *quote == c)
+			*quote = QUOTE_OFF;
+	}
+}
 
 void	find_2nd_quote(t_minishell *data, t_lexing *lex_struct)
 {
@@ -50,7 +70,6 @@ void ft_isclose_quote(t_minishell *data, t_lexing *lex_struct)
 	lex_struct->c_pos = 0;
 	lex_struct->quote = 0;
 }
-
 
 
 // int	isclose_singlequot(t_minishell *data, t_lexing *lex_struct)

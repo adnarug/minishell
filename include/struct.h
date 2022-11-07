@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/04 18:03:39 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/07 15:29:07 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef struct s_list_token
 typedef struct s_minishell
 {
 	char		*line;
-	t_list_token	list; //esto hayq eu cambialo a un puntero
+	t_list_token	list; //esto hayq eu cambialo a un puntero. Volver a estudiar esto  y diferencia enntre pointer y &
 	
 }t_minishell;
 

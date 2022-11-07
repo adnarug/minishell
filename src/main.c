@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/06 00:03:51 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/07 15:37:59 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,12 @@
 
 void	initializer_data(t_minishell *data)
 {
-	t_list_token list;
+	t_list_token list; //repetimos el proceso que en la funcion previa
 	
 	
 	data->line = NULL;
 	data->list = list;
 
-	// data->list->head = list->head;
-	// data->list->size = 0;
 	data->list.head = NULL;
 	data->list.size = 0;
 	//init_list_tok(data->list);
@@ -55,9 +53,9 @@ int main(int argc, char **argv, char **envp)
 
 	while (1)
 	{
-		data.line = NULL; //do we need it always?
+		data.line = NULL; //do we need it always? is already done at initializer_data(&data); 
 
-		
+
 		line_buffer = readline("minishell $ ");
 		data.line = line_buffer;
 		add_history(line_buffer); // is it &data.line ??

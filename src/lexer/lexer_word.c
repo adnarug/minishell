@@ -6,23 +6,11 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 13:47:21 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/06 13:48:45 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/07 17:34:13 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-//creo que cambia de modo quote correctamente
-void	change_quot_modus(char *quote, char c)
-{
-	if (*quote == QUOTE_OFF)
-		*quote = c;
-	else 
-	{
-		if ((*quote == SINGLE_QUOTE || *quote == DOUBLE_QUOTE ) && *quote == c)
-			*quote = QUOTE_OFF;
-	}
-}
 
 char *go_through_word_lex(char *s)
 {
@@ -39,7 +27,6 @@ char *go_through_word_lex(char *s)
 	}
 	return(s);
 }
-
 
 /*
 	char pointed is the  start of a word.
