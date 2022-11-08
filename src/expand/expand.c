@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 00:25:54 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/08 00:07:46 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/08 11:43:22 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,16 @@ void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)())
 }
 
 
+//funcin para comprar un dato en una lista enlazada y que devuelva el valor. Seguir por aqui lunes por  latarde
 
 char *compare_env_list(t_minishell *data, char *env_var)
 {
-	//funcin para comprar un dato en una lista enlazada y que devuelva el valor. Seguir por aqui lunes por  latarde
+	t_env	*env_list;
+	
+	if (!data->list) //add  || !env_list
+		return (NULL); // ??
+	
+	
 }
 
 /*
@@ -46,7 +52,7 @@ char *compare_env_list(t_minishell *data, char *env_var)
 void	expand_variable(t_minishell *data , char *buf, char *s)
 {
 	char	*env_var; //aqui guardaremos la expansion
-	char	var_expanded;
+	char	*var_expanded;
 	
 	while (*s)
 	{
