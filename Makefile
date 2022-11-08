@@ -15,11 +15,19 @@ SRC_FILES = main				\
 			lexer/lexer_meta	\
 			expand/expand		\
 			expand/expand_tools	\
+			exec/execution_main \
 			env/env_main \
 			env/initializer_env \
 			utils/lst_utils \
 			utils/ft_atol \
 			utils/utils \
+			builtins/cd \
+			builtins/echo \
+			builtins/env \
+			builtins/exit \
+			builtins/export \
+			builtins/pwd \
+			builtins/unset 
 			# parser/parser 		\
 
 
@@ -50,6 +58,8 @@ $(OBJF):
 	@mkdir -p $(OBJ_DIR)/expand/
 	@mkdir -p $(OBJ_DIR)/env/
 	@mkdir -p $(OBJ_DIR)/utils/
+	@mkdir -p $(OBJ_DIR)/builtins/
+	@mkdir -p $(OBJ_DIR)/exec/
 
 
 clean:

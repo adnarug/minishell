@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/08 11:15:39 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/08 11:33:36 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
 # include <unistd.h>
 # include "../libft/libft.h"
 # include <sys/types.h>
@@ -25,6 +26,7 @@
 # include <sys/param.h> //check if it is fine to include
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <errno.h>
 
 
 
@@ -161,6 +163,7 @@ void		ft_lstdelone_env(t_env *node_to_delete, t_env *env);
 t_env		*ft_lst_find(t_env *node, char *key);
 t_env		*ft_lst_find_previous(t_env *head, t_env *node_to_find);
 int			ft_strcmp(const char *s1, const char *s2);
+void		ft_execution(t_minishell *data);
 
 void	ft_env(t_minishell *data, char **envp);
 

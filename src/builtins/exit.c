@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 10:51:50 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/25 14:35:36 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/08 11:42:15 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,8 @@ int	check_exit_args(int *arg_equal_one, char **token)
 	int	i;
 	int	counter;
 
-	printf("case0\n");
+
 	i = count_strings(token);
-	printf("i=%d\n", i);
 	counter = 1;
 	// printf("%d",i);
 	if (i > 1)
@@ -46,20 +45,19 @@ int	check_exit_args(int *arg_equal_one, char **token)
 		}
 		else if (ft_isnumber(token[counter]) == 1 && i > 2)
 		{
-			printf("case1");
+	
 			*arg_equal_one = 0;
 			// print_error(EXIT_ERROR); TODO: correct exit
 			return (EXIT_FAILURE);
 		}
 		else if (ft_isnumber(token[counter]) == 0)
 		{
-			printf("case2");
 			// Correct exit
 			// exec_error(EXIT_ARG_ERROR, data->exec->cmd[1]);
 			// return (INVALID_EXIT_ARG);
 			return (EXIT_FAILURE);
 		}
-		printf("case3");
+
 	}
 	return (EXIT_SUCCESS);
 }

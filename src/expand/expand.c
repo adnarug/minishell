@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 00:25:54 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/08 11:11:27 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/08 11:38:29 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)())
 }
 
 
-
-char *compare_env_list(t_minishell *data, char *env_var)
-{
-	//funcin para comprar un dato en una lista enlazada y que devuelva el valor. Seguir por aqui lunes por  latarde
-}
+//	 TODO: commented out, to be reviewed
+// char *compare_env_list(t_minishell *data, char *env_var)
+// {
+// 	//funcin para comprar un dato en una lista enlazada y que devuelva el valor. Seguir por aqui lunes por  latarde
+// }
 
 /*
 	Find the key value, 
@@ -56,9 +56,10 @@ void	expand_variable(t_minishell *data , char *buf, char *s)
 			break;
 		s++;
 	}
+	//	 TODO: commented out, to be reviewed
 	//funcion, que tomara env_var y lo comparara con la lista de variables de enornoo
 	// si no lo encuentra que devueva string vacio, en otro caso el pointer al char
-	var_expanded = compare_env_list(data, env_var);
+	//var_expanded = compare_env_list(data, env_var);
 	
 }
 

@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/08 11:20:42 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/08 11:38:51 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,14 @@ int main(int argc, char **argv, char **envp)
 		// print_2d(after_split);
 		ft_lexer(&data);
 		// ft_expand(&data);
+		ft_execution(&data);
 		//atexit(check_leaks);
 
 		//system("leaks minishell");
 
 		//printf("till here ft_lexer ok \n");
-		print_list(&data.list);
-		print_env_lst(data.env_lst);
+		// print_list(&data.list);
+		// print_env_lst(data.env_lst);
 		delete_list(&data.list); //para que no queden leaks
 		//ft_parser(&list, line_buffer);
 		// dup_env = dup_matrix(envp);

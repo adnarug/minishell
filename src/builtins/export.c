@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 19:45:04 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/29 12:43:35 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/08 11:35:35 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ int	builtin_export(t_env *envp, char **argv)
 	}
 	argv++;
 	printf ("%s", *argv);
-	while (argv != NULL)
-	{
-		if (ft_isalpha(*argv) != 1 && ft_isvalid(argv) == EXIT_FAILURE)
-		{
-			printf("minishell: export: %s: not a valid identifier\n", argv);
-			continue ;
-		}
+	// while (argv != NULL)
+	// {
+	// 	if (ft_isalpha(*argv) != 1 && ft_isvalid(argv) == EXIT_FAILURE)
+	// 	{
+	// 		printf("minishell: export: %s: not a valid identifier\n", argv);
+	// 		continue ;
+
 
 	
 	// while (*argv != NULL)
@@ -87,9 +87,4 @@ int	builtin_export(t_env *envp, char **argv)
 	// 	argv++;
 	// }
 	return (EXIT_SUCCESS);
-}
-
-int	only_key(char *argv)
-{
-	
 }
