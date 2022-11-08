@@ -6,66 +6,65 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 00:25:54 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/08 11:43:22 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/08 19:20:38 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-//funcion del examen
-void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)())
-{
-	if (begin_list == NULL || *begin_list == NULL)
-		return;
+// //funcion del examen
+// void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)())
+// {
+// 	if (begin_list == NULL || *begin_list == NULL)
+// 		return;
 
-	t_list *cur = *begin_list;
+// 	t_list *cur = *begin_list;
+// //	 TODO: commented out, to be reviewed
+// 	// if (cmp(cur->data, data_ref) == 0)
+// 	// {
+// 	// 	*begin_list = cur->next;
+// 	// 	free(cur);
+// 	// 	ft_list_remove_if(begin_list, data_ref, cmp);
+// 	// }
+// 	// cur = *begin_list;
+// 	// ft_list_remove_if(&cur->next, data_ref, cmp);
+// }
 
-	if (cmp(cur->data, data_ref) == 0)
-	{
-		*begin_list = cur->next;
-		free(cur);
-		ft_list_remove_if(begin_list, data_ref, cmp);
-	}
-	cur = *begin_list;
-	ft_list_remove_if(&cur->next, data_ref, cmp);
-}
 
 
-//funcin para comprar un dato en una lista enlazada y que devuelva el valor. Seguir por aqui lunes por  latarde
-
-char *compare_env_list(t_minishell *data, char *env_var)
-{
-	t_env	*env_list;
-	
-	if (!data->list) //add  || !env_list
-		return (NULL); // ??
-	
-	
-}
+// char *compare_env_list(t_minishell *data, char *env_var)
+// {
+// 	//funcin para comprar un dato en una lista enlazada y que devuelva el valor. Seguir por aqui lunes por  latarde
+// }
 
 /*
 	Find the key value, 
 	compare to the values of env list,
 	if find it in the list substitute
-	otherwise error
+	otherwise returns 0
 */
-void	expand_variable(t_minishell *data , char *buf, char *s)
+char	*expand_variable(t_minishell *data , char *buf, char *s)
 {
 	char	*env_var; //aqui guardaremos la expansion
 	char	*var_expanded;
 	
+	env_var = NULL;
+	//printf("hasta aqui exapnd 1 \n");
 	while (*s)
 	{
 		if (not_end_expand(*s))
+		{
 			env_var = ft_strjoin_char(env_var, *s);
+			//printf("hasta aqui exapnd 2.1 \n");
+		}
 		else
 			break;
 		s++;
 	}
-	//funcion, que tomara env_var y lo comparara con la lista de variables de enornoo
-	// si no lo encuentra que devueva string vacio, en otro caso el pointer al char
-	var_expanded = compare_env_list(data, env_var);
-	
+	var_expanded = ft_lst_find(data->env_lst, env_var)->value;
+	//printf("hasta aqui exapnd 3 \n");
+	printf("result of var expanded: %s \n", var_expanded);
+	return(var_expanded);
 }
 
 /*
@@ -76,23 +75,32 @@ void expand_find(t_minishell *data, t_nod_token *current)
 	char	*s;
 	char	quote_mod;
 	char	*new_buff;
+	char	*value;
 
 	quote_mod = 0;
 	s  = current->name;
+	new_buff = NULL;
 	while (*s)
 	{
+		//printf("hasta aqui 1\n");
 		if (*s == SINGLE_QUOTE || *s == DOUBLE_QUOTE)
 			change_quot_modus(&quote_mod, *s);
 		else if (*s == DOLLAR && !quote_mod)
-			expand_variable(data, new_buff, s);
+		{
+			//printf("hasta aqui 1.2\n");
+			value = expand_variable(data, new_buff, ++s);
+			new_buff = ft_strjoin(new_buff, value);
+		}
 		else
+		{
 			new_buff = ft_strjoin_char(new_buff, *s);
+		}
 		s++;
 	}
 	free(current->name); //verificar esto anque creoo que es demasiaod
-	current->name = NULL;
-	current->name = ft_strdup(new_buff);
-	free(new_buff);
+	// current->name = NULL;
+	current->name = new_buff;
+	// free(new_buff);
 }
 
 /*
@@ -104,6 +112,7 @@ void expand_find(t_minishell *data, t_nod_token *current)
 	we send that key to enviroment, and if it is found, we replace it and add it to the expanded_buffer
 	we continue to run to the end.
 */
+//hacerlo con puntero en lugar de la funicon de roman??
 void	ft_expand(t_minishell *data)
 {
 	t_nod_token *current;
@@ -111,7 +120,7 @@ void	ft_expand(t_minishell *data)
 	current = data->list.head;
 	while (current)
 	{
-		if (current->flag = WORD)
+		if (current->flag == WORD)
 		{
 			expand_find(data, current);
 		}
@@ -119,3 +128,38 @@ void	ft_expand(t_minishell *data)
 	}
 
 }
+
+//0$USER
+
+// void expand_find(t_minishell *data, t_nod_token *current)
+// {
+// 	char	*s;
+// 	char	quote_mod;
+// 	char	*new_buff;
+// 	char	*value;
+
+// 	quote_mod = 0;
+// 	s  = current->name;
+// 	new_buff = NULL;
+// 	while (*s)
+// 	{
+// 		//printf("hasta aqui 1\n");
+// 		if (*s == SINGLE_QUOTE || *s == DOUBLE_QUOTE)
+// 			change_quot_modus(&quote_mod, *s);
+// 		else if (*s == DOLLAR && !quote_mod)
+// 		{
+// 			//printf("hasta aqui 1.2\n");
+// 			value = expand_variable(data, new_buff, ++s);
+// 			new_buff = ft_strjoin(new_buff, value);
+// 		}
+// 		else
+// 		{
+// 			new_buff = ft_strjoin_char(new_buff, *s);
+// 		}
+// 		s++;
+// 	}
+// 	free(current->name); //verificar esto anque creoo que es demasiaod
+// 	// current->name = NULL;
+// 	current->name = new_buff;
+// 	// free(new_buff);
+// }

@@ -32,6 +32,7 @@
 		"utility": "c",
 		"vector": "c",
 		"cstring": "c",
-		"iterator": "c"
+		"iterator": "c",
+		"stdio.h": "c"
 	}
 }

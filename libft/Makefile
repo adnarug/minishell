@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fnieves <fnieves@42heilbronn.de>           +#+  +:+       +#+         #
+#    By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/30 15:24:44 by pguranda          #+#    #+#              #
-#    Updated: 2022/10/30 15:09:01 by fnieves          ###   ########.fr        #
+#    Updated: 2022/11/08 13:06:46 by fnieves-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ BONUS_OBJS = $(BONUS:%.c=%.o)
 
 HEADER	=	libft.h
 
-CC		=	cc
+CC		=	cc -g
 CFLAGS	=	-Wall -Wextra -Werror
 
 all		:	$(NAME)

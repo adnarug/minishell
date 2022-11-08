@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 17:33:32 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/07 17:58:55 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/08 12:26:05 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,7 @@
 /// @return true if noot end of expansion
 int not_end_expand(char c)
 {
+	//printf("not expand 1\n");
+
 	return(ft_isalpha(c) ||  c == '_');
 }

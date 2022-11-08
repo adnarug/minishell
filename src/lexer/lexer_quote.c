@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 11:46:51 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/07 17:32:24 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/08 12:22:37 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 */
 void	change_quot_modus(char *quote, char c)
 {
+
 	if (*quote == QUOTE_OFF)
 		*quote = c;
 	else 

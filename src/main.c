@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/08 10:26:11 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/08 18:52:54 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,40 +35,47 @@ void	check_leaks(void)
 	system("leaks minishell");
 }
 
+void debuggear(t_minishell *data)
+{
+	data->line = ft_strdup("$roman");
+	ft_lexer(data);
+	print_list(&data->list);
+	ft_expand(data);
+	exit(0);
+}
 
 /*Add - prompt, history, env linked list (env_lst)*/
 //i think it does not free line at the end 
 int main(int argc, char **argv, char **envp)
 {
 	// t_input		input;
-	char *line_buffer;
-	t_env *env_lst;
-	char **dup_env;
+	char	*line_buffer;
 	char	**after_split;
 	
 	//t_list_token	list; //reeemplazada por data
 	t_minishell		data;
-
 	initializer_data(&data);
-
+	ft_env(&data, envp);
+	//debuggear(&data); solo si queremos debugear
 	while (1)
 	{
-		data.line = NULL; //do we need it always? is already done at initializer_data(&data); 
-
-
+		data.line = NULL; //do we need it always? is already done at initializer_data(&data);
 		line_buffer = readline("minishell $ ");
 		data.line = line_buffer;
 		add_history(line_buffer); // is it &data.line ??
 		// after_split = ft_split_meta(line_buffer);
 		// print_2d(after_split);
 		ft_lexer(&data);
-		ft_expand(&data);
-		//atexit(check_leaks);
-
-		//system("leaks minishell");
-
-		//printf("till here ft_lexer ok \n");
 		print_list(&data.list);
+		ft_expand(&data);
+		printf("*********Print after expand******\n");
+
+		print_list(&data.list);
+		//ft_execution(&data);
+		//atexit(check_leaks);
+		//system("leaks minishell");
+		//printf("till here ft_lexer ok \n");
+		// print_env_lst(data.env_lst);
 		delete_list(&data.list); //para que no queden leaks
 		//ft_parser(&list, line_buffer);
 		// dup_env = dup_matrix(envp);
@@ -82,7 +89,5 @@ int main(int argc, char **argv, char **envp)
 		//atexit(check_leaks);
 		//system("leaks minishell");
 	}
-	
-
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/07 18:06:12 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/08 13:20:04 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
 # include <unistd.h>
 # include "../libft/libft.h"
 # include <sys/types.h>
@@ -25,23 +26,17 @@
 # include <sys/param.h> //check if it is fine to include
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <errno.h>
 
 
 
 
-typedef struct s_input
-{
-	char	*line;
-	char	*prompt_name;
-}	t_input;
+// typedef struct s_input
+// {
+// 	char	*line;
+// 	char	*prompt_name;
+// }	t_input;
 
-//Linked list for the env
-typedef struct s_env
-{
-	char		*key;
-	char		*value;
-	struct s_env *next;
-}	t_env;
 
 void	execute(char *line_buffer);
 int		builtin_echo(char **args_echo);
@@ -117,6 +112,7 @@ void	lexer_singl_quot(t_minishell *data, t_lexing *lex_struct);
 void	lexer_word(t_minishell *data, t_lexing *lex_struct);
 void	lex_redirect(t_minishell *data, t_lexing *lex_struct);
 void	find_2nd_quote(t_minishell *data, t_lexing *lex_struct);
+void	change_quot_modus(char *quote, char c);
 void		ft_isclose_quote(t_minishell *data, t_lexing *lex_struct);
 
 
@@ -136,6 +132,11 @@ void	print_token(t_nod_token	*token);
 
 //Expansion
 void	ft_expand(t_minishell *data);
+void expand_find(t_minishell *data, t_nod_token *current);
+char	*expand_variable(t_minishell *data , char *buf, char *s);
+
+
+
 
 // Expansion tools
 int		not_end_expand(char c);
@@ -143,6 +144,48 @@ int		not_end_expand(char c);
 
 //Memory leaks
 void	check_leaks(void);
+
+
+void		execute(char *line_buffer);
+int			builtin_echo(char **args_echo);
+int			builtin_pwd(char *args_cd);
+char		**dup_env_matrix(char **matrix);
+t_env		*ft_node_init(char *envp);
+t_env		*create_env_lst(char **dup_env);
+void		ft_lstadd_back_mini(t_env **lst, t_env *new);
+char		*ft_copy_key(char *string);
+void		print_2d(char **array);
+int			count_strings(char **array);
+void		print_env_lst(t_env *env_lst);
+void		ft_lst_free(t_env *lst);
+void		ft_free_2d(char **table);
+t_env		*ft_lstlast_mini(t_env *lst);
+void		ft_lstadd_back_mini(t_env **lst, t_env *new);
+t_env		*ft_lstnew_env(char *key, char *value);
+void		ft_lstdelone_env(t_env *node_to_delete, t_env *env);
+void		builtin(t_env *env);
+void		ft_lstdelone_env(t_env *node_to_delete, t_env *env);
+t_env		*ft_lst_find(t_env *node, char *key);
+t_env		*ft_lst_find_previous(t_env *head, t_env *node_to_find);
+int			ft_strcmp(const char *s1, const char *s2);
+void		ft_execution(t_minishell *data);
+
+void	ft_env(t_minishell *data, char **envp);
+
+void	print_env_lst_export(t_env *env_lst);
+
+
+//Refactored libft
+char		**split_into_key_value(char *string);
+long int	ft_atol(const char *str);
+
+//Builtins
+int		builtin_env(t_env *env, char *argv) ;
+int		builtin_cd(t_env *env, char **argv);
+int		builtin_unset(t_env *env, char **argv);
+int		builtin_export(t_env *envp, char **argv);
+int		builtin_exit(char	**token);
+
 
 
 #endif 
