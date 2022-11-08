@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/07 15:29:07 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/08 10:55:46 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,19 @@ typedef struct s_list_token
 	int	size;
 }t_list_token;
 
+typedef struct s_env
+{
+	char		*key;
+	char		*value;
+	struct s_env *next;
+}	t_env;
+
 
 //main structur. Here will pend everything but lexing struct
 typedef struct s_minishell
 {
 	char		*line;
+	t_env		*env_lst;
 	t_list_token	list; //esto hayq eu cambialo a un puntero. Volver a estudiar esto  y diferencia enntre pointer y &
 	
 }t_minishell;

@@ -8,7 +8,6 @@ SRC_FILES = main				\
 			builtins			\
 			utils				\
 			lst_utils 			\
-			env_lst_init 		\
 			lexer/lexer_main	\
 			lexer/lexer_tools	\
 			lexer/lexer_quote	\
@@ -16,6 +15,11 @@ SRC_FILES = main				\
 			lexer/lexer_meta	\
 			expand/expand		\
 			expand/expand_tools	\
+			env/env_main \
+			env/initializer_env \
+			utils/lst_utils \
+			utils/ft_atol \
+			utils/utils \
 			# parser/parser 		\
 
 
@@ -44,6 +48,9 @@ $(OBJF):
 	@mkdir -p $(OBJ_DIR)/parser/
 	@mkdir -p $(OBJ_DIR)/lexer/
 	@mkdir -p $(OBJ_DIR)/expand/
+	@mkdir -p $(OBJ_DIR)/env/
+	@mkdir -p $(OBJ_DIR)/utils/
+
 
 clean:
 	@rm -r $(OBJ_DIR)

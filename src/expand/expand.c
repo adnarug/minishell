@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 00:25:54 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/08 00:07:46 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/08 11:11:27 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)())
 		return;
 
 	t_list *cur = *begin_list;
-
-	if (cmp(cur->data, data_ref) == 0)
-	{
-		*begin_list = cur->next;
-		free(cur);
-		ft_list_remove_if(begin_list, data_ref, cmp);
-	}
-	cur = *begin_list;
-	ft_list_remove_if(&cur->next, data_ref, cmp);
+//	 TODO: commented out, to be reviewed
+	// if (cmp(cur->data, data_ref) == 0)
+	// {
+	// 	*begin_list = cur->next;
+	// 	free(cur);
+	// 	ft_list_remove_if(begin_list, data_ref, cmp);
+	// }
+	// cur = *begin_list;
+	// ft_list_remove_if(&cur->next, data_ref, cmp);
 }
 
 
@@ -105,7 +105,7 @@ void	ft_expand(t_minishell *data)
 	current = data->list.head;
 	while (current)
 	{
-		if (current->flag = WORD)
+		if (current->flag == WORD)
 		{
 			expand_find(data, current);
 		}
