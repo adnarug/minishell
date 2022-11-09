@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 17:33:32 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/09 13:02:08 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/09 13:15:27 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,4 @@ int is_not_end_expand(char c)
 }
 
 
-//X$USER0$HOME
+//X$USER$HOME9aa
