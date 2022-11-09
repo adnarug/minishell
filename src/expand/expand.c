@@ -6,17 +6,13 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 00:25:54 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/09 00:29:48 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/09 19:18:54 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 // minishell $ 0$USER >>> de alguna manera esta impriemdno al detras de user
-
-
-
-
 // char *compare_env_list(t_minishell *data, char *env_var)
 // {
 // 	//funcin para comprar un dato en una lista enlazada y que devuelva el valor. Seguir por aqui lunes por  latarde
@@ -58,10 +54,17 @@ char	*expand_variable(t_minishell *data , char *buf, char **s)
 	*s = --ptr;
 	//printf(" *pointer decrementado: %c \n", *ptr);
 	node_env = ft_lst_find(data->env_lst, env_var);
+
 	if(!node_env)
-		return("");
+	{
+			printf("valor  nullo:\n");
+			return("");
+	}
 	else
+	{
+		//printf("valor: %s\n", node_env->value);
 		return(node_env->value);
+	}
 }
 
 /*
@@ -76,7 +79,7 @@ void expand_find(t_minishell *data, t_nod_token *current)
 
 	quote_mod = 0;
 	s  = current->name;
-	new_buff = NULL;
+	new_buff = ft_strdup(""); //atencio que habra que hacer free en algun momento
 	while (*s)
 	{
 		//printf("hasta aqui 1\n");
@@ -87,7 +90,11 @@ void expand_find(t_minishell *data, t_nod_token *current)
 			s++;
 			//printf("Kany pointer_posit before %s\n", s);
 			value = expand_variable(data, new_buff, &s);
+			printf("2 valor new_buff: %s and value: %s\n", new_buff, value);
+
 			new_buff = ft_strjoin(new_buff, value);
+			printf("2 valor: %s\n", new_buff);
+
 			//printf("and pointer_posit after %s\n", s);
 
 		}
@@ -112,7 +119,6 @@ void expand_find(t_minishell *data, t_nod_token *current)
 	we send that key to enviroment, and if it is found, we replace it and add it to the expanded_buffer
 	we continue to run to the end.
 */
-//hacerlo con puntero en lugar de la funicon de roman??
 void	ft_expand(t_minishell *data)
 {
 	t_nod_token *current;

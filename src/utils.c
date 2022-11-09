@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:54:13 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/08 10:58:59 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/09 18:59:40 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@ void	print_list(t_list_token *list)
 		return;
 	}
 	temp = list->head;
-	printf("-------Informacion de La lista----------\n");
+	printf("-------Information from list----------\n");
 	while(temp)
 	{
 		if (temp->quote)
-			printf("Elemnto: %i, valor= %s, tipo = %c,  quote ON =%c \n",i ,temp->name, temp->flag, temp->quote);
+			printf("Elemnt: %i, value= %s, type = %c, \n",i ,temp->name, temp->flag );
 		// else if (temp->double_quote)
 		// 	printf("Elemnto: %i, valor= %s, tipo = %c, double quot ON =%i \n",i ,temp->name, temp->flag, temp->double_quote);
 		else
-			printf("Elemnto: %i, valor= %s, tipo = %c. No single/double quote \n",i ,temp->name, temp->flag);
+			printf("Elemnt: %i, value= %s, type = %c. \n",i ,temp->name, temp->flag  );
 		i++;
 		temp = temp->next;
 	}

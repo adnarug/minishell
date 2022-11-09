@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/09 13:03:26 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/09 19:10:04 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ int main(int argc, char **argv, char **envp)
 		ft_lexer(&data);
 		print_list(&data.list);
 		ft_expand(&data);
-		printf("*********Print after expand******\n");
+		printf("\n*********Print after expand******\n\n");
 		print_list(&data.list);
-		//ft_execution(&data);
+		ft_execution(&data);
 		//atexit(check_leaks);
-		system("leaks minishell");
+		//system("leaks minishell");
 		//printf("till here ft_lexer ok \n");
 		// print_env_lst(data.env_lst);
 		delete_list(&data.list); //para que no queden leaks

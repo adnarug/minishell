@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/08 20:49:57 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/09 18:52:50 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_env	*ft_lstnew_env(char *value, char *key);
 # define SLASH				'/'
 # define REDIRECT_IN		'<'
 # define REDIRECT_OUT		'>'
-# define PIPE				'|'
+# define PIPE				'|'$HOME
 # define APPEND				'+'
 # define HEREDOC			'-'
 # define WORD				'w'

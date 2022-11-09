@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 17:33:32 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/09 13:15:27 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/09 19:08:50 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,3 +26,6 @@ int is_not_end_expand(char c)
 
 
 //X$USER$HOME9aa
+
+// mi > mama|< me <mima >>yo 'amo'>> ||<< | echo X$USER$HOME9aa    echo $USER
+ // echho lexer
