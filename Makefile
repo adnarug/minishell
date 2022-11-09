@@ -30,7 +30,6 @@ SRC_FILES = main				\
 			builtins/unset 
 			# parser/parser 		\
 
-
 AR	=	ar rcs
 DEF_COLOR = \033[0;80m
 GREEN = \033[0;92m
@@ -61,7 +60,9 @@ $(OBJF):
 	@mkdir -p $(OBJ_DIR)/builtins/
 	@mkdir -p $(OBJ_DIR)/exec/
 
-
+run: all
+	@./minishell
+	
 clean:
 	@rm -r $(OBJ_DIR)
 	@make clean -C $(LIBFT)

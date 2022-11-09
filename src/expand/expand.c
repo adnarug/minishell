@@ -6,29 +6,14 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 00:25:54 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/08 19:20:38 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/09 00:29:48 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// //funcion del examen
-// void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)())
-// {
-// 	if (begin_list == NULL || *begin_list == NULL)
-// 		return;
+// minishell $ 0$USER >>> de alguna manera esta impriemdno al detras de user
 
-// 	t_list *cur = *begin_list;
-// //	 TODO: commented out, to be reviewed
-// 	// if (cmp(cur->data, data_ref) == 0)
-// 	// {
-// 	// 	*begin_list = cur->next;
-// 	// 	free(cur);
-// 	// 	ft_list_remove_if(begin_list, data_ref, cmp);
-// 	// }
-// 	// cur = *begin_list;
-// 	// ft_list_remove_if(&cur->next, data_ref, cmp);
-// }
 
 
 
@@ -36,35 +21,47 @@
 // {
 // 	//funcin para comprar un dato en una lista enlazada y que devuelva el valor. Seguir por aqui lunes por  latarde
 // }
-
+// 0$USER9
 /*
 	Find the key value, 
 	compare to the values of env list,
 	if find it in the list substitute
 	otherwise returns 0
+	We pass the pointer to the adress of the string
 */
-char	*expand_variable(t_minishell *data , char *buf, char *s)
+char	*expand_variable(t_minishell *data , char *buf, char **s)
 {
 	char	*env_var; //aqui guardaremos la expansion
 	char	*var_expanded;
+	t_env	*node_env;
 	
+	char	*ptr = *s;
 	env_var = NULL;
-	//printf("hasta aqui exapnd 1 \n");
-	while (*s)
+	while (*ptr)
 	{
-		if (not_end_expand(*s))
+
+		if (is_not_end_expand(*ptr))
 		{
-			env_var = ft_strjoin_char(env_var, *s);
+			//printf("en if, char: %c \n", *ptr);	
+			env_var = ft_strjoin_char(env_var, *ptr);
 			//printf("hasta aqui exapnd 2.1 \n");
 		}
 		else
+		{
+			//printf("antes del break, char: %c \n", *ptr);
+			//printf("hasta aqui exapnd 2 \n");
 			break;
-		s++;
+		}
+		ptr++;
 	}
-	var_expanded = ft_lst_find(data->env_lst, env_var)->value;
-	//printf("hasta aqui exapnd 3 \n");
-	printf("result of var expanded: %s \n", var_expanded);
-	return(var_expanded);
+	//printf("hasta aqui exapnd *pointer: %c \n", *ptr);
+	*s = --ptr;
+	//printf(" *pointer decrementado: %c \n", *ptr);
+	node_env = ft_lst_find(data->env_lst, env_var);
+	if(!node_env)
+		return("");
+	else
+		return(node_env->value);
 }
 
 /*
@@ -87,9 +84,12 @@ void expand_find(t_minishell *data, t_nod_token *current)
 			change_quot_modus(&quote_mod, *s);
 		else if (*s == DOLLAR && !quote_mod)
 		{
-			//printf("hasta aqui 1.2\n");
-			value = expand_variable(data, new_buff, ++s);
+			s++;
+			//printf("Kany pointer_posit before %s\n", s);
+			value = expand_variable(data, new_buff, &s);
 			new_buff = ft_strjoin(new_buff, value);
+			//printf("and pointer_posit after %s\n", s);
+
 		}
 		else
 		{
@@ -129,7 +129,7 @@ void	ft_expand(t_minishell *data)
 
 }
 
-//0$USER
+//0$USER999
 
 // void expand_find(t_minishell *data, t_nod_token *current)
 // {
@@ -162,4 +162,22 @@ void	ft_expand(t_minishell *data)
 // 	// current->name = NULL;
 // 	current->name = new_buff;
 // 	// free(new_buff);
+// }
+
+// //funcion del examen
+// void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)())
+// {
+// 	if (begin_list == NULL || *begin_list == NULL)
+// 		return;
+
+// 	t_list *cur = *begin_list;
+// //	 TODO: commented out, to be reviewed
+// 	// if (cmp(cur->data, data_ref) == 0)
+// 	// {
+// 	// 	*begin_list = cur->next;
+// 	// 	free(cur);
+// 	// 	ft_list_remove_if(begin_list, data_ref, cmp);
+// 	// }
+// 	// cur = *begin_list;
+// 	// ft_list_remove_if(&cur->next, data_ref, cmp);
 // }

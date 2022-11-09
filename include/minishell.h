@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/08 13:20:04 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/08 20:49:57 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,14 +132,14 @@ void	print_token(t_nod_token	*token);
 
 //Expansion
 void	ft_expand(t_minishell *data);
-void expand_find(t_minishell *data, t_nod_token *current);
-char	*expand_variable(t_minishell *data , char *buf, char *s);
+void	expand_find(t_minishell *data, t_nod_token *current);
+char	*expand_variable(t_minishell *data , char *buf, char **s_arra);
 
 
 
 
 // Expansion tools
-int		not_end_expand(char c);
+int is_not_end_expand(char c);
 
 
 //Memory leaks

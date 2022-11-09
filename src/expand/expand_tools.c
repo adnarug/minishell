@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 17:33:32 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/08 12:26:05 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/09 13:02:08 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@
 	Return true if find the char which does not 
 	finish the expansion var $ (a-Z, 0-9 or _)
 */
-/// @brief true if char is not end of var $ expasion
-/// @param c char  to check
-/// @return true if noot end of expansion
-int not_end_expand(char c)
+
+int is_not_end_expand(char c)
 {
 	//printf("not expand 1\n");
 
-	return(ft_isalpha(c) ||  c == '_');
+	return(ft_isalpha(c) ||  c == '_' || ft_isdigit(c));
 }
+
+
+//X$USER0$HOME

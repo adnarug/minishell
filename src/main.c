@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/08 18:52:54 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/08 23:56:04 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	initializer_data(t_minishell *data)
 	
 	data->line = NULL;
 	data->list = list;
-
 	data->list.head = NULL;
 	data->list.size = 0;
 	//init_list_tok(data->list);
@@ -69,7 +68,6 @@ int main(int argc, char **argv, char **envp)
 		print_list(&data.list);
 		ft_expand(&data);
 		printf("*********Print after expand******\n");
-
 		print_list(&data.list);
 		//ft_execution(&data);
 		//atexit(check_leaks);
