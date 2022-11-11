@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/09 18:52:50 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/11 16:47:29 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_env	*ft_lstnew_env(char *value, char *key);
 # define SLASH				'/'
 # define REDIRECT_IN		'<'
 # define REDIRECT_OUT		'>'
-# define PIPE				'|'$HOME
+# define PIPE				'|'
 # define APPEND				'+'
 # define HEREDOC			'-'
 # define WORD				'w'
@@ -168,7 +168,7 @@ void		ft_lstdelone_env(t_env *node_to_delete, t_env *env);
 t_env		*ft_lst_find(t_env *node, char *key);
 t_env		*ft_lst_find_previous(t_env *head, t_env *node_to_find);
 int			ft_strcmp(const char *s1, const char *s2);
-void		ft_execution(t_minishell *data);
+int		ft_execution(t_minishell *data);
 
 void	ft_env(t_minishell *data, char **envp);
 
@@ -186,6 +186,14 @@ int		builtin_unset(t_env *env, char **argv);
 int		builtin_export(t_env *envp, char **argv);
 int		builtin_exit(char	**token);
 
-
-
+//Execution 
+int	    is_builtin(t_minishell *data);
+void	cmd_exec(t_list_token *token, t_minishell *data);
+int	    exec_builtin(t_nod_token *token_node, t_minishell *data);
+int		ft_execution(t_minishell *data);
+char    **init_builtins_arr(char **builtins);
+void	find_correct_paths(t_nod_token *parameters, t_minishell *data);
+char	**find_path(char **envp);
+char	*check_paths(char **path_to_builtins, char	*command);
+char	**add_path_sign(char **path_to_builtins);
 #endif 

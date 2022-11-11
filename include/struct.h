@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/08 11:54:43 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/11 16:30:10 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,11 @@ typedef struct s_cmd
 typedef struct s_nod_token
 {
 	char	*name;
-	int		flag;
+	int		flag;//can we rename flag into type?
 	int		simple_quote;
 	int		double_quote;
 	char	quote;
+	char	*exec_path;
 
 	struct s_nod_token	*next;
 	

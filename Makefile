@@ -16,6 +16,7 @@ SRC_FILES = main				\
 			expand/expand		\
 			expand/expand_tools	\
 			exec/execution_main \
+			exec/cmd_exec/path_check \
 			env/env_main \
 			env/initializer_env \
 			utils/lst_utils \
@@ -59,6 +60,7 @@ $(OBJF):
 	@mkdir -p $(OBJ_DIR)/utils/
 	@mkdir -p $(OBJ_DIR)/builtins/
 	@mkdir -p $(OBJ_DIR)/exec/
+	@mkdir -p $(OBJ_DIR)/exec/cmd_exec/
 
 run: all
 	@./minishell
