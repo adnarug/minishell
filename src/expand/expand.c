@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 00:25:54 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/09 19:18:54 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/11 10:48:39 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*expand_variable(t_minishell *data , char *buf, char **s)
 
 	if(!node_env)
 	{
-			printf("valor  nullo:\n");
+			//printf("valor  nullo:\n");
 			return("");
 	}
 	else
@@ -90,13 +90,11 @@ void expand_find(t_minishell *data, t_nod_token *current)
 			s++;
 			//printf("Kany pointer_posit before %s\n", s);
 			value = expand_variable(data, new_buff, &s);
-			printf("2 valor new_buff: %s and value: %s\n", new_buff, value);
+			//printf("2 valor new_buff: %s and value: %s\n", new_buff, value);
 
 			new_buff = ft_strjoin(new_buff, value);
-			printf("2 valor: %s\n", new_buff);
-
+			//printf("2 valor: %s\n", new_buff);
 			//printf("and pointer_posit after %s\n", s);
-
 		}
 		else
 		{

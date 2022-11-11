@@ -6,13 +6,22 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/09 19:10:04 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/11 15:16:49 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-//hay que inicializar la lista () con malloc??
+/*
+ 11/11/22
+ Incluir en el nodo de la lista un char para el texto antiguo y para despues de la expansion
+ Incluir en el nodo si hay comillas o no . Vermos despues
+ echo $ $ >> no hay que expandir
+ echo text"$USER" >>> Expandir sin tener en cuenta las "" , also for cd,  cd "$HOME"
+
+ Emezar con las senales
+*/
+
 
 void	initializer_data(t_minishell *data)
 {
@@ -69,7 +78,7 @@ int main(int argc, char **argv, char **envp)
 		ft_expand(&data);
 		printf("\n*********Print after expand******\n\n");
 		print_list(&data.list);
-		ft_execution(&data);
+		//ft_execution(&data);
 		//atexit(check_leaks);
 		//system("leaks minishell");
 		//printf("till here ft_lexer ok \n");
