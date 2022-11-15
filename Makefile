@@ -15,6 +15,7 @@ SRC_FILES = main				\
 			lexer/lexer_meta	\
 			expand/expand		\
 			expand/expand_tools	\
+			signals/signals_main \
 			exec/execution_main \
 			env/env_main \
 			env/initializer_env \
@@ -55,6 +56,7 @@ $(OBJF):
 	@mkdir -p $(OBJ_DIR)/parser/
 	@mkdir -p $(OBJ_DIR)/lexer/
 	@mkdir -p $(OBJ_DIR)/expand/
+	@mkdir -p $(OBJ_DIR)/signals/
 	@mkdir -p $(OBJ_DIR)/env/
 	@mkdir -p $(OBJ_DIR)/utils/
 	@mkdir -p $(OBJ_DIR)/builtins/

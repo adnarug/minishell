@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/11 15:16:49 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/15 13:44:08 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int main(int argc, char **argv, char **envp)
 	//debuggear(&data); solo si queremos debugear
 	while (1)
 	{
+		signals_execut(MAIN);
 		data.line = NULL; //do we need it always? is already done at initializer_data(&data);
 		line_buffer = readline("minishell $ ");
 		data.line = line_buffer;
