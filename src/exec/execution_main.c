@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:22:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/15 14:46:06 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/15 16:10:01 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,20 +79,34 @@ int	exec_builtin(t_nod_token *token_node, t_minishell *data)
 
 int run_execution(t_nod_token *token, t_minishell *data)
 {
-	if (execve(token->exec_path, token->argv, data->env_lst) == -1)
-		printf("Error\nExecve issue in the parent");
+	int	pid;
+
+	pid = fork();
+	if (pid == -1)
+		printf("Error\nCould not fork");
+	if (pid == 0)
+	{	
+		if (execve(token->exec_path, token->argv, data->env_lst) == -1)
+			printf("Error\nExecve issue in the child");
+	}
+	if (pid != 0)
+	{
+		wait (NULL);
+		return (EXIT_FAILURE);
+	}
 }
 
 int	cmd_exec(t_nod_token *token, t_minishell *data)
 {
 	if (find_correct_paths(token, data) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	printf("\npath to exec: %s\n", token->exec_path);
+	if (token->exec_path == NULL)
+		printf("bash: command not found\n");
 	run_execution(token, data);
 	
 }
 //Convering a token from a list to argv for execution
-int token_lst_to_argv(t_nod_token *token, t_minishell *data)
+static char	**token_lst_to_argv(t_nod_token *token, t_minishell *data)
 {
 	char		**argv;
 	t_nod_token	*tmp_head;
@@ -116,9 +130,9 @@ int token_lst_to_argv(t_nod_token *token, t_minishell *data)
 		else
 			break;
 	}
-	token->argv = malloc (sizeof(char *) * (i + 1));
+	argv = malloc (sizeof(char *) * (i + 1));
 	if (argv == NULL)
-		return (EXIT_FAILURE)
+		return (NULL);
 	while (tmp2_head != NULL && counter < i)
 	{
 		if (tmp2_head->name == NULL)
@@ -129,35 +143,36 @@ int token_lst_to_argv(t_nod_token *token, t_minishell *data)
 	
 	}
 	argv[counter] = NULL;
-	return (EXIT_SUCCESS);
+	return (argv);
+}
+
+int	is_builtin(t_nod_token *token, t_minishell *data)
+{
+	char			*builtins[9];
+	int				i;
+
+	i = 0;
+	init_builtins_arr(builtins);
+	while (i < 7)
+	{
+		if (ft_strcmp(token->name, builtins[i]) == 0)
+			return (1);
+		i++;
+	}
+	return(0);
 }
 
 int	ft_execution(t_minishell *data)
 {
-	char			*builtins[9];
 	t_nod_token		*tokens_lst;
-	int				i;
 
-	i = 0;
 	tokens_lst = data->list.head;
-	init_builtins_arr(builtins);
-	// print_2d(builtins);
-	// while (tokens_lst != NULL && tokens_lst->flag == WORD)
-	// {
-		if (ft_strcmp(tokens_lst->name, builtins[i]) == 0)
-		{
-			exec_builtin(tokens_lst, data);
-			return (1);
-		}
-		else
-		{
-			tokens_lst->argv = token_lst_to_argv(tokens_lst, data);
-			print_2d(tokens_lst->argv);
-			cmd_exec(tokens_lst, data);
-			// free(token_as_argv);
-		}
-		// 	// tokens_lst = tokens_lst->next;
-		// i++;
-	// }
-	return (0);
+	if (is_builtin(tokens_lst, data) == 1)
+		exec_builtin(tokens_lst, data);
+	else
+	{
+		tokens_lst->argv = token_lst_to_argv(tokens_lst, data);
+		cmd_exec(tokens_lst, data);
+	}
+	return (EXIT_SUCCESS);
 }

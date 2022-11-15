@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/15 13:39:33 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/15 15:58:52 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,12 +187,12 @@ int		builtin_export(t_env *envp, char **argv);
 int		builtin_exit(char	**token);
 
 //Execution 
-int	    is_builtin(t_minishell *data);
+int	is_builtin(t_nod_token *token, t_minishell *data);
 int 	cmd_exec(t_nod_token *token, t_minishell *data);
 int	    exec_builtin(t_nod_token *token_node, t_minishell *data);
 int		ft_execution(t_minishell *data);
 char    **init_builtins_arr(char **builtins);
-int	    find_correct_paths(t_nod_token *parameters, t_minishell *data);
+int		find_correct_paths(t_nod_token *parameters, t_minishell *data);
 char	**find_path(char **envp);
 char	*check_paths(char **path_to_builtins, char	*command);
 char	**add_path_sign(char **path_to_builtins);
