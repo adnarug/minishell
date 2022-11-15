@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/11 16:30:10 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/15 14:37:52 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_nod_token
 	int		double_quote;
 	char	quote;
 	char	*exec_path;
+	char	**argv;
 
 	struct s_nod_token	*next;
 	

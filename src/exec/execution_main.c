@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:22:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/11 18:10:56 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/15 14:46:06 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,60 @@ int	exec_builtin(t_nod_token *token_node, t_minishell *data)
 	return (EXIT_SUCCESS);
 }
 
-// void	cmd_exec(t_list_token *token, t_minishell *data)
-// {
-// 	find_correct_paths(tokens, data);
-// 	printf("path to exec: %s", token->)
+int run_execution(t_nod_token *token, t_minishell *data)
+{
+	if (execve(token->exec_path, token->argv, data->env_lst) == -1)
+		printf("Error\nExecve issue in the parent");
+}
+
+int	cmd_exec(t_nod_token *token, t_minishell *data)
+{
+	if (find_correct_paths(token, data) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	printf("\npath to exec: %s\n", token->exec_path);
+	run_execution(token, data);
 	
-// }
+}
+//Convering a token from a list to argv for execution
+int token_lst_to_argv(t_nod_token *token, t_minishell *data)
+{
+	char		**argv;
+	t_nod_token	*tmp_head;
+	t_nod_token	*tmp2_head;
+	int			i;
+	int			counter;
+
+	i = 0;
+	counter = 0;
+	tmp_head = token;
+	tmp2_head = token;
+	argv = NULL;
+	printf("%s\n", tmp_head->name);
+	while (tmp_head != NULL)
+	{
+		if (ft_strcmp(tmp_head->name, "Meta") != 0)
+		{
+			i++;
+			tmp_head = tmp_head->next;
+		}
+		else
+			break;
+	}
+	token->argv = malloc (sizeof(char *) * (i + 1));
+	if (argv == NULL)
+		return (EXIT_FAILURE)
+	while (tmp2_head != NULL && counter < i)
+	{
+		if (tmp2_head->name == NULL)
+			break ;
+		argv[counter] = tmp2_head->name;
+		counter++;
+		tmp2_head = tmp2_head->next;
+	
+	}
+	argv[counter] = NULL;
+	return (EXIT_SUCCESS);
+}
 
 int	ft_execution(t_minishell *data)
 {
@@ -93,20 +141,23 @@ int	ft_execution(t_minishell *data)
 	i = 0;
 	tokens_lst = data->list.head;
 	init_builtins_arr(builtins);
-	print_2d(builtins);
-	while (tokens_lst != NULL && i < 8 && tokens_lst->flag == WORD)
-	{
+	// print_2d(builtins);
+	// while (tokens_lst != NULL && tokens_lst->flag == WORD)
+	// {
 		if (ft_strcmp(tokens_lst->name, builtins[i]) == 0)
 		{
-			printf("check_mid\n");
 			exec_builtin(tokens_lst, data);
 			return (1);
 		}
 		else
-		// 	cmd_exec(tokens_lst, data);
-			// tokens_lst = tokens_lst->next;
-			i++;
-		printf("check_end\n");
-	}
+		{
+			tokens_lst->argv = token_lst_to_argv(tokens_lst, data);
+			print_2d(tokens_lst->argv);
+			cmd_exec(tokens_lst, data);
+			// free(token_as_argv);
+		}
+		// 	// tokens_lst = tokens_lst->next;
+		// i++;
+	// }
 	return (0);
 }
