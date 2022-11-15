@@ -6,14 +6,13 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/15 15:58:52 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/15 16:19:12 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include "struct.h"
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -28,7 +27,8 @@
 # include <readline/history.h>
 # include <errno.h>
 
-
+#include "struct.h"
+#include "error.h"
 
 
 // typedef struct s_input
@@ -77,13 +77,16 @@ t_env	*ft_lstnew_env(char *value, char *key);
 # define	DELIMITERS		" \t|<>"
 # define	SPACE_STRNG		" "
 
-//TOKEN FLAGS: //Will not be used 
+//TOKEN FLAGS: //Will not be used ??
 # define TYP_WORD				1
 # define TYP_REDIRECT_IN		2
 # define TYP_REDIRECT_OUT		3
 # define TYP_APPEND				4 // >>
 # define TYP_HEREDOC			5 //<<
 # define TYP_PIPE				6
+
+//TOKEN FLAGS: //Will not be used ??
+# define MAIN				1
 
 /* My structures */
 
@@ -136,6 +139,8 @@ void	expand_find(t_minishell *data, t_nod_token *current);
 char	*expand_variable(t_minishell *data , char *buf, char **s_arra);
 
 
+//Signals
+void	signals_execut(int process);
 
 
 // Expansion tools
