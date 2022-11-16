@@ -33,6 +33,10 @@
 		"vector": "c",
 		"cstring": "c",
 		"iterator": "c",
-		"stdio.h": "c"
+		"stdio.h": "c",
+		"signal.h": "c",
+		"__threading_support": "c",
+		"cerrno": "c",
+		"locale": "c"
 	}
 }
