@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/15 16:19:12 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/18 23:53:12 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <errno.h>
+# include <termios.h>
 
 #include "struct.h"
 #include "error.h"
@@ -201,4 +202,12 @@ int		find_correct_paths(t_nod_token *parameters, t_minishell *data);
 char	**find_path(char **envp);
 char	*check_paths(char **path_to_builtins, char	*command);
 char	**add_path_sign(char **path_to_builtins);
+
+//Signals
+void	signals_main(struct termios *default);
+void	no_print_ctrlc(struct termios *default);
+void	reset_print_ctrlc(struct termios *default);
+
+
+
 #endif 

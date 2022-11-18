@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/15 13:44:08 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/18 23:18:47 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,13 @@
 void	initializer_data(t_minishell *data)
 {
 	t_list_token list; //repetimos el proceso que en la funcion previa
-	
+	struct termios default;
 	
 	data->line = NULL;
 	data->list = list;
 	data->list.head = NULL;
 	data->list.size = 0;
+	data->termios_default = default;
 	//init_list_tok(data->list);
 }
 
@@ -67,7 +68,7 @@ int main(int argc, char **argv, char **envp)
 	//debuggear(&data); solo si queremos debugear
 	while (1)
 	{
-		signals_execut(MAIN);
+		signals_main(&(data.termios_default));
 		data.line = NULL; //do we need it always? is already done at initializer_data(&data);
 		line_buffer = readline("minishell $ ");
 		data.line = line_buffer;
