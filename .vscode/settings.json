@@ -38,6 +38,8 @@
 		"__threading_support": "c",
 		"cerrno": "c",
 		"locale": "c",
-		"termios.h": "c"
+		"termios.h": "c",
+		"types.h": "c",
+		"string.h": "c"
 	}
 }

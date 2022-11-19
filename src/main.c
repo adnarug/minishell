@@ -6,11 +6,12 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/18 23:18:47 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/19 19:23:43 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
 
 /*
  11/11/22
@@ -19,21 +20,27 @@
  echo $ $ >> no hay que expandir
  echo text"$USER" >>> Expandir sin tener en cuenta las "" , also for cd,  cd "$HOME"
 
- Emezar con las senales
+ atencion: rl_replace_line("", 0);
+ brew link --force readline
+ export C_INCLUDE_PATH="$HOME/.brew/include:$C_INCLUDE_PATH"
+export LIBRARY_PATH="$HOME/.brew/lib:$LIBRARY_PATH"
+ https://42born2code.slack.com/archives/CMX2R5JSW/p1626886311496500?thread_ts=1626883699.496000&cid=CMX2R5JSW
+ https://42born2code.slack.com/archives/CMX2R5JSW/p1627056716030100?thread_ts=1626883699.496000&cid=CMX2R5JSW
+ 
+
 */
 
+/*
+	tcgetattr(STDOUT_FILENO, &data->termios_default);
+	We make a copy of the default atributes of termios
+*/
 
 void	initializer_data(t_minishell *data)
 {
-	t_list_token list; //repetimos el proceso que en la funcion previa
-	struct termios default;
-	
 	data->line = NULL;
-	data->list = list;
 	data->list.head = NULL;
 	data->list.size = 0;
-	data->termios_default = default;
-	//init_list_tok(data->list);
+	tcgetattr(STDOUT_FILENO, &data->termios_default);
 }
 
 /*

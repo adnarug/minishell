@@ -16,6 +16,7 @@ SRC_FILES = main				\
 			expand/expand		\
 			expand/expand_tools	\
 			signals/signals_main \
+			signals/signals_termios	\
 			exec/execution_main \
 			exec/cmd_exec/path_check \
 			env/env_main \

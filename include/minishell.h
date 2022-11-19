@@ -6,31 +6,38 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/18 23:53:12 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/19 19:10:07 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-
 # include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
 # include <unistd.h>
-# include "../libft/libft.h"
+# include <stdlib.h>
+
+# include <limits.h>
+# include <signal.h>
+
 # include <sys/types.h>
-# include <dirent.h>
-# include <stdio.h>
-# include <sys/param.h> //check if it is fine to include
+# include <sys/wait.h>
+
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <errno.h>
+# include <dirent.h>
 # include <termios.h>
+# include <string.h>
 
+# include <sys/param.h> //check if it is fine to include
+# include <errno.h>
+
+# include "../libft/libft.h"
 #include "struct.h"
 #include "error.h"
 
+int glob_var_exit;
 
 // typedef struct s_input
 // {
@@ -38,6 +45,7 @@
 // 	char	*prompt_name;
 // }	t_input;
 
+void rl_replace_line (const char *text, int clear_undo);
 
 void	execute(char *line_buffer);
 int		builtin_echo(char **args_echo);
@@ -140,8 +148,14 @@ void	expand_find(t_minishell *data, t_nod_token *current);
 char	*expand_variable(t_minishell *data , char *buf, char **s_arra);
 
 
+// //Signals
+// void	signals_execut(int process);
 //Signals
-void	signals_execut(int process);
+void	signals_main(struct termios *per_default);
+void	no_print_ctrlc(struct termios *per_default);
+void	reset_print_ctrlc(struct termios *per_default);
+void	new_prompt(int signal);
+
 
 
 // Expansion tools
@@ -203,10 +217,6 @@ char	**find_path(char **envp);
 char	*check_paths(char **path_to_builtins, char	*command);
 char	**add_path_sign(char **path_to_builtins);
 
-//Signals
-void	signals_main(struct termios *default);
-void	no_print_ctrlc(struct termios *default);
-void	reset_print_ctrlc(struct termios *default);
 
 
 

@@ -6,68 +6,54 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 11:45:02 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/19 00:01:42 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/19 19:27:47 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 /*
-	The signal function will have different behaviours
- 	depending on from which process it will be invoqued .
- 	1) For main process:
- 		--> ctrl-c: signal is silenced and prints a newline.
- 		--> ctrl-backslash: shouldn't do anything
-		
- 	2) For child process:
- 		--> all signals return to initial values.
- 		--> ctrl-c should terminate the program on child process.
- 		--> ctrl-backslash should cause SIGQUIT and terminate the program.
-	3) For heredoc:
- 		--> ctrl-c should terminate the opened child process with input prompt.
- 		--> ctrl-backslash shouldn't do anything
-		
-    Ctrl+C - SIGINT : 2
-    Ctrl+\ - SIGQUIT : 3
+
+	rl_on_new_line();
+	show new prompt and take new  input (prebuild function)
+	
+	void rl_replace_line (const char *texto1, int clear_undo)
+	Replace the contents of rl_line_buffer with texto1
+
+	void rl_redisplay (void)
+	Change what’s displayed on the screen
+	to reflect the current contents of rl_line_buffer
 */
 
-/*
-	The aim of this funtion is that ^C does not 
-	get printed while minishell is running in
-	main process (interactive).
-
-	tcgetattr(int fildes, struct termios *termios_p);
-	We are making 2 copies of the default parameters
-	termios (terminal input/ouput). One will be to be manipluated,
-	the other one to come back to default settings when needed.
-	
-	new_settings.c_lflag &= ~ECHOCTL;
-	changing the field c_lflag from the structure with bits 
-	operations we are avoiding that ^C, appears in the terminal
-	
-	tcsetattr(STDOUT_FILENO, TCSAFLUSH, &new_settings);
-	setting the new atributes (~ECHOCTL) after waiting 
-	until all queued output has been written and 
-	also discards any queued input (TCSAFLUSH).
-*/
-
-void	no_print_ctrlc(struct termios *default)
+void	new_prompt(int signal)
 {
-	struct termios new_settings;
-	
-	tcgetattr(STDOUT_FILENO, default);
-	tcgetattr(STDOUT_FILENO, new_settings);
-	new_settings.c_lflag &= ~ECHOCTL;
-	tcsetattr(STDOUT_FILENO, TCSAFLUSH, &new_settings);
+	(void)signal;
+	write(1, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0); //probelmas al compilar 
+	rl_redisplay();
+	glob_var_exit = 1;
 }
 
-/*
-	Reseting parameters to default
-*/
-
-void	reset_print_ctrlc(struct termios *default)
+void	sigquit_main()
 {
-	tcsetattr(STDOUT_FILENO, TCSAFLUSH, default);
+	struct sigaction	sigac;
+	
+	sigac.sa_handler = SIG_IGN;
+	sigac.sa_flags = SA_RESTART;
+	sigemptyset(&sigac.sa_mask);
+	sigaction(SIGQUIT, &sigac, NULL);
+}
+
+
+void	sigint_main()
+{
+	struct sigaction	sigac;
+
+	sigac.sa_handler = &new_prompt;
+	sigac.sa_flags = SA_RESTART;
+	sigemptyset(&sigac.sa_mask);
+	sigaction(SIGINT, &sigac, NULL);
 }
 
 /*
@@ -75,11 +61,14 @@ void	reset_print_ctrlc(struct termios *default)
  		--> ctrl-c: signal is silenced,no_print_ctrlc, 
 		and prints a newline.
  		--> ctrl-backslash: shouldn't do anything
+	
+	Ctrl+C - SIGINT : 2
+	Ctrl+\ - SIGQUIT : 3
 */
 
-void	signals_main(struct termios *default)
+void	signals_main(struct termios *per_default)
 {
-	no_print_ctrlc(default);
+	no_print_ctrlc(per_default);
 	sigint_main(); //seguir aqui sabado
 	sigquit_main();
 }
