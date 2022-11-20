@@ -1,11 +1,10 @@
-NAME = minishell.a
+NAME = minishell
 SRC_DIR = src/
 OBJ_DIR = obj/
 FLAGS = -Werror -Wextra -g -Wall
 LIBFT = libft/
 CC = gcc
 SRC_FILES = main				\
-			builtins			\
 			utils				\
 			lst_utils 			\
 			lexer/lexer_main	\
@@ -33,7 +32,6 @@ SRC_FILES = main				\
 			builtins/unset 
 			# parser/parser 		\
 
-AR	=	ar rcs
 DEF_COLOR = \033[0;80m
 GREEN = \033[0;92m
 
@@ -46,12 +44,11 @@ OBJF = .cache_exists
 
 $(NAME): $(OBJ)
 	@make -C libft/
-	@$(AR) $(NAME) $(OBJ) 
-	@$(CC) $(NAME) $(FLAGS) libft/libft.a minishell.a -lreadline -o minishell
+	@$(CC) $(FLAGS) libft/libft.a -lreadline $(OBJ) -o $(NAME)
 	@echo "$(GREEN)minishell compiled$(DEF_COLOR)"
 
 $(OBJ_DIR)%.o	:	$(SRC_DIR)%.c | $(OBJF)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(FLAGS) -c $< -o $@
 
 $(OBJF):
 	@mkdir -p $(OBJ_DIR)

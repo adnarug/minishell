@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_word.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 13:47:21 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/07 17:34:13 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/20 13:51:27 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	lexer_word(t_minishell *data, t_lexing *lex_struct)
 	t_nod_token	*new_token;
 	char *start;
 	char *end;
-	char temp;
+	// char temp;
 	
 	start = &data->line[lex_struct->c_pos];
 	end = go_through_word_lex(start); //end es la posicion del metachar

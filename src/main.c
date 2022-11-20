@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/19 19:23:43 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/20 13:50:27 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,14 @@ int main(int argc, char **argv, char **envp)
 {
 	// t_input		input;
 	char	*line_buffer;
-	char	**after_split;
+	// char	**after_split;
 	
 	//t_list_token	list; //reeemplazada por data
 	t_minishell		data;
 	initializer_data(&data);
 	ft_env(&data, envp);
+	(void)argv;
+	(void)argc;
 	//debuggear(&data); solo si queremos debugear
 	while (1)
 	{
@@ -87,7 +89,7 @@ int main(int argc, char **argv, char **envp)
 		ft_expand(&data);
 		printf("\n*********Print after expand******\n\n");
 		print_list(&data.list);
-		//ft_execution(&data);
+		ft_execution(&data);
 		//atexit(check_leaks);
 		//system("leaks minishell");
 		//printf("till here ft_lexer ok \n");
