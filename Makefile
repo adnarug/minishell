@@ -17,6 +17,8 @@ SRC_FILES = main				\
 			expand/expand_tools	\
 			signals/signals_main \
 			signals/signals_termios	\
+			signals/signals_child_process \
+			signals/signals_parent_process \
 			exec/execution_main \
 			exec/cmd_exec/path_check \
 			env/env_main \
@@ -32,6 +34,8 @@ SRC_FILES = main				\
 			builtins/pwd \
 			builtins/unset 
 			# parser/parser 		\
+
+
 
 AR	=	ar rcs
 DEF_COLOR = \033[0;80m

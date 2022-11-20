@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 11:59:00 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/19 19:24:22 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/20 16:16:32 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	no_print_ctrlc(struct termios *per_default)
 {
 	struct termios new_settings;
 
-	tcgetattr(STDOUT_FILENO, per_default);
+	tcgetattr(STDOUT_FILENO, per_default);// ya lo hemos hecho en la inicializacion. borrar y Verificar cuando todas las senales esten completas
 	tcgetattr(STDOUT_FILENO, &new_settings);
 	new_settings.c_lflag &= ~ECHOCTL;
 	tcsetattr(STDOUT_FILENO, TCSAFLUSH, &new_settings);

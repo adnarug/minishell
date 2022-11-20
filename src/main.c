@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/19 19:23:43 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/20 20:17:05 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int main(int argc, char **argv, char **envp)
 		ft_expand(&data);
 		printf("\n*********Print after expand******\n\n");
 		print_list(&data.list);
-		//ft_execution(&data);
+		ft_execution(&data);
 		//atexit(check_leaks);
 		//system("leaks minishell");
 		//printf("till here ft_lexer ok \n");

@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/19 19:10:07 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/20 20:36:49 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,13 +148,23 @@ void	expand_find(t_minishell *data, t_nod_token *current);
 char	*expand_variable(t_minishell *data , char *buf, char **s_arra);
 
 
-// //Signals
-// void	signals_execut(int process);
 //Signals
 void	signals_main(struct termios *per_default);
+void	sigint_main();
+void	sigquit_main();
+void	new_prompt(int signal);
 void	no_print_ctrlc(struct termios *per_default);
 void	reset_print_ctrlc(struct termios *per_default);
-void	new_prompt(int signal);
+void	signals_heredoc_process(struct termios *per_default);
+void	signals_child_process(struct termios *per_default);
+void	sigint_child();
+void	sigquit_child();
+void	signals_parent_process(struct termios *per_default);
+void	sigint_parent();
+void	sigquit_parent();
+
+
+
 
 
 
