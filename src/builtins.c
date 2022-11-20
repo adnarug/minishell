@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 15:58:21 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/17 13:23:33 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/20 13:51:12 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	builtin_pwd(char *args_pwd)
 {
 	char	*path;
 
+	path = NULL;
 	path = getcwd(path, MAXPATHLEN);//instead of MATXPATHLEN rm put 0
 	if (ft_strncmp(args_pwd, "pwd", 3) != 0)
 		return(EXIT_FAILURE);

@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:49:23 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/26 13:40:04 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/20 13:57:29 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static int	cd_home(char *argv, t_env *env)//to be adjusted based on the token
 
 int	builtin_cd(t_env *env, char **argv)//should be **argv, to be adjusted based on the cd token
 {
-	char	*home_path;
 	char	*current_path;
 	t_env	*target_env_node;
 	DIR		*directory;

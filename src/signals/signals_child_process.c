@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 12:06:36 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/20 20:25:58 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/20 22:23:53 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	signals_child_process(struct termios *per_default)
 	sigquit_child();
 }
 
-void	signals_heredoc_process(struct termios *per_default)
+void	signals_heredoc_process()
 {
 	sigint_child();
 	sigquit_child();	

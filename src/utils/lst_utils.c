@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 13:14:36 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/09 00:30:22 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/20 13:57:19 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ t_env	*ft_lst_find_previous(t_env *head, t_env *node_to_find)
 void	ft_lstdelone_env(t_env *node_to_delete, t_env *env)
 {
 	t_env	*previous_node;
-	t_env	*temp;
 
 	previous_node = ft_lst_find_previous(env, node_to_delete);
 	if (node_to_delete == NULL || env == NULL)

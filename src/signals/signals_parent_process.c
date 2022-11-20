@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 15:49:08 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/20 20:31:34 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/20 22:24:39 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	sigquit_parent()
 		be ignored.
 */
 
-void	signals_parent_process(struct termios *per_default)
+void	signals_parent_process()
 {
 	sigint_parent();
 	sigquit_parent();

@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/20 20:17:05 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/20 22:16:25 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,14 @@ int main(int argc, char **argv, char **envp)
 {
 	// t_input		input;
 	char	*line_buffer;
-	char	**after_split;
+	// char	**after_split;
 	
 	//t_list_token	list; //reeemplazada por data
 	t_minishell		data;
 	initializer_data(&data);
 	ft_env(&data, envp);
+	(void)argv;
+	(void)argc;
 	//debuggear(&data); solo si queremos debugear
 	while (1)
 	{

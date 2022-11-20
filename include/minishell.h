@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/20 20:36:49 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/20 22:24:45 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,11 +155,11 @@ void	sigquit_main();
 void	new_prompt(int signal);
 void	no_print_ctrlc(struct termios *per_default);
 void	reset_print_ctrlc(struct termios *per_default);
-void	signals_heredoc_process(struct termios *per_default);
+void	signals_heredoc_process();
 void	signals_child_process(struct termios *per_default);
 void	sigint_child();
 void	sigquit_child();
-void	signals_parent_process(struct termios *per_default);
+void	signals_parent_process();
 void	sigint_parent();
 void	sigquit_parent();
 
@@ -217,7 +217,6 @@ int		builtin_export(t_env *envp, char **argv);
 int		builtin_exit(char	**token);
 
 //Execution 
-int	is_builtin(t_nod_token *token, t_minishell *data);
 int 	cmd_exec(t_nod_token *token, t_minishell *data);
 int	    exec_builtin(t_nod_token *token_node, t_minishell *data);
 int		ft_execution(t_minishell *data);

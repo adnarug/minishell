@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 19:45:04 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/08 11:35:35 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/20 13:58:20 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	builtin_export(t_env *envp, char **argv)
 	// print_2d(argv);
 	key_value = NULL;
 	eq_p = NULL;
+	(void)exported_var;
 	if (envp == NULL || argv == NULL)
 		return (EXIT_FAILURE);
 	if (argv[1] == NULL)

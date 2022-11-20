@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 00:25:54 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/11 10:48:39 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/20 15:29:17 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,12 @@
 char	*expand_variable(t_minishell *data , char *buf, char **s)
 {
 	char	*env_var; //aqui guardaremos la expansion
-	char	*var_expanded;
+	// char	*var_expanded;
 	t_env	*node_env;
 	
 	char	*ptr = *s;
 	env_var = NULL;
+	(void)buf;
 	while (*ptr)
 	{
 
@@ -68,7 +69,6 @@ char	*expand_variable(t_minishell *data , char *buf, char **s)
 }
 
 /*
-
 */
 void expand_find(t_minishell *data, t_nod_token *current)
 {
