@@ -6,11 +6,16 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:22:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/20 15:38:19 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/21 17:38:52 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+/*
+Big quesitons:
+- How does the overall sequence of the execution works?
+- Is the created env sufficient. */
 
 char **init_builtins_arr(char **builtins)
 {
@@ -77,10 +82,10 @@ int	exec_builtin(t_nod_token *token_node, t_minishell *data)
 
 int run_execution(t_nod_token *token, t_minishell *data)
 {
-		if (execve(token->exec_path, token->argv, (char*const *)data->env_lst) == -1)
-			perror("Error\nExecve issue in the child");
-
-
+	//taking the tokes of the input and the output file from the struct
+	//running the execution 
+	if (execve(token->exec_path, token->argv, (char*const *)data->env_lst) == -1)
+		perror("Error\nExecve issue in the child");
 	return (EXIT_SUCCESS);
 }
 
@@ -137,7 +142,6 @@ static char	**token_lst_to_argv(t_nod_token *token)
 		argv[counter] = tmp2_head->name;
 		counter++;
 		tmp2_head = tmp2_head->next;
-	
 	}
 	argv[counter] = NULL;
 	return (argv);

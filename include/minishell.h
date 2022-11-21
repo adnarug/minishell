@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/20 13:56:57 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/21 17:52:17 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,10 @@ t_env	*ft_lstnew_env(char *value, char *key);
 # define REDIRECT_OUT		'>'
 # define PIPE				'|'
 # define APPEND				'+'
-# define HEREDOC			'-'
+# define HEREDOC			'-' // changed
 # define WORD				'w'
 # define QUOTE_OFF			'\0'
+
 
 # define	DELIMITERS		" \t|<>"
 # define	SPACE_STRNG		" "
@@ -125,7 +126,7 @@ void	lexer_word(t_minishell *data, t_lexing *lex_struct);
 void	lex_redirect(t_minishell *data, t_lexing *lex_struct);
 void	find_2nd_quote(t_minishell *data, t_lexing *lex_struct);
 void	change_quot_modus(char *quote, char c);
-void		ft_isclose_quote(t_minishell *data, t_lexing *lex_struct);
+void	ft_isclose_quote(t_minishell *data, t_lexing *lex_struct);
 
 
 
