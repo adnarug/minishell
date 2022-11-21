@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/20 22:24:45 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/22 00:14:22 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,9 @@ void	lexer_word(t_minishell *data, t_lexing *lex_struct);
 void	lex_redirect(t_minishell *data, t_lexing *lex_struct);
 void	find_2nd_quote(t_minishell *data, t_lexing *lex_struct);
 void	change_quot_modus(char *quote, char c);
-void		ft_isclose_quote(t_minishell *data, t_lexing *lex_struct);
+void	ft_isclose_quote(t_minishell *data, t_lexing *lex_struct);
+int		are_quote_closed(t_minishell *data);
+
 
 
 
@@ -162,9 +164,6 @@ void	sigquit_child();
 void	signals_parent_process();
 void	sigint_parent();
 void	sigquit_parent();
-
-
-
 
 
 

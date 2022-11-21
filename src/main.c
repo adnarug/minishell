@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/20 22:16:25 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/21 19:57:53 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,6 @@
  echo $ $ >> no hay que expandir
  echo text"$USER" >>> Expandir sin tener en cuenta las "" , also for cd,  cd "$HOME"
 
- atencion: rl_replace_line("", 0);
- brew link --force readline
- export C_INCLUDE_PATH="$HOME/.brew/include:$C_INCLUDE_PATH"
-export LIBRARY_PATH="$HOME/.brew/lib:$LIBRARY_PATH"
- https://42born2code.slack.com/archives/CMX2R5JSW/p1626886311496500?thread_ts=1626883699.496000&cid=CMX2R5JSW
- https://42born2code.slack.com/archives/CMX2R5JSW/p1627056716030100?thread_ts=1626883699.496000&cid=CMX2R5JSW
  
 
 */
@@ -68,18 +62,27 @@ int main(int argc, char **argv, char **envp)
 	char	*line_buffer;
 	// char	**after_split;
 	
-	//t_list_token	list; //reeemplazada por data
 	t_minishell		data;
 	initializer_data(&data);
 	ft_env(&data, envp);
 	(void)argv;
 	(void)argc;
-	//debuggear(&data); solo si queremos debugear
+	//debuggear(&data); if we want to debug
 	while (1)
 	{
 		signals_main(&(data.termios_default));
 		data.line = NULL; //do we need it always? is already done at initializer_data(&data);
 		line_buffer = readline("minishell $ ");
+		if (line_buffer == NULL)
+		{
+			//for Ctrol+D = EOF; exit terminate minishell process 
+			break ;
+		}
+		if (!ft_strcmp(line_buffer, ""))
+		{
+			//do not save in the history an empty line and shows again the promt 
+			continue; // it will not execute the lines below , and will loop again the next iteration
+		}
 		data.line = line_buffer;
 		add_history(line_buffer); // is it &data.line ??
 		// after_split = ft_split_meta(line_buffer);
@@ -89,7 +92,7 @@ int main(int argc, char **argv, char **envp)
 		ft_expand(&data);
 		printf("\n*********Print after expand******\n\n");
 		print_list(&data.list);
-		ft_execution(&data);
+		//ft_execution(&data);
 		//atexit(check_leaks);
 		//system("leaks minishell");
 		//printf("till here ft_lexer ok \n");

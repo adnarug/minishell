@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 11:46:51 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/08 12:22:37 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/22 00:30:10 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,31 @@ void	change_quot_modus(char *quote, char c)
 			*quote = QUOTE_OFF;
 	}
 }
+ /*
+	Recorremos el input para verificar las dobles/simples comillas
+	Si encontramos una comilla(s), cambiamos el estatus hasta que 
+	volvamos a encontrar la misma comilla(s) y volvamos a cambiar el status
+	Si al final char quote es 0, todas las comillas se ha cerrado correctamente
+ */
+int are_quote_closed(t_minishell *data)
+{
+	char *ptr;
 
+	char quote;
+	quote = 0;
+	ptr = data->line;
+	while (*ptr)
+	{
+		if (*ptr == SINGLE_QUOTE || *ptr == DOUBLE_QUOTE )
+			change_quot_modus(&quote, *ptr);
+		ptr++;
+	}
+	if (quote) //quote active at the end , means quote not closed
+		return (0);
+	return (1); //quote closed
+}
+
+// esta funcion y la de abao no son necesarias 
 void	find_2nd_quote(t_minishell *data, t_lexing *lex_struct)
 {
 	char *point_2nd_quote;
@@ -54,9 +78,9 @@ void	find_2nd_quote(t_minishell *data, t_lexing *lex_struct)
 
 /*
 	First check if  every quote is closed
-	Function could be also void
 */
-void ft_isclose_quote(t_minishell *data, t_lexing *lex_struct)
+
+void ft_isclose_quote(t_minishell *data, t_lexing *lex_struct) //esta funcion y la de arriba las podemos quitar
 {
 	while (data->line[lex_struct->c_pos])
 	{
@@ -71,41 +95,3 @@ void ft_isclose_quote(t_minishell *data, t_lexing *lex_struct)
 	lex_struct->c_pos = 0;
 	lex_struct->quote = 0;
 }
-
-
-// int	isclose_singlequot(t_minishell *data, t_lexing *lex_struct)
-// {
-// 	char *point_2nd_quote;
-// 	int pos_2nd_quote;
-	
-// 	point_2nd_quote = ft_strchr(data->line + lex_struct->c_pos + 1, SINGLE_QUOTE);
-// 	if (!point_2nd_quote) //usar funcion strchr
-// 	{
-// 		printf("single quote not closed. Exit");
-// 		exit(1);
-// 	}
-// 	pos_2nd_quote = point_2nd_quote - data->line - lex_struct->c_pos + 1;
-// 	lex_struct->simple_quote = 0;
-// 	lex_struct->c_pos = lex_struct->c_pos + pos_2nd_quote;
-// }
-
-// void	lexer_word2(t_minishell *data, t_lexing *lex_struct) //funcion antigua
-// {
-// 	t_nod_token	*new_token;
-
-// 	while(!ft_isspecialchar(data->line[lex_struct->c_pos]) && data->line[lex_struct->c_pos])
-// 	{
-// 		//printf("antes de join char buff: %s y letra %c \n", lex_struct->buff, *line);
-// 		lex_struct->buff = ft_strjoin_char(lex_struct->buff, data->line[lex_struct->c_pos]);
-// 		lex_struct->c_pos += 1;
-// 	}
-// 	//printf("3 LELga a 3: y el buffer es: %s\n", lex_struct->buff);
-// 	//system("leaks minishell");
-// 	lex_struct->type = WORD; //vamos a usar otra funcion para ver que oerador asignamos
-// 	new_token = create_tok(lex_struct);
-// 	free(lex_struct->buff);
-// 	lex_struct->buff = NULL;
-// 	add_toke_list(&(data->list), new_token);
-// 	//system("leaks minishell");
-// 	//printf("2  de ha anadido list\n");
-// }

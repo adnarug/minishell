@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   lexer_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 14:42:56 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/06 13:43:34 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/22 00:25:28 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,29 @@ void	initializer_lex(t_lexing *lex_struct)
 	//lex_struct->ptr = NULL;
 }
 
-// por ahi queda un memory leak. En lexer_meta.  valgrind and check
-//add modus searching single / double quotes. Despues de comer
+/*
+	Declare and initialize the lex_struct structure
+	Delete all spaces at the beginning and end of the line.
+	Verify that all double/single quotes are correctly closed.
+	We go through the line character per character:
+	If it finds a space, go to the next char.
+	if it finds |, <, >, <<, >>, it tokenizes them and identifies them as such,
+	everything else it converts it into a word and identifies it as a word.
+*/
+
+
 void	ft_lexer(t_minishell *data) //(t_list_token *list, char *line)
 {
 	t_lexing lex_struct;
 	
 	data->line = ft_strtrim((const char *)data->line, SPACE_STRNG);
 	initializer_lex(&lex_struct);
-	ft_isclose_quote(data, &lex_struct); //check if quites are properly closed
+	if(!are_quote_closed(data))
+	{
+		printf("quote not closed.free  exit\n");
+		exit(1);
+	}
+	//ft_isclose_quote(data, &lex_struct);  //	Maybe we can change the order of execution
 	while (data->line[lex_struct.c_pos]) //anador && no hay error
 	{
 		if (ft_isspace(data->line[lex_struct.c_pos]))
@@ -45,26 +59,6 @@ void	ft_lexer(t_minishell *data) //(t_list_token *list, char *line)
 	//system("leaks minishell");
 }
  /*
-Parte de las comillas  para agregar 
-		else if (data->line[lex_struct.c_pos] == SINGLE_QUOTE && lex_struct.quote == SINGLE_QUOTE ||
-				data->line[lex_struct.c_pos] == SINGLE_QUOTE && !lex_struct.quote)
-		{
-			if (!lex_struct.quote) //encontramo single quote y estamos en modo no quote >> actiavmos modo
-				lex_struct.quote = SINGLE_QUOTE;
-			else //ebconrtamos single quote y estamos en modo single quote >>> Desactivamos
-				lex_struct.quote = 0;
-			lex_struct.c_pos += 1;
-		} //------------
-		else if (data->line[lex_struct.c_pos] == DOUBLE_QUOTE && lex_struct.quote == DOUBLE_QUOTE ||
-				data->line[lex_struct.c_pos] == DOUBLE_QUOTE && !lex_struct.quote)
-		{
-			if (!lex_struct.quote) //encontramo doub quote y estamos en modo no quote >> actiavmos modo
-				lex_struct.quote = DOUBLE_QUOTE;
-			else //ebconrtamos doub quote y estamos en modo double quote >>> Desactivamos
-				lex_struct.quote = 0;
-			lex_struct.c_pos += 1;
-		}
-
 
 
 para pruebas

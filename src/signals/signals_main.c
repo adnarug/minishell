@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 11:45:02 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/20 22:41:05 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/21 19:58:19 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	new_prompt(int signal)
 	(void)signal;
 	write(1, "\n", 1);
 	rl_on_new_line();
-	rl_replace_line("", 0);
+	//rl_replace_line("", 0);
 	rl_redisplay();
 	glob_var_exit = 1;
 }
