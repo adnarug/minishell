@@ -13,11 +13,15 @@ SRC_FILES = main				\
 			lexer/lexer_word	\
 			lexer/lexer_meta	\
 			expand/expand		\
-			expand/expand_tools	\
+			expand/expand_tools \
 			signals/signals_main \
-			signals/signals_termios	\
+			signals/signals_termios \
 			exec/execution_main \
 			exec/cmd_exec/path_check \
+			exec/pipex/open_files \
+			exec/pipex/path_check \
+			exec/pipex/pipex \
+			exec/pipex/utils \
 			env/env_main \
 			env/initializer_env \
 			utils/lst_utils \
@@ -30,7 +34,6 @@ SRC_FILES = main				\
 			builtins/export \
 			builtins/pwd \
 			builtins/unset 
-			# parser/parser 		\
 
 DEF_COLOR = \033[0;80m
 GREEN = \033[0;92m
@@ -61,6 +64,7 @@ $(OBJF):
 	@mkdir -p $(OBJ_DIR)/builtins/
 	@mkdir -p $(OBJ_DIR)/exec/
 	@mkdir -p $(OBJ_DIR)/exec/cmd_exec/
+	@mkdir -p $(OBJ_DIR)/exec/pipex/
 
 run: all
 	@./minishell

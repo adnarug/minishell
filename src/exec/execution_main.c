@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:22:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/21 17:38:52 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/22 12:32:02 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,23 +89,23 @@ int run_execution(t_nod_token *token, t_minishell *data)
 	return (EXIT_SUCCESS);
 }
 
-int	cmd_exec(t_nod_token *token, t_minishell *data)
-{
-	pid_t	pid;
-	int		state;
+// int	cmd_exec(t_nod_token *token, t_minishell *data)
+// {
+// 	pid_t	pid;
+// 	int		state;
 
-	if (find_correct_paths(token, data) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	if (token->exec_path == NULL)
-		printf("minishell: command not found\n"); // not correct message
-	pid = fork();
-	if (pid < 0)
-		return (EXIT_FAILURE);
-	if (pid == 0)
-		return (run_execution(token, data));
-	waitpid(pid, &state, 0);
-	return (EXIT_SUCCESS);
-}
+// 	if (find_correct_paths(token, data) == EXIT_FAILURE)
+// 		return (EXIT_FAILURE);
+// 	if (token->exec_path == NULL)
+// 		printf("minishell: command not found\n"); // not correct message
+// 	pid = fork();
+// 	if (pid < 0)
+// 		return (EXIT_FAILURE);
+// 	if (pid == 0)
+// 		return (run_execution(token, data));
+// 	waitpid(pid, &state, 0);
+// 	return (EXIT_SUCCESS);
+// }
 
 //Convering a token from a list to argv for execution
 static char	**token_lst_to_argv(t_nod_token *token)
@@ -166,14 +166,17 @@ static int	is_builtin(t_nod_token *token)
 int	ft_execution(t_minishell *data)
 {
 	t_nod_token		*tokens_lst;
+	int				counter;
 
 	tokens_lst = data->list.head;
 	if (is_builtin(tokens_lst) == 1)
 		exec_builtin(tokens_lst, data);
 	else
 	{
+
 		tokens_lst->argv = token_lst_to_argv(tokens_lst);
-		cmd_exec(tokens_lst, data);
+		counter = count_strings(tokens_lst->argv);
+		pipex(counter, tokens_lst->argv, data->env_argv);
 	}
 	return (EXIT_SUCCESS);
 }

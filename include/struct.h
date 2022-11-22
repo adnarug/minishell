@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/18 22:59:47 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/22 13:16:42 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef struct s_list_token
 {
 	t_nod_token	*head;
 	int	size;
-}t_list_token;
+}	t_list_token;
 
 typedef struct s_env
 {
@@ -81,15 +81,25 @@ typedef struct s_env
 	struct s_env *next;
 }	t_env;
 
+typedef struct s_cmd_exec
+{
+	char	*cmd;
+	char	*args;
+	char	**cmd_args;
+	char	*exec_path;
+	int		cmd_num;
+	int		last_cmd;
+}	t_cmd_exec;
 
 //main structur. Here will pend everything but lexing struct
 typedef struct s_minishell
 {
 	char		*line;
 	t_env		*env_lst;
+	char		**env_argv;
 	t_list_token	list; //esto hayq eu cambialo a un puntero. Volver a estudiar esto  y diferencia enntre pointer y &
 	struct termios	termios_default;
-}t_minishell;
+}	t_minishell;
 
 
 // //--------- Estas funciones las he sacdo de una hoja. Borarr
