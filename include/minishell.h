@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/22 00:14:22 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/22 19:51:57 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ void	print_list(t_list_token *list);
 void	print_token(t_nod_token	*token);
 
 //Expansion
-void	ft_expand(t_minishell *data);
+void	ft_expand_main(t_minishell *data);
 void	expand_find(t_minishell *data, t_nod_token *current);
 char	*expand_variable(t_minishell *data , char *buf, char **s_arra);
 

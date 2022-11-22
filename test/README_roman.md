@@ -100,7 +100,10 @@ Install with:
     cd ./././
 	cd '/etc'
 	cd '/var'
->>>  cd "$PWD/prompt" 
+>>>  cd "$PWD/prompt"
+	cd "$PWD" === cd /Users/fnieves-
+	cd '$PWD' === cd $PWD
+	
 	cd "doesntexist"
 	cd "doesntexist" 2>/dev/null
 	cd ../../..

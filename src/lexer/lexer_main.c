@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 14:42:56 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/22 00:25:28 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/22 19:40:05 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	ft_lexer(t_minishell *data) //(t_list_token *list, char *line)
 	//system("leaks minishell");
 }
  /*
-
 
 para pruebas
  mi > mama|< me <mima >>yo 'amo'>> ||<<

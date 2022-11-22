@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/21 19:57:53 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/22 19:51:57 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void debuggear(t_minishell *data)
 	data->line = ft_strdup("$roman");
 	ft_lexer(data);
 	print_list(&data->list);
-	ft_expand(data);
+	ft_expand_main(data);
 	exit(0);
 }
 
@@ -89,7 +89,7 @@ int main(int argc, char **argv, char **envp)
 		// print_2d(after_split);
 		ft_lexer(&data);
 		print_list(&data.list);
-		ft_expand(&data);
+		ft_expand_main(&data);
 		printf("\n*********Print after expand******\n\n");
 		print_list(&data.list);
 		//ft_execution(&data);

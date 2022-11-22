@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand.c                                           :+:      :+:    :+:   */
+/*   expand_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 00:25:54 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/20 15:29:17 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/22 20:35:44 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ char	*expand_variable(t_minishell *data , char *buf, char **s)
 }
 
 /*
+
 */
 void expand_find(t_minishell *data, t_nod_token *current)
 {
@@ -85,13 +86,12 @@ void expand_find(t_minishell *data, t_nod_token *current)
 		//printf("hasta aqui 1\n");
 		if (*s == SINGLE_QUOTE || *s == DOUBLE_QUOTE)
 			change_quot_modus(&quote_mod, *s);
-		else if (*s == DOLLAR && !quote_mod)
+		else if (*s == DOLLAR && quote_mod != SINGLE_QUOTE) // in single quote we do not expand
 		{
 			s++;
 			//printf("Kany pointer_posit before %s\n", s);
 			value = expand_variable(data, new_buff, &s);
 			//printf("2 valor new_buff: %s and value: %s\n", new_buff, value);
-
 			new_buff = ft_strjoin(new_buff, value);
 			//printf("2 valor: %s\n", new_buff);
 			//printf("and pointer_posit after %s\n", s);
@@ -117,7 +117,7 @@ void expand_find(t_minishell *data, t_nod_token *current)
 	we send that key to enviroment, and if it is found, we replace it and add it to the expanded_buffer
 	we continue to run to the end.
 */
-void	ft_expand(t_minishell *data)
+void	ft_expand_main(t_minishell *data)
 {
 	t_nod_token *current;
 

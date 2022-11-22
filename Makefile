@@ -12,7 +12,7 @@ SRC_FILES = main				\
 			lexer/lexer_quote	\
 			lexer/lexer_word	\
 			lexer/lexer_meta	\
-			expand/expand		\
+			expand/expand_main		\
 			expand/expand_tools	\
 			signals/signals_main \
 			signals/signals_termios	\
