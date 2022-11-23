@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/23 17:26:48 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/23 18:06:37 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_list_token
 {
 	t_nod_token	*head;
 	int	size;
-}t_list_token;
+}	t_list_token;
 
 typedef struct s_env
 {
@@ -62,31 +62,45 @@ typedef struct s_env
 	struct s_env *next;
 }	t_env;
 
+
+
+typedef struct s_cmd_exec
+{
+	char	*cmd;
+	char	*args;
+	char	**cmd_args;
+	char	*exec_path;
+	int		cmd_num;
+	int		last_cmd;
+}	t_cmd_exec;
+
+//main structur. Here will pend everything but lexing struct
 typedef struct s_prs_tok
 {
-    char    type;
-    char    *word;
-    char    **cmd_flags;
-    struct s_prs_tok *next;
-}   t_prs_tok;
+	char			type;
+	char			*word;
+	char			**cmd_flags;
+	char			*exec_path;
+	int				fd_in;
+	int				fd_out;
+	struct s_prs_tok *next;
+}	t_prs_tok; 
+
 
 typedef struct s_header_prs_tok
 {
-	t_prs_tok					*header;
+	t_prs_tok					*tokens;
 	struct s_header_prs_tok		*next;
 	int							size;
-}   t_header_prs_tok;
+}	t_header_prs_tok;
 
-
-
-//main structur. Here will pend everything but lexing struct
 typedef struct s_minishell
 {
-	char				*line;
-	t_env				*env_lst;
-	t_list_token		list;
-	t_header_prs_tok 	list_prs; 
-	struct termios		termios_default;
+	char		*line;
+	t_env		*env_lst;
+	t_list_token	list; //esto hayq eu cambialo a un puntero. Volver a estudiar esto  y diferencia enntre pointer y &
+	t_header_prs_tok	*header;
+	struct termios	termios_default;
 }t_minishell;
 
 
