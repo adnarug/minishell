@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 11:06:11 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/23 15:59:12 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/23 17:22:14 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	init_simulation(t_minishell *data)
 
 	token = ft_lstnew_prs_tok('<', "infile", NULL);
 	header_lst = ft_lstnew_header_prs_tok();
-	ft_lstadd_back_prs_tok(&token, ft_lstnew_prs_tok('c', NULL, ft_split("cat",' ')));
+	ft_lstadd_back_prs_tok(&token, ft_lstnew_prs_tok('c', NULL, ft_split("pwd", ' ')));
 	ft_lstadd_back_prs_tok(&token, ft_lstnew_prs_tok('>', "outfile", NULL));
 	header_lst->tokens = token;
 	data->header = header_lst;

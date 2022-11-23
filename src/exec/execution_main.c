@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:22:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/23 16:36:24 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/23 17:23:17 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,9 @@ int	cmd_exec(t_prs_tok *token, t_minishell *data)
 	{
 		return (run_execution(token, data));
 	}
- 
-	close(token->fd_in);
-	close(token->fd_out);
-	waitpid(pid, &state, 0);
+	// close(token->fd_in);
+	// close(token->fd_out);
+	wait(NULL);
 	return (EXIT_SUCCESS);
 }
 
@@ -177,7 +176,6 @@ static int	is_builtin(t_prs_tok *token)
 	return(0);
 }
 
-
 t_prs_tok *iter_until_cmd(t_header_prs_tok *header)
 {
 	while (header != NULL)
@@ -193,6 +191,7 @@ t_prs_tok *iter_until_cmd(t_header_prs_tok *header)
 	return (NULL);
 }
 
+/*TODO:check for leaking fds*/
 int	ft_execution(t_minishell *data)
 {
 	t_prs_tok	*token;
@@ -201,13 +200,13 @@ int	ft_execution(t_minishell *data)
 	if (token == NULL)
 		return (EXIT_FAILURE);
 	printf("%s", token->cmd_flags[0]);
-	if (is_builtin(token) == 1)
-		exec_builtin(token, data);
-	else
-	{
+	// if (is_builtin(token) == 1)
+	// 	exec_builtin(token, data);
+	// else
+	// {
 		// tokens_lst->argv = token_lst_to_argv(token);
 		// counter = count_strings(tokens_lst->argv);
 		cmd_exec(token, data);
-	}
+	// }
 	return (EXIT_SUCCESS);
 }
