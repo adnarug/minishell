@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 08:18:02 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/22 11:26:59 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/23 15:58:35 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,39 +50,37 @@ char	*check_paths(char **path_to_builtins, char *command)
 	return (NULL);
 }
 
-// char	**find_path(char **envp)
-// {
-// 	char	*path;
-// 	int		i;
-// 	char	**path_to_builtins;
+char	**find_path(char **envp)
+{
+	char	*path;
+	int		i;
+	char	**path_to_builtins;
 
-// 	path = NULL;
-// 	i = 0;
-// 	if (envp == NULL || *envp == NULL)
-// 		return (NULL);
-// 	while (ft_strncmp(envp[i], "PATH=", 5) != 0)
-// 		i++;
-// 	path = envp[i];
-// 	path_to_builtins = ft_split(path + 5, ':');
-// 	return (path_to_builtins);
-// }
+	path = NULL;
+	i = 0;
+	if (envp == NULL || *envp == NULL)
+		return (NULL);
+	while (ft_strncmp(envp[i], "PATH=", 5) != 0)
+		i++;
+	path = envp[i];
+	path_to_builtins = ft_split(path + 5, ':');
+	return (path_to_builtins);
+}
 
-// int	find_correct_paths(t_nod_token *parameters, t_minishell *data)
-// {
-// 	char	**path_to_builtins;
+int	find_correct_paths(t_prs_tok *parameters, t_minishell *data)
+{
+	char	**path_to_builtins;
 
-// 	path_to_builtins = NULL;
-
-
-// 	path_to_builtins = ft_split(ft_lst_find(data->env_lst, "PATH")->value, ':');
-// 	if (path_to_builtins == NULL)
-// 		return (EXIT_FAILURE);
-// 	if (path_to_builtins == NULL)
-// 		printf("Error\nCould not find the PATH =");
-// 	path_to_builtins = add_path_sign(path_to_builtins);
-// 	parameters->exec_path = \
-// 		check_paths(path_to_builtins, parameters->name);
-// 	if (parameters->exec_path == NULL)
-// 		printf("Error\nPlease check cmd1");
-// 	return (EXIT_SUCCESS);
-// }
+	path_to_builtins = NULL;
+	path_to_builtins = ft_split(ft_lst_find(data->env_lst, "PATH")->value, ':');
+	if (path_to_builtins == NULL)
+		return (EXIT_FAILURE);
+	if (path_to_builtins == NULL)
+		printf("Error\nCould not find the PATH =");
+	path_to_builtins = add_path_sign(path_to_builtins);
+	parameters->exec_path = \
+		check_paths(path_to_builtins, parameters->cmd_flags[0]);
+	if (parameters->exec_path == NULL)
+		printf("Error\nPlease check cmd1");
+	return (EXIT_SUCCESS);
+}

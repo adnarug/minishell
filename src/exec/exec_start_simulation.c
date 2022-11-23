@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   exec_start_simulation.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/13 11:07:23 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/23 14:18:58 by pguranda         ###   ########.fr       */
+/*   Created: 2022/11/23 14:43:12 by pguranda          #+#    #+#             */
+/*   Updated: 2022/11/23 15:59:18 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../include/minishell.h"
 
-t_list	*ft_lstlast(t_list *lst)
+t_prs_tok *iter_until_cmd(t_header_prs_tok *header)
 {
-	int				i;
-
-	i = ft_lstsize(lst);
-	while (i > 1)
+	while (header != NULL)
 	{
-		lst = lst -> next;
-		i--;
+		while(header->tokens != NULL)
+		{
+			if (header->tokens->type == 'c')
+				return (header->tokens);
+			header->tokens = header->tokens->next;
+		}
+		header = header->next;
 	}
-	return (lst);
 }

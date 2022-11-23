@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/22 13:16:42 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/23 16:19:55 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,35 @@ typedef struct s_cmd_exec
 }	t_cmd_exec;
 
 //main structur. Here will pend everything but lexing struct
+typedef struct s_prs_tok
+{
+	char			type;
+	char			*word;
+	char			**cmd_flags;
+	char			*exec_path;
+	int				fd_in;
+	int				fd_out;
+	struct s_prs_tok *next;
+}	t_prs_tok; 
+
+
+typedef struct s_header_prs_tok
+{
+	t_prs_tok					*tokens;
+	struct s_header_prs_tok		*next;
+	int							size;
+}	t_header_prs_tok;
+
 typedef struct s_minishell
 {
-	char		*line;
-	t_env		*env_lst;
-	char		**env_argv;
-	t_list_token	list; //esto hayq eu cambialo a un puntero. Volver a estudiar esto  y diferencia enntre pointer y &
-	struct termios	termios_default;
+	char				*line;
+	t_env				*env_lst;
+	char				**env_argv;
+	t_list_token		list; //esto hayq eu cambialo a un puntero. Volver a estudiar esto  y diferencia enntre pointer y &
+	t_header_prs_tok	*header;
+	struct termios		termios_default;
 }	t_minishell;
+
 
 
 // //--------- Estas funciones las he sacdo de una hoja. Borarr

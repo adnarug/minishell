@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:49:08 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/22 12:37:45 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/22 16:03:34 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	parent_process(t_param parameters, int *fd,
 		error("Error\nExecve issue in the parent", 1);
 }
 
-static void	child_process(t_param parameters, int *fd,
+static void	child1_process(t_param parameters, int *fd,
 	int *pipe_end, char **envp)
 {
 	dup2(fd[INFILE], STDIN_FILENO);
@@ -60,33 +60,48 @@ char	**extract_cmd_flags(char *cmd_flags_input)
 	return (cmd_flags_output);
 }
 
+/*
+-Receive  */
 int	pipex(int argc, char **argv, char **envp)
 {
 	t_param	parameters;
 	int		fd[2];
 	int		pipe_end[2];
+	int		current;
+	int		next;
+	int		pid;
 
-	if (envp == NULL)
-		error("Error\nCould not access env", 2);
+	current = 0;
+	next = current + 1;
+	pid = 0;
+	if (envp == NULL || argc == 0 || argv == NULL)
+		error("pipex: Error\nCould not access env", 2);
 	check_args_validity(argc, argv);
-	printf("num of argc %i\n", argc);
-	if (argc == 5)
-		init_params(&parameters, argv[2], argv[3]);
-	if (argc == 2)
-		init_params(&parameters, argv[1], argv[2]);
+	while (argv[current] != NULL && argv[next] == NULL)
+	{
+		init_params(&parameters, argv[current], argv[next]);
+		//reset params;
+		current++;
+	}
 	find_correct_paths(&parameters, envp);
-	if (argc == 5)
-		open_files(argv[1], argv[4], fd);
-	if (argc == 2)
-		open_file_std(fd);
+	// if (argc == 5)
+	// 	open_files(argv[1], argv[4], fd);
+	open_file_std(fd); 	
 	if (pipe(pipe_end) == -1)
 		error("Error\nCould not open the pipe", 1);
 	parameters.pid = fork();
 	if (parameters.pid == -1)
 		error("Error\nCould not fork", 1);
 	if (parameters.pid == 0)
-		child_process(parameters, fd, pipe_end, envp);
-	if (parameters.pid != 0)
-		parent_process(parameters, fd, pipe_end, envp);
+	{
+		pid = fork();
+		if (pid == 0)
+			child2_process(parameters, fd, pipe_end, envp);
+		if (pid != 0)
+		{
+			child1_process(parameters, fd, pipe_end, envp);
+			wait (NULL);
+		}
+	wait (NULL);
 	return (0);
 }

@@ -1,7 +1,7 @@
 NAME = minishell
 SRC_DIR = src/
 OBJ_DIR = obj/
-FLAGS = -Werror -Wextra -g -Wall
+FLAGS = -Wextra -g -Wall #-Werror 
 LIBFT = libft/
 CC = gcc
 SRC_FILES = main				\
@@ -17,11 +17,8 @@ SRC_FILES = main				\
 			signals/signals_main \
 			signals/signals_termios \
 			exec/execution_main \
+			exec/exec_init_simulation \
 			exec/cmd_exec/path_check \
-			exec/pipex/open_files \
-			exec/pipex/path_check \
-			exec/pipex/pipex \
-			exec/pipex/utils \
 			env/env_main \
 			env/initializer_env \
 			utils/lst_utils \
@@ -33,7 +30,7 @@ SRC_FILES = main				\
 			builtins/exit \
 			builtins/export \
 			builtins/pwd \
-			builtins/unset 
+			builtins/unset \
 
 DEF_COLOR = \033[0;80m
 GREEN = \033[0;92m

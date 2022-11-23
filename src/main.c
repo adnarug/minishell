@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/20 13:50:27 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/23 15:30:22 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int main(int argc, char **argv, char **envp)
 	char	*line_buffer;
 	// char	**after_split;
 	
-	//t_list_token	list; //reeemplazada por data
+	// t_list_token	list; //reeemplazada por data
 	t_minishell		data;
 	initializer_data(&data);
 	ft_env(&data, envp);
@@ -78,17 +78,18 @@ int main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		signals_main(&(data.termios_default));
-		data.line = NULL; //do we need it always? is already done at initializer_data(&data);
+		// data.line = NULL; //do we need it always? is already done at initializer_data(&data);
 		line_buffer = readline("minishell $ ");
 		data.line = line_buffer;
 		add_history(line_buffer); // is it &data.line ??
 		// after_split = ft_split_meta(line_buffer);
 		// print_2d(after_split);
 		ft_lexer(&data);
-		print_list(&data.list);
+		// print_list(&data.list);
 		ft_expand(&data);
 		printf("\n*********Print after expand******\n\n");
 		print_list(&data.list);
+		init_simulation(&data);
 		ft_execution(&data);
 		//atexit(check_leaks);
 		//system("leaks minishell");

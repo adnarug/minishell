@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/22 11:30:06 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/23 15:58:09 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # include <errno.h>
 
 # include "../libft/libft.h"
-# include "pipex.h"
+// #  include "pipex.h"
 #include "struct.h"
 #include "error.h"
 
@@ -190,7 +190,7 @@ void		ft_lstdelone_env(t_env *node_to_delete, t_env *env);
 t_env		*ft_lst_find(t_env *node, char *key);
 t_env		*ft_lst_find_previous(t_env *head, t_env *node_to_find);
 int			ft_strcmp(const char *s1, const char *s2);
-int		ft_execution(t_minishell *data);
+int			ft_execution(t_minishell *data);
 
 void	ft_env(t_minishell *data, char **envp);
 
@@ -209,16 +209,21 @@ int		builtin_export(t_env *envp, char **argv);
 int		builtin_exit(char	**token);
 
 //Execution 
-int 	cmd_exec(t_nod_token *token, t_minishell *data);
-int	    exec_builtin(t_nod_token *token_node, t_minishell *data);
+int 	cmd_exec(t_prs_tok *token, t_minishell *data);
+int	    exec_builtin(t_prs_tok *token_node, t_minishell *data);
 int		ft_execution(t_minishell *data);
 char    **init_builtins_arr(char **builtins);
 // int		find_correct_paths(t_nod_token *parameters, t_minishell *data);
 char	**find_path(char **envp);
 char	*check_paths(char **path_to_builtins, char	*command);
 char	**add_path_sign(char **path_to_builtins);
-int		find_correct_paths(t_param *parameters, char **envp);
-int		pipex(int argc, char **argv, char **envp);
+char	**add_path_sign(char **path_to_builtins);
+int	    find_correct_paths(t_prs_tok *parameters, t_minishell *data);
+// int		pipex(int argc, char **argv, char **envp);
 
-
+//Exec simulation
+void	init_simulation(t_minishell *data);
+t_prs_tok	*ft_lstnew_prs_tok(char type, char *word, char **cmd_flags);
+t_header_prs_tok	*ft_lstnew_header_prs_tok();
+t_prs_tok *iter_until_cmd(t_header_prs_tok *header);
 #endif 
