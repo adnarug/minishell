@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 00:25:54 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/22 20:35:44 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/22 23:01:41 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void expand_find(t_minishell *data, t_nod_token *current)
 	we send that key to enviroment, and if it is found, we replace it and add it to the expanded_buffer
 	we continue to run to the end.
 */
-void	ft_expand_main(t_minishell *data)
+void	ft_expand(t_minishell *data)
 {
 	t_nod_token *current;
 

@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/22 19:51:57 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/23 15:47:43 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ void	initializer_data(t_minishell *data)
 	data->line = NULL;
 	data->list.head = NULL;
 	data->list.size = 0;
+	data->list_prs.header = NULL;
+	data->list_prs.next = NULL;
+	data->list_prs.size = 0;
 	tcgetattr(STDOUT_FILENO, &data->termios_default);
 }
 
@@ -50,7 +53,7 @@ void debuggear(t_minishell *data)
 	data->line = ft_strdup("$roman");
 	ft_lexer(data);
 	print_list(&data->list);
-	ft_expand_main(data);
+	ft_expand(data);
 	exit(0);
 }
 
@@ -83,15 +86,16 @@ int main(int argc, char **argv, char **envp)
 			//do not save in the history an empty line and shows again the promt 
 			continue; // it will not execute the lines below , and will loop again the next iteration
 		}
-		data.line = line_buffer;
-		add_history(line_buffer); // is it &data.line ??
+		data.line = line_buffer; //what about free line_buffer??
+		add_history(line_buffer); // is it &data.line ?? , 
 		// after_split = ft_split_meta(line_buffer);
 		// print_2d(after_split);
 		ft_lexer(&data);
-		print_list(&data.list);
-		ft_expand_main(&data);
+		//print_list(&data.list);
+		ft_expand(&data);
 		printf("\n*********Print after expand******\n\n");
 		print_list(&data.list);
+		ft_parser(&data);
 		//ft_execution(&data);
 		//atexit(check_leaks);
 		//system("leaks minishell");

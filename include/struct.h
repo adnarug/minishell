@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/21 23:44:18 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/23 17:26:48 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,32 @@ typedef struct s_env
 	char		*value;
 	struct s_env *next;
 }	t_env;
-	
+
+typedef struct s_prs_tok
+{
+    char    type;
+    char    *word;
+    char    **cmd_flags;
+    struct s_prs_tok *next;
+}   t_prs_tok;
+
+typedef struct s_header_prs_tok
+{
+	t_prs_tok					*header;
+	struct s_header_prs_tok		*next;
+	int							size;
+}   t_header_prs_tok;
+
+
 
 //main structur. Here will pend everything but lexing struct
 typedef struct s_minishell
 {
-	char		*line;
-	t_env		*env_lst;
-	t_list_token	list; //esto hayq eu cambialo a un puntero. Volver a estudiar esto  y diferencia enntre pointer y &
-	struct termios	termios_default;
+	char				*line;
+	t_env				*env_lst;
+	t_list_token		list;
+	t_header_prs_tok 	list_prs; 
+	struct termios		termios_default;
 }t_minishell;
 
 
@@ -128,3 +145,12 @@ typedef struct s_minishell
 // 	t_nod_token	*head;
 // 	int	size;
 // }t_list_token;
+
+// typedef sruct s_parsenode
+// {
+// 	char	type;  // R P C   (Redireccion, Pipe, Commando )
+// 	char	redirtype; // - > < + 
+// 	char	*file  // soloe relevante para R (Redirecciones -> siempre el primer w. despues de los > >> < <, file1 o )
+// 	char	**argv // solo relevante para C (Commando)
+// 	s_parsenode	*next;
+// } t_parsenode;

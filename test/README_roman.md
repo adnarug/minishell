@@ -82,9 +82,14 @@ Install with:
 
 `./minishell`
 
+Parsing
+
+
+
 <br><br>
 **Edge cases for testing purposes**
 
+< test2 grep hi | wc -w > test2_result $HOME '$HOME' "$HOME"
 <details>
  <summary> cd </summary>
 
