@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/23 18:06:37 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/23 18:50:46 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct s_minishell
 {
 	char		*line;
 	t_env		*env_lst;
+	char				**env_argv;
 	t_list_token	list; //esto hayq eu cambialo a un puntero. Volver a estudiar esto  y diferencia enntre pointer y &
 	t_header_prs_tok	*header;
 	struct termios	termios_default;

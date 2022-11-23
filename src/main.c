@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/23 18:03:01 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/23 18:49:36 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
  echo $ $ >> no hay que expandir
  echo text"$USER" >>> Expandir sin tener en cuenta las "" , also for cd,  cd "$HOME"
 
- 
-
 */
 
 /*
@@ -34,9 +32,10 @@ void	initializer_data(t_minishell *data)
 	data->line = NULL;
 	data->list.head = NULL;
 	data->list.size = 0;
-	data->list_prs.tokens = NULL;
-	data->list_prs.next = NULL;
-	data->list_prs.size = 0;
+	data->header = NULL;
+	// data->list_prs.tokens = NULL;
+	// data->list_prs.next = NULL;
+	// data->list_prs.size = 0;
 	tcgetattr(STDOUT_FILENO, &data->termios_default);
 }
 
@@ -84,8 +83,6 @@ int main(int argc, char **argv, char **envp)
 		print_list(&data.list);
 		//init_simulation(&data);
 		//ft_execution(&data);
-		
-
 		delete_list(&data.list); //para que no queden leaks
 		//ft_parser(&list, line_buffer);
 

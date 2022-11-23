@@ -18,10 +18,6 @@ SRC_FILES = main				\
 			signals/signals_termios	\
 			signals/signals_child_process \
 			signals/signals_parent_process \
-			expand/expand		\
-			expand/expand_tools \
-			signals/signals_main \
-			signals/signals_termios \
 			exec/execution_main \
 			exec/exec_init_simulation \
 			exec/cmd_exec/path_check \
