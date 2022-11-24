@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:22:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/24 15:22:16 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/24 17:14:06 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int run_execution(t_prs_tok *token, t_minishell *data)
 	// dup2(token->fd_in, STDIN_FILENO);
 	// dup2(token->fd_out, STDOUT_FILENO);
 	if (DEBUG == 1)
-		printf("***toke->exec_path:%s", token->exec_path);
+		printf("***token->exec_path:%s", token->exec_path);
 	if (execve(token->exec_path, token->cmd_flags, (char*const *)data->env_lst) == -1)
 		perror("Error\nExecve issue in the child");
 	return (EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/24 15:16:50 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/24 16:50:00 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ t_env	*ft_lstnew_env(char *value, char *key);
 # define HEREDOC			'-' // changed
 # define WORD				'w'
 # define QUOTE_OFF			'\0'
+# define COMMAND			'c'
 
 
 # define	DELIMITERS		" \t|<>"

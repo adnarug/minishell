@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 11:00:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/24 16:03:50 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/24 17:21:56 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,51 @@ static int	count_hdcos(t_header_prs_tok *prs_lst)
 	return (EXIT_SUCCESS);
 }
 
+char **create_hdoc_files(t_header_prs_tok *prs_lst)
+{
+	char	**hdoc_files_table;
+	char	*tmp;
+	char	*path;
+	int		i;
+	char	*hdoc_index;
+	
+	i = 0;
+	tmp = ft_strdup("/tmp/");
+	hdoc_files_table = malloc(sizeof(char *) * (prs_lst->num_hdocs + 1));
+	if (hdoc_files_table == NULL)
+		return(EXIT_FAILURE);
+	while (i < prs_lst->num_hdocs)
+	{
+		hdoc_index = ft_itoa(i);
+		path = ft_strjoin(tmp, hdoc_index);
+		hdoc_files_table[i] = malloc(sizeof(char) * ft_strlen(path));//maybe +1
+		if (hdoc_files_table[i] == NULL)
+			return (NULL);
+		printf("comes to create\n");
+		open(path, O_CREAT | O_RDWR | O_TRUNC, 0644);
+		// if (data->fd->in < 0 || access(hdoc, F_OK) < 0 || access(hdoc, R_OK) < 0)
+		// 	return (NULL);
+		perror(NULL);
+		hdoc_files_table[i] = path;
+		free(path);
+		path = NULL;
+		free(hdoc_index);
+		hdoc_index = NULL;
+		i++;
+	}
+	return (hdoc_files_table);
+}
+
 int resolve_hdocs(t_minishell	*data)
 {
-	count_hdcos(data->lst_prs);
+	char	**hdoc_tmp_files;
+	
+	hdoc_tmp_files = NULL;
+	if (count_hdcos(data->lst_prs) == 0)
+		return (EXIT_SUCCESS);
+	hdoc_tmp_files = create_hdoc_files(data->lst_prs);
 	if (DEBUG == 1)
 		printf("num of heredocs %i\n", data->lst_prs->num_hdocs);
+	free(hdoc_tmp_files);
 	return (EXIT_SUCCESS);
 }
