@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/23 18:49:36 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/24 11:47:10 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	initializer_data(t_minishell *data)
 	data->line = NULL;
 	data->list.head = NULL;
 	data->list.size = 0;
-	data->header = NULL;
+	data->lst_prs = NULL;
 	// data->list_prs.tokens = NULL;
 	// data->list_prs.next = NULL;
 	// data->list_prs.size = 0;
@@ -81,8 +81,8 @@ int main(int argc, char **argv, char **envp)
 		ft_expand(&data);
 		printf("\n*********Print after expand******\n\n");
 		print_list(&data.list);
-		//init_simulation(&data);
-		//ft_execution(&data);
+		init_simulation(&data);
+		ft_execution(&data);
 		delete_list(&data.list); //para que no queden leaks
 		//ft_parser(&list, line_buffer);
 

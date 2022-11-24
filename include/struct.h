@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/23 18:50:46 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/24 11:54:00 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_cmd
 typedef struct s_nod_token
 {
 	char	*name;
-	int		flag;//can we rename flag into type?
+	char	flag;//can we rename flag into type?
 	int		simple_quote;
 	int		double_quote;
 	char	quote;
@@ -89,19 +89,19 @@ typedef struct s_prs_tok
 
 typedef struct s_header_prs_tok
 {
-	t_prs_tok					*tokens;
+	t_prs_tok					*prs_tok;
 	struct s_header_prs_tok		*next;
 	int							size;
 }	t_header_prs_tok;
 
 typedef struct s_minishell
 {
-	char		*line;
-	t_env		*env_lst;
+	char				*line;
+	t_env				*env_lst;
 	char				**env_argv;
-	t_list_token	list; //esto hayq eu cambialo a un puntero. Volver a estudiar esto  y diferencia enntre pointer y &
-	t_header_prs_tok	*header;
-	struct termios	termios_default;
+	t_list_token		list; //esto hayq eu cambialo a un puntero. Volver a estudiar esto  y diferencia enntre pointer y &
+	t_header_prs_tok	*lst_prs;
+	struct termios		termios_default;
 }t_minishell;
 
 

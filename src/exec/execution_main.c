@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_main.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:22:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/23 18:06:40 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/24 11:52:16 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,8 @@ int	cmd_exec(t_prs_tok *token, t_minishell *data)
 {
 	pid_t	pid;
 
-
-	token->fd_in = open("in_file", O_RDWR, 0777);
-	token->fd_out = open("out_file", O_CREAT | O_WRONLY | O_TRUNC, 0777);
+	token->fd_in = open("in_file", O_RDWR, 0644);
+	token->fd_out = open("out_file", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (find_correct_paths(token, data) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	if (token->exec_path == NULL)
@@ -180,11 +179,11 @@ t_prs_tok *iter_until_cmd(t_header_prs_tok *header)
 {
 	while (header != NULL)
 	{
-		while(header->tokens != NULL)
+		while(header->prs_tok != NULL)
 		{
-			if (header->tokens->type == 'c')
-				return (header->tokens);
-			header->tokens = header->tokens->next;
+			if (header->prs_tok->type == 'c')
+				return (header->prs_tok);
+			header->prs_tok = header->prs_tok->next;
 		}
 		header = header->next;
 	}
@@ -196,7 +195,7 @@ int	ft_execution(t_minishell *data)
 {
 	t_prs_tok	*token;
 	
-	token = iter_until_cmd(data->header);
+	token = iter_until_cmd(data->lst_prs);
 	if (token == NULL)
 		return (EXIT_FAILURE);
 	printf("%s", token->cmd_flags[0]);
