@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/23 18:55:39 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/24 16:48:53 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,18 +83,20 @@ t_env	*ft_lstnew_env(char *value, char *key);
 # define HEREDOC			'-' // changed
 # define WORD				'w'
 # define QUOTE_OFF			'\0'
+# define COMMAND			'c'
 
 
 # define	DELIMITERS		" \t|<>"
 # define	SPACE_STRNG		" "
+# define	REDIRECT		"+-<>"
 
 //TOKEN FLAGS: //Will not be used ??
-# define TYP_WORD				1
-# define TYP_REDIRECT_IN		2
-# define TYP_REDIRECT_OUT		3
-# define TYP_APPEND				4 // >>
-# define TYP_HEREDOC			5 //<<
-# define TYP_PIPE				6
+// # define TYP_WORD				1
+// # define TYP_REDIRECT_IN		2
+// # define TYP_REDIRECT_OUT		3
+// # define TYP_APPEND				4 // >>
+// # define TYP_HEREDOC			5 //<<
+// # define TYP_PIPE				6
 
 //TOKEN FLAGS: //Will not be used ??
 # define MAIN				1
@@ -105,8 +107,10 @@ t_env	*ft_lstnew_env(char *value, char *key);
 
 //para borrar
 
-//void	ft_parser(t_list_token *list, char *line);
+//PARSER
+void ft_parser(t_minishell *data);
 
+//
 void add_toke_list(t_list_token *list, t_nod_token *new);
 t_nod_token *create_tok(t_lexing *lex_struct);
 t_nod_token *find_last_node(t_list_token *list);

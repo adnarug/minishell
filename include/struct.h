@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/24 11:54:00 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/24 16:37:53 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,17 +80,23 @@ typedef struct s_prs_tok
 	char			type;
 	char			*word;
 	char			**cmd_flags;
-	char			*exec_path;
-	int				fd_in;
-	int				fd_out;
+
 	struct s_prs_tok *next;
 }	t_prs_tok; 
 
+/*
+    List of headers to parsed tokens between pipes
+    t_prs_tok   *tokens : Starting from list of tokens
+    struct s_header_prs_tok *next: first element of list form list
+*/
 
 typedef struct s_header_prs_tok
 {
 	t_prs_tok					*prs_tok;
 	struct s_header_prs_tok		*next;
+	char						*exec_path;
+	int							fd_in;
+	int							fd_out;
 	int							size;
 }	t_header_prs_tok;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/24 11:47:10 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/24 16:47:57 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int main(int argc, char **argv, char **envp)
 		init_simulation(&data);
 		ft_execution(&data);
 		delete_list(&data.list); //para que no queden leaks
-		//ft_parser(&list, line_buffer);
+		ft_parser(&data);
 
 		free(line_buffer);
 
