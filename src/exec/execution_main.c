@@ -6,9 +6,11 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:22:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/24 11:52:16 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/24 15:22:16 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+# define DEBUG 1
 
 #include "../../include/minishell.h"
 
@@ -84,12 +86,12 @@ int run_execution(t_prs_tok *token, t_minishell *data)
 {
 	//taking the tokes of the input and the output file from the struct
 	//running the execution 
-	printf("FD IN:%d\n", token->fd_in);
-	printf("FD OUT: %d\n", token->fd_out);
-	dup2(token->fd_in, STDIN_FILENO);
-	dup2(token->fd_out, STDOUT_FILENO);
-	printf("***toke->exec_pat:%s", token->exec_path);
-	printf("comes to exec\n");
+	// printf("FD IN:%d\n", token->fd_in);
+	// printf("FD OUT: %d\n", token->fd_out);
+	// dup2(token->fd_in, STDIN_FILENO);
+	// dup2(token->fd_out, STDOUT_FILENO);
+	if (DEBUG == 1)
+		printf("***toke->exec_path:%s", token->exec_path);
 	if (execve(token->exec_path, token->cmd_flags, (char*const *)data->env_lst) == -1)
 		perror("Error\nExecve issue in the child");
 	return (EXIT_SUCCESS);
@@ -99,8 +101,13 @@ int	cmd_exec(t_prs_tok *token, t_minishell *data)
 {
 	pid_t	pid;
 
-	token->fd_in = open("in_file", O_RDWR, 0644);
-	token->fd_out = open("out_file", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	resolve_hdocs(data);
+	if (DEBUG == 1)
+		printf("heredocs are resolved\n");
+	resolve_redir(data->lst_prs->prs_tok, data->lst_prs);
+	token = iter_until_cmd(data->lst_prs);
+	if (DEBUG == 1)
+		printf("command being executed %s\n", token->cmd_flags[0]);
 	if (find_correct_paths(token, data) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	if (token->exec_path == NULL)
@@ -112,8 +119,6 @@ int	cmd_exec(t_prs_tok *token, t_minishell *data)
 	{
 		return (run_execution(token, data));
 	}
-	// close(token->fd_in);
-	// close(token->fd_out);
 	wait(NULL);
 	return (EXIT_SUCCESS);
 }
@@ -182,7 +187,11 @@ t_prs_tok *iter_until_cmd(t_header_prs_tok *header)
 		while(header->prs_tok != NULL)
 		{
 			if (header->prs_tok->type == 'c')
+			{
+				if (DEBUG == 1)
+					printf("returns the comand\n");
 				return (header->prs_tok);
+			}
 			header->prs_tok = header->prs_tok->next;
 		}
 		header = header->next;
@@ -193,19 +202,21 @@ t_prs_tok *iter_until_cmd(t_header_prs_tok *header)
 /*TODO:check for leaking fds*/
 int	ft_execution(t_minishell *data)
 {
-	t_prs_tok	*token;
+	// t_prs_tok	*token;
 	
-	token = iter_until_cmd(data->lst_prs);
-	if (token == NULL)
-		return (EXIT_FAILURE);
-	printf("%s", token->cmd_flags[0]);
+	// token = iter_until_cmd(data->lst_prs);
+	// if (token == NULL)
+	// 	return (EXIT_FAILURE);
+	// printf("%s", token->cmd_flags[0]);
 	// if (is_builtin(token) == 1)
 	// 	exec_builtin(token, data);
 	// else
 	// {
 		// tokens_lst->argv = token_lst_to_argv(token);
 		// counter = count_strings(tokens_lst->argv);
-		cmd_exec(token, data);
+		cmd_exec(data->lst_prs->prs_tok, data);
 	// }
+	if (DEBUG == 1)
+		printf("exiting the ft_execution\n");
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/24 11:47:10 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/24 14:41:12 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ int main(int argc, char **argv, char **envp)
 	ft_env(&data, envp);
 	(void) (argc);
 	(void) (argv);
-	while (1)
-	{
+	// while (1)
+	// {
 		signals_main(&(data.termios_default));
 		line_buffer = readline("minishell $ ");
 		data.line = line_buffer; //what about free line_buffer??
@@ -90,6 +90,6 @@ int main(int argc, char **argv, char **envp)
 
 		//atexit(check_leaks);
 		//system("leaks minishell");
-	}
+	// }
 	return (0);
 }

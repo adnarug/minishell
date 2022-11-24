@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/24 11:54:00 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/24 15:01:38 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,6 @@ typedef struct s_prs_tok
 	char			*word;
 	char			**cmd_flags;
 	char			*exec_path;
-	int				fd_in;
-	int				fd_out;
 	struct s_prs_tok *next;
 }	t_prs_tok; 
 
@@ -90,6 +88,9 @@ typedef struct s_prs_tok
 typedef struct s_header_prs_tok
 {
 	t_prs_tok					*prs_tok;
+	int							fd_in;
+	int							fd_out;
+	int							num_hdocs;
 	struct s_header_prs_tok		*next;
 	int							size;
 }	t_header_prs_tok;

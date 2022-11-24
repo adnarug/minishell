@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/23 18:55:39 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/24 15:16:50 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,28 +211,30 @@ char		**split_into_key_value(char *string);
 long int	ft_atol(const char *str);
 
 //Builtins
-int		builtin_env(t_env *env, char *argv) ;
-int		builtin_cd(t_env *env, char **argv);
-int		builtin_unset(t_env *env, char **argv);
-int		builtin_export(t_env *envp, char **argv);
-int		builtin_exit(char	**token);
+int			builtin_env(t_env *env, char *argv) ;
+int			builtin_cd(t_env *env, char **argv);
+int			builtin_unset(t_env *env, char **argv);
+int			builtin_export(t_env *envp, char **argv);
+int			builtin_exit(char	**token);
 
 //Execution 
-int 	cmd_exec(t_prs_tok *token, t_minishell *data);
-int	    exec_builtin(t_prs_tok *token_node, t_minishell *data);
-int		ft_execution(t_minishell *data);
-char    **init_builtins_arr(char **builtins);
+int			cmd_exec(t_prs_tok *token, t_minishell *data);
+int			exec_builtin(t_prs_tok *token_node, t_minishell *data);
+int			ft_execution(t_minishell *data);
+char		**init_builtins_arr(char **builtins);
 // int		find_correct_paths(t_nod_token *parameters, t_minishell *data);
-char	**find_path(char **envp);
-char	*check_paths(char **path_to_builtins, char	*command);
-char	**add_path_sign(char **path_to_builtins);
-char	**add_path_sign(char **path_to_builtins);
-int	    find_correct_paths(t_prs_tok *parameters, t_minishell *data);
+char		**find_path(char **envp);
+char		*check_paths(char **path_to_builtins, char	*command);
+char		**add_path_sign(char **path_to_builtins);
+char		**add_path_sign(char **path_to_builtins);
+int			find_correct_paths(t_prs_tok *parameters, t_minishell *data);
 // int		pipex(int argc, char **argv, char **envp);
 
 //Exec simulation
-void	init_simulation(t_minishell *data);
-t_prs_tok	*ft_lstnew_prs_tok(char type, char *word, char **cmd_flags);
+void				init_simulation(t_minishell *data);
+t_prs_tok			*ft_lstnew_prs_tok(char type, char *word, char **cmd_flags);
 t_header_prs_tok	*ft_lstnew_header_prs_tok();
-t_prs_tok *iter_until_cmd(t_header_prs_tok *header);
+t_prs_tok			*iter_until_cmd(t_header_prs_tok *header);
+int					resolve_redir(t_prs_tok *prs_token, t_header_prs_tok *prs_lst);
+int					resolve_hdocs(t_minishell	*data);
 #endif 
