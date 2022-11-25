@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 11:00:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/25 14:22:10 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/25 14:26:08 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,16 +142,16 @@ static void	read_to_hdoc(t_minishell *data, t_prs_tok *token)
 	}*/
 }
 
-// static void	destroy_hdocs(t_minishell *data)
-// {
-// 	int	i;
+static void	destroy_hdocs(t_minishell *data)
+{
+	int	i;
 
-// 	if (data->hdoc.fd_tmp == NULL)
-// 		return ;
-// 	i = 0;
-// 	unlink(data->hdoc.fd_tmp);
-// 	free(data->hdoc.fd_tmp);
-// }
+	if (data->hdoc.fd_tmp == NULL)
+		return ;
+	i = 0;
+	unlink(ft_itoa(data->hdoc.index));
+	// free(data->hdoc.fd_tmp);
+}
 
 t_prs_tok	*return_heredoc(t_prs_tok *prs_tok)
 {
@@ -214,8 +214,8 @@ int resolve_hdocs(t_minishell	*data)
 	while (i < data->hdoc.num_hdocs)
 	{
 		read_to_hdoc(data, &data->hdoc.hdocs_nodes[i]);
+		destroy_hdocs(data);
 		data->hdoc.index++;
-		// destroy_hdocs(data);
 		i++;
 	}
 	return (EXIT_SUCCESS);
