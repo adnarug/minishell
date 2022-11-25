@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/25 09:39:50 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/25 15:51:09 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,4 +239,9 @@ t_header_prs_tok	*ft_lstnew_header_prs_tok();
 t_prs_tok			*iter_until_cmd(t_header_prs_tok *header);
 int					resolve_redir(t_prs_tok *prs_token, t_header_prs_tok *prs_lst);
 int					resolve_hdocs(t_minishell	*data);
+
+///HDOCS
+int		count_hdocs(t_minishell *data);
+void	destroy_hdocs(t_minishell *data);
+
 #endif 

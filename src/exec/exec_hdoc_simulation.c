@@ -6,52 +6,14 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 11:00:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/25 14:26:08 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/25 16:23:03 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #define DEBUG 1
 #include "../../include/minishell.h"
-/*
-- Count hdocs
-- Malloc fds for hdoc
-- Parse hdocs
-    - Create hodc files
-    - Add path and index
-    - Create files and the access
-    - Read to hdoc in a child process
-        - Read from stdin */
 
-int is_heredoc(t_prs_tok *prs_tok)
-{
-	t_prs_tok	*tmp;
-	int			num_hdoc;
-
-	tmp = prs_tok;
-	num_hdoc = 0;
-	while (tmp != NULL)
-	{
-		if (tmp->type == '-')
-			num_hdoc++;
-		tmp = tmp->next;
-	}
-	return (num_hdoc);
-}
-
-static int	count_hdocs(t_minishell *data)
-{
-	t_header_prs_tok *tmp_prs_lst;
-
-	tmp_prs_lst = data->lst_prs;
-	while (tmp_prs_lst != NULL)
-	{
-		if (is_heredoc(data->lst_prs->prs_tok) != 0)
-			data->hdoc.num_hdocs += is_heredoc(data->lst_prs->prs_tok);
-		tmp_prs_lst = tmp_prs_lst->next;
-	}
-	return (EXIT_SUCCESS);
-}
-
+/*Reading and writing hdcos to the specific files*/
 static void	read_from_stdin(t_minishell *data, t_prs_tok *token)
 {
 	char	*input;
@@ -59,14 +21,6 @@ static void	read_from_stdin(t_minishell *data, t_prs_tok *token)
 	int		fd;
 
 	lim_found = false;
-	
-	// if (fd < 0 || access("/tmp/tmo2", F_OK) < 0 || access("/tmp/tmo2", R_OK) < 0)
-	// {
-	// 	if (DEBUG == 1)
-	// 		printf("problem with fd of hdoc\n");
-	// 	perror(NULL);
-
-	// }
 	while (lim_found == false)
 	{
 	//	ft_signals(HDOC);
@@ -90,17 +44,17 @@ static void	read_from_stdin(t_minishell *data, t_prs_tok *token)
 	exit(EXIT_SUCCESS);
 }
 
-int create_hdoc_files(t_minishell *data)
+/*Creating files for each hdoc with the filename
+matching the index*/
+static int create_hdoc_files(t_minishell *data)
 {
-	// char	**hdoc_files_table;
 	char	*tmp;
 	int		i;
 	char	*hdoc_index;
 	int		fd;
 	
 	i = 0;
-	// tmp = ft_strdup("/tmp/");
-	data->hdoc.fd_tmp = malloc(sizeof(int) * (data->hdoc.num_hdocs + 1));
+	data->hdoc.fd_tmp = malloc(sizeof(int) * (data->hdoc.num_hdocs));
 	if (data->hdoc.fd_tmp == NULL)
 		return(EXDEV);
 	if (DEBUG == 1)
@@ -108,9 +62,6 @@ int create_hdoc_files(t_minishell *data)
 	while (i < data->hdoc.num_hdocs)
 	{
 		hdoc_index = ft_itoa(i);
-		// hdoc_files_table[i] = malloc(sizeof(char) * ft_strlen(hdoc_index));//maybe +1
-		// if (hdoc_files_table[i] == NULL)
-		// 	return (NULL);
 		data->hdoc.fd_tmp[i] = open(hdoc_index, O_CREAT | O_RDWR | O_TRUNC, 0644);
 		if (data->hdoc.fd_tmp[i]< 0 || access(hdoc_index, F_OK) < 0 || access(hdoc_index, R_OK) < 0)
 			return (EXIT_FAILURE);
@@ -121,6 +72,7 @@ int create_hdoc_files(t_minishell *data)
 	return (EXIT_SUCCESS);
 }
 
+/*Launching a child process to read from STDIN for each hdoc*/
 static void	read_to_hdoc(t_minishell *data, t_prs_tok *token)
 {
 	int	status;
@@ -142,34 +94,9 @@ static void	read_to_hdoc(t_minishell *data, t_prs_tok *token)
 	}*/
 }
 
-static void	destroy_hdocs(t_minishell *data)
-{
-	int	i;
-
-	if (data->hdoc.fd_tmp == NULL)
-		return ;
-	i = 0;
-	unlink(ft_itoa(data->hdoc.index));
-	// free(data->hdoc.fd_tmp);
-}
-
-t_prs_tok	*return_heredoc(t_prs_tok *prs_tok)
-{
-	t_prs_tok	*tmp;
-	int			num_hdoc;
-
-	tmp = prs_tok;
-	num_hdoc = 0;
-	while (tmp != NULL)
-	{
-		if (tmp->type == HEREDOC)
-			return (tmp);
-		tmp = tmp->next;
-	}
-	return (NULL);
-}
-
-t_prs_tok	*iter_till_hdoc(t_minishell *data)
+/*Finds all nodes of t_prs_tok with hdocs, creates
+an array of hdocs in data->hdoc*/
+static t_prs_tok	*find_hdoc_nodes(t_minishell *data)
 {
 	t_header_prs_tok *tmp_prs_lst;
 	int	i;
@@ -195,7 +122,9 @@ t_prs_tok	*iter_till_hdoc(t_minishell *data)
 	return (NULL);
 }
 
-/*Counts hdocs, if >0 continues, creates hdoc files and fds*/
+/*Count hdocs, creates a file in the same folder with the number
+matching the index of the hdoc, stores its fd and pointer to the
+node with the hdoc. */
 int resolve_hdocs(t_minishell	*data)
 {
 	int	i;
@@ -210,7 +139,7 @@ int resolve_hdocs(t_minishell	*data)
 	create_hdoc_files(data);
 	if (DEBUG == 1)
 		printf("num of heredocs %i\n", data->hdoc.num_hdocs);
-	iter_till_hdoc(data);
+	find_hdoc_nodes(data);
 	while (i < data->hdoc.num_hdocs)
 	{
 		read_to_hdoc(data, &data->hdoc.hdocs_nodes[i]);
@@ -218,5 +147,7 @@ int resolve_hdocs(t_minishell	*data)
 		data->hdoc.index++;
 		i++;
 	}
+	free(data->hdoc.fd_tmp);
+	free(data->hdoc.hdocs_nodes);
 	return (EXIT_SUCCESS);
 }
