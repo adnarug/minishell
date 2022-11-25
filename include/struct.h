@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/24 16:37:53 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/24 17:42:58 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,11 @@ typedef struct s_prs_tok
 typedef struct s_header_prs_tok
 {
 	t_prs_tok					*prs_tok;
-	struct s_header_prs_tok		*next;
 	char						*exec_path;
 	int							fd_in;
 	int							fd_out;
 	int							size;
+	struct s_header_prs_tok		*next;
 }	t_header_prs_tok;
 
 typedef struct s_minishell

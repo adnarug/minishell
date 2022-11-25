@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:13:48 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/24 17:38:55 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/24 19:30:13 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,55 +37,106 @@ Elemnt: 9, value= Meta, type = |.
 Elemnt: 10, value= echo, type = w. 
 Elemnt: 11, value= Meta, type = +. 
 Elemnt: 12, value= test3_result, type = w.   
-
-
-jueveshacer un git status
-git restore. Vuelve al principo del commit
-Git_ reset_ volvera al ciomit anterior
 */
 
-static void	create_list_pars(t_minishell *data, t_nod_token *ini, t_nod_token *current, int size_sublist)
+static void add_parsedtok_sublist(t_prs_tok *parsedtok_redir, t_header_prs_tok *sub_list_pars)
 {
-	while (ini && ini != current) //cuando ini apunte a current ( a pipe o NULL??, se acabo)
+	t_prs_tok *last;
+
+	if (!sub_list_pars)
 	{
-		
-		ini = ini->next;
+		printf("sub_list_pars does not exit. Check, because this should not happen \n");
+		exit(1);
 	}
+	if (!sub_list_pars->prs_tok) //sublist is empty
+	{
+		sub_list_pars->prs_tok = parsedtok_redir;
+		return ; // we need to check, if we have to return a value
+	}
+	//otherwise , find the last element and add to the end
+	last = find_last_parsedtok_sublist(sub_list_pars);
+	last->next = parsedtok_redir;
+	return ; //check if we need to return anythin 
 }
 
+
+
+/*
+	We are in a token with redirecction
+	If the next token is not a word, we exit with error
+	Else, we create the parsed token, and we add to the sublist
+*/
+static void creat_parsedtok_redir(t_minishell *data, t_nod_token *current, t_header_prs_tok *sub_list_pars)
+{
+	t_prs_tok *parsedtok_redir;
+
+	if (current->next->flag != WORD)
+	{
+		printf("the redirection has no a word after. Exit and free whart wver you need to free\n");
+		exit(1);
+	}
+	parsedtok_redir = (t_prs_tok *)malloc(sizeof(t_prs_tok));
+	if (!parsedtok_redir)
+		return ; // where or how do we indicate this error?
+	parsedtok_redir->type = current->flag; //it will give one of the redicrecction char
+	parsedtok_redir->word = current->next->name;
+	parsedtok_redir->word = NULL; //this field is not needed, we point to NULL
+	parsedtok_redir->next = NULL; //the node will pointer to NULL
+	add_parsedtok_sublist(parsedtok_redir, sub_list_pars);
+}
+
+static t_header_prs_tok *create_sublist(void)
+{
+	t_header_prs_tok *sub_list_pars;
+	
+	sub_list_pars = (t_header_prs_tok  *)malloc(sizeof(t_header_prs_tok)); //we malloc first sublist
+	if(!sub_list_pars)
+		return (NULL);
+	//do i need to inizialice the values??
+	sub_list_pars->next = NULL;
+	return(sub_list_pars);
+
+}
+
+/*
+	main function for parsing
+	Vamos a intentar que funcione la creacion de la nueva lisa con un solo redirecttcion y un command
+	necesitanos imprimir la lista de listas
+*/
 void ft_parser(t_minishell *data)
 {
 
-	t_nod_token *current;
-	
-	t_header_prs_tok *list_parsed;
+	t_nod_token *current;//to run throug list
+
+	t_header_prs_tok *sub_list_pars;
 
 	if (!data->list.head ) //do i have to check also !data->list ?
 		return (NULL); //emppty list (shoudl not really happen at this point)
-	current = data->list.head; 
-	list_parsed = (t_header_prs_tok  *)malloc(sizeof(t_header_prs_tok));
-	if(!list_parsed)
-		return (NULL);
+	
+	current = data->list.head;
+	sub_list_pars = create_sublist(); //we malloc first sublist
 	while (current)
 	{
-		
 		if (ft_strchr(REDIRECT, current->flag)) //si enconrtrtamos un redirect, cogeremos el siguiente nodo y lo convertimos en psren token
 		{
-			 (data, ini, current, size_sublist); //we give the list, the beggining of sublist and current of sublist pointing to pipe
+			creat_parsedtok_redir(data, current, sub_list_pars); //we give the list, the beggining of sublist and current of sublist pointing to pipe
+			current = current->next; //we will have jooin one node and next in one parsed token.
 		}
 		else if (current->flag == PIPE)
 		{
-			//la lista se le pone un null y se crea la siguiente lista 
+			close_and_add_sublist(data, sub_list_pars);
+			//a la sublista se le pone un null, se anade a la lista principal y se crea la siguiente lista 
 		}
 		else
 		{
-			//un  nodo word
+			printf ("hemos encontrado una palabra");
+			//pars_tok_comm(data, current, sub_list_pars);
 		}
-		size_sublist++;
 		current = current->next;
 	}
-	// if we did not find a pipe,
-	//if we got to NULL we need to create the last list before pipe , so the last 2 cases are ok
-	//a.  check if the list of lists is empty. This will tell us if we need to create another sublist just with one single command with no pipe
-	//b. list of lists it was not empty, so we got to the current and we can start the execution or the checker, of the grammas , like  
 }
+
+// if we did not find a pipe,
+//if we got to NULL we need to create the last list before pipe , so the last 2 cases are ok
+//a.  check if the list of lists is empty. This will tell us if we need to create another sublist just with one single command with no pipe
+//b. list of lists it was not empty, so we got to the current and we can start the execution or the checker, of the grammas , like  

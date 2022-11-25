@@ -33,7 +33,8 @@ SRC_FILES = main				\
 			builtins/export \
 			builtins/pwd \
 			builtins/unset \
-			# parser/parser 		\
+			parser/parser_main		\
+			parser/parse_tools	\
 
 DEF_COLOR = \033[0;80m
 GREEN = \033[0;92m
