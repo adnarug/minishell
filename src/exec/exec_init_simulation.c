@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_init_simulation.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 11:06:11 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/24 11:53:11 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/25 19:57:21 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@
 // 	t_env				*env_lst;
 // 	char				**env_argv;
 // 	t_prs_tok_token		list; //esto hayq eu cambialo a un puntero. Volver a estudiar esto  y diferencia enntre pointer y &
-// 	t_header_prs_tok	*header;
+// 	t_sublist_prs_tok	*header;
 // 	struct termios		termios_default;
 // }	t_minishell;
 
 
-// typedef struct s_header_prs_tok
+// typedef struct s_sublist_prs_tok
 // {
 // 	t_prs_tok					*header;
-// 	struct s_header_prs_tok		*next;
+// 	struct s_sublist_prs_tok		*next;
 // 	int							size;
-// }	t_header_prs_tok;
+// }	t_sublist_prs_tok;
 
 // typedef struct s_prs_tok
 // {
@@ -55,11 +55,11 @@ t_prs_tok	*ft_lstnew_prs_tok(char type, char *word, char **cmd_flags)
 }
 
 /*List of headers - each pointing to a new cmd, incl, redirections, heredocs and etc*/
-t_header_prs_tok	*ft_lstnew_header_prs_tok()
+t_sublist_prs_tok	*ft_lstnew_header_prs_tok()
 {
-	t_header_prs_tok	*node;
+	t_sublist_prs_tok	*node;
 
-	node = malloc(sizeof(t_header_prs_tok));
+	node = malloc(sizeof(t_sublist_prs_tok));
 	if (!node)
 		return (NULL);
 	node->next = NULL;
@@ -109,7 +109,7 @@ void	ft_lstadd_back_prs_tok(t_prs_tok **lst, t_prs_tok *new)
 
 void	init_simulation(t_minishell *data)
 {
-	t_header_prs_tok	*header_lst;
+	t_sublist_prs_tok	*header_lst;
 	t_prs_tok			*token;
 	
 

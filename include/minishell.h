@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/24 19:22:44 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/25 23:16:54 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,16 @@ t_env	*ft_lstnew_env(char *value, char *key);
 
 //PARSER
 void ft_parser(t_minishell *data);
+t_sublist_prs_tok *create_sublist(void);
 
+t_sublist_prs_tok *find_last_sublist(t_head_sublst_parstk	*lst_sublist);
+ void creat_parsedtok_redir(t_nod_token *current, t_sublist_prs_tok *sub_list_pars);
 //PArser tools
-t_prs_tok *find_last_parsedtok_sublist(t_header_prs_tok *sub_list_pars);
+t_prs_tok *find_last_parsedtok(t_sublist_prs_tok *sub_list_pars);
+void add_parsedtok_sublist(t_prs_tok *parsedtok_redir, t_sublist_prs_tok *sub_list_pars);
+
+void	print_list_parsedtoken(t_minishell *data);
+
 
 
 //
@@ -241,6 +248,6 @@ int	    find_correct_paths(t_prs_tok *parameters, t_minishell *data);
 //Exec simulation
 void	init_simulation(t_minishell *data);
 t_prs_tok	*ft_lstnew_prs_tok(char type, char *word, char **cmd_flags);
-t_header_prs_tok	*ft_lstnew_header_prs_tok();
-t_prs_tok *iter_until_cmd(t_header_prs_tok *header);
+t_sublist_prs_tok	*ft_lstnew_header_prs_tok();
+t_prs_tok *iter_until_cmd(t_sublist_prs_tok *header);
 #endif 

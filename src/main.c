@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/24 16:47:57 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/25 20:18:01 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,18 @@
 	We make a copy of the default atributes of termios
 */
 
-void	initializer_data(t_minishell *data)
+//void initializer_header_sublist(t_minishell *data)
+
+void	initializer_data(t_minishell *data) //still any values to inicialze (could be done in the later functions but all variables must be inizialice)
 {
 	data->line = NULL;
 	data->list.head = NULL;
 	data->list.size = 0;
-	data->lst_prs = NULL;
-	// data->list_prs.tokens = NULL;
-	// data->list_prs.next = NULL;
-	// data->list_prs.size = 0;
+	
+	//initializer_header_sublist(data);
+	data->lst_sublist.first_sublist = NULL;
+	data->lst_sublist.number_sublists = 0;
+	// ask PAvel about the other all his var to inizialice
 	tcgetattr(STDOUT_FILENO, &data->termios_default);
 }
 
@@ -81,11 +84,11 @@ int main(int argc, char **argv, char **envp)
 		ft_expand(&data);
 		printf("\n*********Print after expand******\n\n");
 		print_list(&data.list);
-		init_simulation(&data);
-		ft_execution(&data);
-		delete_list(&data.list); //para que no queden leaks
 		ft_parser(&data);
-
+		//init_simulation(&data);
+		//ft_execution(&data);
+		delete_list(&data.list); //para que no queden leaks
+		//ft_parser(&data);
 		free(line_buffer);
 
 		//atexit(check_leaks);

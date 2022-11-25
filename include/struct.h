@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/24 17:42:58 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/25 20:15:24 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,23 @@ typedef struct s_lexing
 }t_lexing;
 
 
-typedef struct s_cmd
+
+typedef struct s_env
 {
-	char	*name;
-}t_cmd;
+	char		*key;
+	char		*value;
+	struct s_env *next;
+}	t_env;
+
+typedef struct s_cmd_exec
+{
+	char	*cmd;
+	char	*args;
+	char	**cmd_args;
+	char	*exec_path;
+	int		cmd_num;
+	int		last_cmd;
+}	t_cmd_exec;
 
 typedef struct s_nod_token
 {
@@ -55,25 +68,6 @@ typedef struct s_list_token
 	int	size;
 }	t_list_token;
 
-typedef struct s_env
-{
-	char		*key;
-	char		*value;
-	struct s_env *next;
-}	t_env;
-
-
-
-typedef struct s_cmd_exec
-{
-	char	*cmd;
-	char	*args;
-	char	**cmd_args;
-	char	*exec_path;
-	int		cmd_num;
-	int		last_cmd;
-}	t_cmd_exec;
-
 //main structur. Here will pend everything but lexing struct
 typedef struct s_prs_tok
 {
@@ -85,93 +79,37 @@ typedef struct s_prs_tok
 }	t_prs_tok; 
 
 /*
-    List of headers to parsed tokens between pipes
-    t_prs_tok   *tokens : Starting from list of tokens
-    struct s_header_prs_tok *next: first element of list form list
+    List of headers to sublist of parsed tokens between pipes
+    t_prs_tok	*first_prs_tok; : First element from list of parsed tokens
+    struct s_sublist_prs_tok *next_sublist: first element of list form list
 */
 
-typedef struct s_header_prs_tok
+typedef struct s_sublist_prs_tok
 {
-	t_prs_tok					*prs_tok;
+	t_prs_tok					*first_prs_tok;
 	char						*exec_path;
-	int							fd_in;
-	int							fd_out;
-	int							size;
-	struct s_header_prs_tok		*next;
-}	t_header_prs_tok;
+	int							fd_in; //nomally 0 (STDIN)
+	int							fd_out; //nomrally 1 (STDOUT)
+	int							size_sublist;
+	struct s_sublist_prs_tok		*next_sublist;
+}	t_sublist_prs_tok;
+
+typedef struct t_head_sublst_parstk
+{
+	int		number_sublists;
+	t_sublist_prs_tok 	*first_sublist;
+} t_head_sublst_parstk;
 
 typedef struct s_minishell
 {
 	char				*line;
 	t_env				*env_lst;
 	char				**env_argv;
-	t_list_token		list; //esto hayq eu cambialo a un puntero. Volver a estudiar esto  y diferencia enntre pointer y &
-	t_header_prs_tok	*lst_prs;
+	t_list_token		list; //
+	t_head_sublst_parstk	lst_sublist; //header a headers de sublistas (lista de sublistas)
 	struct termios		termios_default;
 }t_minishell;
 
 
-// //--------- Estas funciones las he sacdo de una hoja. Borarr
-// // Command Data Structure
-// // Describes a simple command and arguments
-
-//  struct SimpleCommand {
-// 	// Available space for arguments currently preallocated 
-// 	int _numberOfAvailableArguments;
-// 	// Number of arguments
-// 	int _numberOfArguments;
-// 	// Array of arguments
-// 	char ** _arguments;
-// 	SimpleCommand();
-// 	void insertArgument( char * argument );
-//  };
-
-// // Describes a complete command with the multiple pipes if any // and input/output redirection if any.
-// struct Command {
-
-// 	int _numberOfAvailableSimpleCommands;
-// 	int _numberOfSimpleCommands;
-// 	SimpleCommand ** _simpleCommands;
-// 	char * _outFile;
-// 	char * _inputFile;
-// 	char * _errFile;
-// 	int _background;
-// 	void prompt();
-// 	void print();
-// 	void execute();
-// 	void clear();
-// 	Command();
-// 	void insertSimpleCommand( SimpleCommand * simpleCommand );
-// 	static Command _currentCommand;
-// 	static SimpleCommand *_currentSimpleCommand;
-// };
-
 #endif
 
- //Felipe struct
-//token node
-
-// //token node
-// typedef struct s_nod_token
-// {
-// 	char	*name;
-// 	int		flag;
-// 	struct s_nod_token	*next;
-	
-// }	t_nod_token;
-
-// //struct header of the token list
-// typedef struct s_list_token
-// {
-// 	t_nod_token	*head;
-// 	int	size;
-// }t_list_token;
-
-// typedef sruct s_parsenode
-// {
-// 	char	type;  // R P C   (Redireccion, Pipe, Commando )
-// 	char	redirtype; // - > < + 
-// 	char	*file  // soloe relevante para R (Redirecciones -> siempre el primer w. despues de los > >> < <, file1 o )
-// 	char	**argv // solo relevante para C (Commando)
-// 	s_parsenode	*next;
-// } t_parsenode;

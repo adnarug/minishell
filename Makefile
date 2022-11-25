@@ -18,9 +18,6 @@ SRC_FILES = main				\
 			signals/signals_termios	\
 			signals/signals_child_process \
 			signals/signals_parent_process \
-			exec/execution_main \
-			exec/exec_init_simulation \
-			exec/cmd_exec/path_check \
 			env/env_main \
 			env/initializer_env \
 			utils/lst_utils \
@@ -35,6 +32,10 @@ SRC_FILES = main				\
 			builtins/unset \
 			parser/parser_main		\
 			parser/parse_tools	\
+			# exec/execution_main \
+			# exec/exec_init_simulation \
+			# exec/cmd_exec/path_check \
+
 
 DEF_COLOR = \033[0;80m
 GREEN = \033[0;92m

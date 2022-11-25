@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_main.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:22:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/24 11:52:16 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/25 19:57:21 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ static int	is_builtin(t_prs_tok *token)
 	return(0);
 }
 
-t_prs_tok *iter_until_cmd(t_header_prs_tok *header)
+t_prs_tok *iter_until_cmd(t_sublist_prs_tok *header)
 {
 	while (header != NULL)
 	{
