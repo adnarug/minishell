@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:22:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/24 17:14:06 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/25 11:54:55 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,10 @@ int run_execution(t_prs_tok *token, t_minishell *data)
 	// printf("FD OUT: %d\n", token->fd_out);
 	// dup2(token->fd_in, STDIN_FILENO);
 	// dup2(token->fd_out, STDOUT_FILENO);
-	if (DEBUG == 1)
-		printf("***token->exec_path:%s", token->exec_path);
-	if (execve(token->exec_path, token->cmd_flags, (char*const *)data->env_lst) == -1)
-		perror("Error\nExecve issue in the child");
+	// if (DEBUG == 1)
+	// 	printf("***token->exec_path:%s", token->exec_path);
+	// if (execve(token->exec_path, token->cmd_flags, (char*const *)data->env_lst) == -1)
+	// 	perror("Error\nExecve issue in the child");
 	return (EXIT_SUCCESS);
 }
 
@@ -105,21 +105,21 @@ int	cmd_exec(t_prs_tok *token, t_minishell *data)
 	if (DEBUG == 1)
 		printf("heredocs are resolved\n");
 	resolve_redir(data->lst_prs->prs_tok, data->lst_prs);
-	token = iter_until_cmd(data->lst_prs);
-	if (DEBUG == 1)
-		printf("command being executed %s\n", token->cmd_flags[0]);
-	if (find_correct_paths(token, data) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	if (token->exec_path == NULL)
-		printf("minishell: command not found\n"); // not correct message
-	pid = fork();
-	if (pid < 0)
-		return (EXIT_FAILURE);
-	if (pid == 0)
-	{
-		return (run_execution(token, data));
-	}
-	wait(NULL);
+	// token = iter_until_cmd(data->lst_prs);
+	// if (DEBUG == 1)
+	// 	printf("command being executed %s\n", token->cmd_flags[0]);
+	// if (find_correct_paths(token, data) == EXIT_FAILURE)
+	// 	return (EXIT_FAILURE);
+	// if (token->exec_path == NULL)
+	// 	printf("minishell: command not found\n"); // not correct message
+	// pid = fork();
+	// if (pid < 0)
+	// 	return (EXIT_FAILURE);
+	// if (pid == 0)
+	// {
+	// 	return (run_execution(token, data));
+	// }
+	// wait(NULL);
 	return (EXIT_SUCCESS);
 }
 
@@ -214,7 +214,7 @@ int	ft_execution(t_minishell *data)
 	// {
 		// tokens_lst->argv = token_lst_to_argv(token);
 		// counter = count_strings(tokens_lst->argv);
-		cmd_exec(data->lst_prs->prs_tok, data);
+	cmd_exec(data->lst_prs->prs_tok, data);
 	// }
 	if (DEBUG == 1)
 		printf("exiting the ft_execution\n");

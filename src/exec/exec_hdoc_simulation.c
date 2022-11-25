@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 11:00:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/24 17:21:56 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/25 14:22:10 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,67 +38,185 @@ int is_heredoc(t_prs_tok *prs_tok)
 	return (num_hdoc);
 }
 
-static int	count_hdcos(t_header_prs_tok *prs_lst)
+static int	count_hdocs(t_minishell *data)
 {
 	t_header_prs_tok *tmp_prs_lst;
 
-	tmp_prs_lst = prs_lst;
+	tmp_prs_lst = data->lst_prs;
 	while (tmp_prs_lst != NULL)
 	{
-		if (DEBUG == 1)
-			printf("tmp_prs_lst->prs_tok->type:%c\n", tmp_prs_lst->prs_tok->type);
-		if (is_heredoc(prs_lst->prs_tok) != 0)
-			prs_lst->num_hdocs += is_heredoc(prs_lst->prs_tok);
+		if (is_heredoc(data->lst_prs->prs_tok) != 0)
+			data->hdoc.num_hdocs += is_heredoc(data->lst_prs->prs_tok);
 		tmp_prs_lst = tmp_prs_lst->next;
 	}
 	return (EXIT_SUCCESS);
 }
 
-char **create_hdoc_files(t_header_prs_tok *prs_lst)
+static void	read_from_stdin(t_minishell *data, t_prs_tok *token)
 {
-	char	**hdoc_files_table;
+	char	*input;
+	bool	lim_found;
+	int		fd;
+
+	lim_found = false;
+	
+	// if (fd < 0 || access("/tmp/tmo2", F_OK) < 0 || access("/tmp/tmo2", R_OK) < 0)
+	// {
+	// 	if (DEBUG == 1)
+	// 		printf("problem with fd of hdoc\n");
+	// 	perror(NULL);
+
+	// }
+	while (lim_found == false)
+	{
+	//	ft_signals(HDOC);
+		input = readline("> ");
+		if (!input)
+			break ;
+		if (ft_strcmp(input, token->word) == 0)
+			lim_found = true;
+		else
+		{
+			input = ft_strjoin(input, "\n");
+			if (write(data->hdoc.fd_tmp[data->hdoc.index], input, ft_strlen(input)) < 0)
+			{
+				perror(token->word);
+				exit(EXIT_FAILURE);
+			}
+		}
+		free(input);
+		input = NULL;
+	}
+	exit(EXIT_SUCCESS);
+}
+
+int create_hdoc_files(t_minishell *data)
+{
+	// char	**hdoc_files_table;
 	char	*tmp;
-	char	*path;
 	int		i;
 	char	*hdoc_index;
+	int		fd;
 	
 	i = 0;
-	tmp = ft_strdup("/tmp/");
-	hdoc_files_table = malloc(sizeof(char *) * (prs_lst->num_hdocs + 1));
-	if (hdoc_files_table == NULL)
-		return(EXIT_FAILURE);
-	while (i < prs_lst->num_hdocs)
+	// tmp = ft_strdup("/tmp/");
+	data->hdoc.fd_tmp = malloc(sizeof(int) * (data->hdoc.num_hdocs + 1));
+	if (data->hdoc.fd_tmp == NULL)
+		return(EXDEV);
+	if (DEBUG == 1)
+		printf("comes to open\n");
+	while (i < data->hdoc.num_hdocs)
 	{
 		hdoc_index = ft_itoa(i);
-		path = ft_strjoin(tmp, hdoc_index);
-		hdoc_files_table[i] = malloc(sizeof(char) * ft_strlen(path));//maybe +1
-		if (hdoc_files_table[i] == NULL)
-			return (NULL);
-		printf("comes to create\n");
-		open(path, O_CREAT | O_RDWR | O_TRUNC, 0644);
-		// if (data->fd->in < 0 || access(hdoc, F_OK) < 0 || access(hdoc, R_OK) < 0)
+		// hdoc_files_table[i] = malloc(sizeof(char) * ft_strlen(hdoc_index));//maybe +1
+		// if (hdoc_files_table[i] == NULL)
 		// 	return (NULL);
-		perror(NULL);
-		hdoc_files_table[i] = path;
-		free(path);
-		path = NULL;
+		data->hdoc.fd_tmp[i] = open(hdoc_index, O_CREAT | O_RDWR | O_TRUNC, 0644);
+		if (data->hdoc.fd_tmp[i]< 0 || access(hdoc_index, F_OK) < 0 || access(hdoc_index, R_OK) < 0)
+			return (EXIT_FAILURE);
 		free(hdoc_index);
 		hdoc_index = NULL;
 		i++;
 	}
-	return (hdoc_files_table);
+	return (EXIT_SUCCESS);
 }
 
+static void	read_to_hdoc(t_minishell *data, t_prs_tok *token)
+{
+	int	status;
+	int pid;
+
+	status = 0;
+	pid = fork();
+	if (pid < 0)
+		perror(NULL);
+	else if (pid == 0)
+		read_from_stdin(data, token);
+	waitpid(pid, &status, 0);
+	/*
+	if (WIFEXITED(status))
+	{
+		g_exit_code = WEXITSTATUS(status);
+		if (g_exit_code == EXIT_FAILURE)
+			data->parse_error = true;
+	}*/
+}
+
+// static void	destroy_hdocs(t_minishell *data)
+// {
+// 	int	i;
+
+// 	if (data->hdoc.fd_tmp == NULL)
+// 		return ;
+// 	i = 0;
+// 	unlink(data->hdoc.fd_tmp);
+// 	free(data->hdoc.fd_tmp);
+// }
+
+t_prs_tok	*return_heredoc(t_prs_tok *prs_tok)
+{
+	t_prs_tok	*tmp;
+	int			num_hdoc;
+
+	tmp = prs_tok;
+	num_hdoc = 0;
+	while (tmp != NULL)
+	{
+		if (tmp->type == HEREDOC)
+			return (tmp);
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
+
+t_prs_tok	*iter_till_hdoc(t_minishell *data)
+{
+	t_header_prs_tok *tmp_prs_lst;
+	int	i;
+
+	tmp_prs_lst = data->lst_prs;
+	i = 0;
+	data->hdoc.hdocs_nodes = malloc(sizeof(t_prs_tok) * (data->hdoc.num_hdocs));
+	if (data->hdoc.hdocs_nodes == NULL)
+		return NULL;
+	while (tmp_prs_lst != NULL)
+	{
+		while (tmp_prs_lst->prs_tok != NULL)
+		{
+			if (tmp_prs_lst->prs_tok->type == HEREDOC)
+			{
+				data->hdoc.hdocs_nodes[i] = *(tmp_prs_lst->prs_tok);
+				i++;
+			}
+			tmp_prs_lst->prs_tok = tmp_prs_lst->prs_tok->next;
+		}
+		tmp_prs_lst = tmp_prs_lst->next;
+	}
+	return (NULL);
+}
+
+/*Counts hdocs, if >0 continues, creates hdoc files and fds*/
 int resolve_hdocs(t_minishell	*data)
 {
-	char	**hdoc_tmp_files;
-	
-	hdoc_tmp_files = NULL;
-	if (count_hdcos(data->lst_prs) == 0)
-		return (EXIT_SUCCESS);
-	hdoc_tmp_files = create_hdoc_files(data->lst_prs);
+	int	i;
+	t_prs_tok	*hdoc_for_exec;
+
+	i = 0;
+	data->hdoc.num_hdocs = 0;
+	data->hdoc.index = 0;
+	count_hdocs(data);
+	if (data->hdoc.num_hdocs == 0)
+		data->hdoc.is_hdoc = false;
+	create_hdoc_files(data);
 	if (DEBUG == 1)
-		printf("num of heredocs %i\n", data->lst_prs->num_hdocs);
-	free(hdoc_tmp_files);
+		printf("num of heredocs %i\n", data->hdoc.num_hdocs);
+	iter_till_hdoc(data);
+	while (i < data->hdoc.num_hdocs)
+	{
+		read_to_hdoc(data, &data->hdoc.hdocs_nodes[i]);
+		data->hdoc.index++;
+		// destroy_hdocs(data);
+		i++;
+	}
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/24 16:50:00 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/25 09:39:50 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 # include <limits.h>
 # include <signal.h>
+# include <stdbool.h>
 
 # include <sys/types.h>
 # include <sys/wait.h>

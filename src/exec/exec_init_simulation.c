@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 11:06:11 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/24 16:04:30 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/25 11:25:06 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,12 +112,14 @@ void	init_simulation(t_minishell *data)
 	t_header_prs_tok	*header_lst;
 	t_prs_tok			*token;
 
-	token = ft_lstnew_prs_tok('<', "infile", NULL);
+	token = ft_lstnew_prs_tok(HEREDOC, "infile", NULL);
 	header_lst = ft_lstnew_header_prs_tok();
 	ft_lstadd_back_prs_tok(&token, ft_lstnew_prs_tok('c', NULL, ft_split("pwd", ' ')));
-	ft_lstadd_back_prs_tok(&token, ft_lstnew_prs_tok('-', "outfile", NULL));
+	ft_lstadd_back_prs_tok(&token, ft_lstnew_prs_tok(HEREDOC, "outfile", NULL));
 	header_lst->prs_tok = token;
 	data->lst_prs = header_lst;
 	printf("%c %s %s %c %s\n",data->lst_prs->prs_tok->type, data->lst_prs->prs_tok->word, data->lst_prs->prs_tok->next->cmd_flags[0], data->lst_prs->prs_tok->next->next->type, data->lst_prs->prs_tok->next->next->word);
 	return ;
 }
+
+

@@ -6,12 +6,14 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/24 17:14:28 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/25 14:18:21 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
+
+# include "stdbool.h"
 
 
 //this structur will be in the case we need to increase the number of paramters
@@ -88,6 +90,16 @@ typedef struct s_prs_tok
 	t_prs_tok   *tokens : Starting from list of tokens
 	struct s_header_prs_tok *next: first element of list form list
 */
+
+typedef struct s_hdocs
+{
+	bool			is_hdoc;
+	int				index;
+	int				*fd_tmp;
+	t_prs_tok		*hdocs_nodes;
+	int				num_hdocs;
+}	t_hdocs;
+
 typedef struct s_header_prs_tok
 {
 	t_prs_tok                   *prs_tok;
@@ -95,9 +107,8 @@ typedef struct s_header_prs_tok
 	char                        *exec_path;
 	int                         fd_in;
 	int                         fd_out;
-	int							num_hdocs;
 	int                         size;
-}   t_header_prs_tok;
+}	t_header_prs_tok;
 
 typedef struct s_minishell
 {
@@ -106,8 +117,9 @@ typedef struct s_minishell
 	char				**env_argv;
 	t_list_token		list; //esto hayq eu cambialo a un puntero. Volver a estudiar esto  y diferencia enntre pointer y &
 	t_header_prs_tok	*lst_prs;
+	t_hdocs				hdoc;
 	struct termios		termios_default;
-}t_minishell;
+}	t_minishell;
 
 
 // //--------- Estas funciones las he sacdo de una hoja. Borarr
