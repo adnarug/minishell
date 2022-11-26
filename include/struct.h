@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/26 13:53:26 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/26 14:18:30 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ typedef struct s_list_token
 typedef struct s_prs_tok
 {
 	char			type;
-	char			*word;
-	char			**cmd_flags;
+	char			*word; //just for redirect
+	char			**cmd_flags; //just for commands
 
 	struct s_prs_tok *next;
 }	t_prs_tok; 

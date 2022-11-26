@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/26 13:40:59 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/26 14:13:50 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,11 @@ t_env	*ft_lstnew_env(char *value, char *key);
 void ft_parser(t_minishell *data);
 t_sublist_prs_tok *create_sublist(t_nod_token *current);
 
-t_sublist_prs_tok *find_last_sublist(t_head_sublst_parstk	*lst_sublist);
+//Parse Tokens
+void	add_parsedtokns_sublist(t_nod_token *current, t_sublist_prs_tok *sub_list_pars);
+
+
+//t_sublist_prs_tok *find_last_sublist(t_head_sublst_parstk	*lst_sublist);
  void creat_parsedtok_redir(t_nod_token *current, t_sublist_prs_tok *sub_list_pars);
 //PArser tools
 t_prs_tok *find_last_parsedtok(t_sublist_prs_tok *sub_list_pars);

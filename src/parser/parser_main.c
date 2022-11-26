@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:13:48 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/26 13:50:41 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/26 14:55:37 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,14 @@
 https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html
 < test2 grep hi | wc -w > test2_result
 
+// if we did not find a pipe,
+//if we got to NULL we need to create the last list before pipe , so the last 2 cases are ok
+//a.  check if the list of lists is empty. This will tell us if we need to create another sublist just with one single command with no pipe
+//b. list of lists it was not empty, so we got to the current and we can start the execution or the checker, of the grammas , like  
+
 */
-
-
-
+ // DEspues de comer repaso e impresion
 /*
-	main function for parsing
-	Vamos a intentar que funcione la creacion de la nueva lisa con un solo redirecttcion y un command
-	necesitanos imprimir la lista de listas
-	//despues de comer viernes, hacer la simulacion mental de: < test2 grep hi | wc
 < test2 grep hi | wc -w > $HOME | echo >> '$USER'  "$USER"
 
 Elemnt: 0, value= Meta, type = <. 
@@ -42,11 +41,14 @@ Elemnt: 12, value= test3_result, type = w.
 */
 void ft_parser(t_minishell *data)
 {
-
 	t_nod_token *current ;//to run throug list of  tokens not parsed
-	//t_sublist_prs_tok *sub_list_pars; //primera sublista
+
 	int i = 0;
-	
+	if (!data->list.head) //we had no input and/or the list of tokens is empty
+	{
+		printf("no tokens to parse\n");
+		return ;
+	}
 	printf("Numero de pipes en ft parser = %i\n", data->number_pipes);
 	data->array_sublist = (t_sublist_prs_tok **)malloc(sizeof(t_sublist_prs_tok *) * (data->number_pipes + 2));
 	if (!data->array_sublist)
@@ -54,17 +56,15 @@ void ft_parser(t_minishell *data)
 		printf("error malloc in the array of list\n");
 		return ;
 	}
-	current = data->list.head;
+	current = data->list.head;//run through list of tokens. 
 	while (current) //run through list of tokens. 
 	{
 		data->array_sublist[i] = create_sublist(current);
+		// here there should be a free function or exit if there i sa probelm
+		// if (!data->array_sublist[i])
+		// 	free_exit(data);
+		i++;
 		current = current->next;
 	}
-	//hay que cerrar la lista si no hemos encontrado un pipe
-	//print_list_parsedtoken(data);
+	data->array_sublist[i] = NULL;
 }
-
-// if we did not find a pipe,
-//if we got to NULL we need to create the last list before pipe , so the last 2 cases are ok
-//a.  check if the list of lists is empty. This will tell us if we need to create another sublist just with one single command with no pipe
-//b. list of lists it was not empty, so we got to the current and we can start the execution or the checker, of the grammas , like  
