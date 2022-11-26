@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/25 20:18:01 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/26 13:18:06 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	initializer_data(t_minishell *data) //still any values to inicialze (could 
 	data->list.size = 0;
 	
 	//initializer_header_sublist(data);
-	data->lst_sublist.first_sublist = NULL;
-	data->lst_sublist.number_sublists = 0;
+	data->array_sublist = NULL;
+	data->number_pipes = 0;
 	// ask PAvel about the other all his var to inizialice
 	tcgetattr(STDOUT_FILENO, &data->termios_default);
 }

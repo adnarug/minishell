@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 13:50:12 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/21 23:54:10 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/26 13:22:29 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	lexer_meta(t_minishell *data, t_lexing *lex_struct)
 	{
 		lex_struct->type = PIPE;
 		lex_struct->c_pos += 1;
+		data->number_pipes += 1;
 	}
 	lex_struct->buff = ft_strdup("Meta"); //ponemos este valor para que creee el nodo
 	new_token = create_tok(lex_struct);

@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/25 20:15:24 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/26 13:53:26 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,15 +90,16 @@ typedef struct s_sublist_prs_tok
 	char						*exec_path;
 	int							fd_in; //nomally 0 (STDIN)
 	int							fd_out; //nomrally 1 (STDOUT)
-	int							size_sublist;
-	struct s_sublist_prs_tok		*next_sublist;
+	int							size_sublist; //i do not think is important
+	int							number_cmd; //if not 1 , error
+	//struct s_sublist_prs_tok		*next_sublist; //not needed
 }	t_sublist_prs_tok;
 
-typedef struct t_head_sublst_parstk
-{
-	int		number_sublists;
-	t_sublist_prs_tok 	*first_sublist;
-} t_head_sublst_parstk;
+// typedef struct t_head_sublst_parstk
+// {
+// 	int		number_sublists;
+// 	t_sublist_prs_tok 	*first_sublist;
+// } t_head_sublst_parstk;
 
 typedef struct s_minishell
 {
@@ -106,8 +107,9 @@ typedef struct s_minishell
 	t_env				*env_lst;
 	char				**env_argv;
 	t_list_token		list; //
-	t_head_sublst_parstk	lst_sublist; //header a headers de sublistas (lista de sublistas)
 	struct termios		termios_default;
+	t_sublist_prs_tok	**array_sublist; //array a headers de sublistas (lista de sublistas)
+	int 				number_pipes;
 }t_minishell;
 
 

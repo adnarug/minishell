@@ -32,6 +32,7 @@ SRC_FILES = main				\
 			builtins/unset \
 			parser/parser_main		\
 			parser/parse_tools	\
+			parser/parse_tokens	\
 			# exec/execution_main \
 			# exec/exec_init_simulation \
 			# exec/cmd_exec/path_check \
