@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/26 13:18:06 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/27 00:54:42 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int main(int argc, char **argv, char **envp)
 		delete_list(&data.list); //para que no queden leaks
 		//ft_parser(&data);
 		free(line_buffer);
-
+		printf("here ends minishell\n");
 		//atexit(check_leaks);
 		//system("leaks minishell");
 	}

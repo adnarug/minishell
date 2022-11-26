@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 12:46:50 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/26 22:26:18 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/27 00:42:37 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	add_parsedtokns_sublist(t_nod_token **current, t_sublist_prs_tok *sub_list_
 		if (ft_strchr(REDIRECT, (*current)->flag)) //si enconrtrtamos un redirect, cogeremos el siguiente nodo y lo convertimos en psren token
 		{
 			creat_parsedtok_redir(current, sub_list_pars);
-			printf ("hemos encontrado un redirect.\n"); //we give the list, the beggining of sublist and current of sublist pointing to pipe
+			//printf ("hemos encontrado un redirect.\n"); //we give the list, the beggining of sublist and current of sublist pointing to pipe
 			*current = (*current)->next->next; //we will have jooin one node and next in one parsed token.
 		}
 		// else if ((*current)->flag == PIPE)
@@ -83,7 +83,7 @@ void	add_parsedtokns_sublist(t_nod_token **current, t_sublist_prs_tok *sub_list_
 		// }
 		else
 		{
-			printf ("hemos encontrado una palabra.\n");
+			//make printf ("hemos encontrado una palabra.\n");
 			creat_parsedtok_cmd(current, sub_list_pars);
 			//we will crate the next tken till pipe or redirection, carefull here with current = current->next;
 			//pars_tok_comm(data, current, sub_list_pars);
@@ -131,7 +131,6 @@ int	count_arguments(t_nod_token *current)
 	parsedtok_cmd->type = COMMAND;
 	parsedtok_cmd->word = NULL; //this filed will not be used for comand
 	parsedtok_cmd->next = NULL; //the node will pointer to NULL
-	//while the next token exists and is not a metachar, make a parsed token . while (current->next && !ft_strchr(METACHAR, current->next->flag)) 
 	size_array_cmd = count_arguments(*current);
 	parsedtok_cmd->cmd_flags = (char **)malloc(sizeof(char *) * (size_array_cmd + 1));
 	if (!parsedtok_cmd->cmd_flags)
@@ -147,5 +146,6 @@ int	count_arguments(t_nod_token *current)
 	// print_token(*current);
 	parsedtok_cmd->cmd_flags[i] = NULL; // es un 0 , un NULL o un '/0'. Null terminamos
 	add_parsedtok_sublist(parsedtok_cmd, sub_list_pars);
-	printf ("cuenta argumentos 4.\n");
 }
+
+

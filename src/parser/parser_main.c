@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:13:48 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/26 22:26:05 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/27 00:56:14 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html
 */
  // DEspues de comer repaso e impresion
 /*
-< test2 grep hi | wc -w > $HOME | echo >> '$USER'  "$USER"
+< test2 grep hi >> '$USER' | wc -w > $HOME | echo >> '$USER'  "$USER"
+< test2 grep hi | wc -w
 
 Elemnt: 0, value= Meta, type = <. 
 Elemnt: 1, value= test2, type = w. 
@@ -44,13 +45,12 @@ void ft_parser(t_minishell *data)
 	t_nod_token *current ;//to run throug list of  tokens not parsed
 	//t_sublist_prs_tok sub_list_pars;
 	int i = 0;
-	
 	if (!data->list.head) //we had no input and/or the list of tokens is empty
 	{
 		printf("no tokens to parse\n");
 		return ;
 	}
-	printf("Numero de pipes en ft parser = %i\n", data->number_pipes);
+	//printf("Numero de pipes en ft parser = %i\n", data->number_pipes);
 	data->array_sublist = (t_sublist_prs_tok **)malloc(sizeof(t_sublist_prs_tok *) * (data->number_pipes + 2));
 	if (!data->array_sublist)
 	{
@@ -63,16 +63,17 @@ void ft_parser(t_minishell *data)
 		//inizizalice_sublist(&sub_list_pars);
 		//create_sublist2(&current, &sub_list_pars);
 		data->array_sublist[i] = create_sublist(&current);
-		printf("crea una segunda sublista??\n");
+		//printf("crea una segunda sublista??\n");
 		// here there should be a free function or exit if there i sa probelm
 		// if (!data->array_sublist[i])
 		// 	free_exit(data);
 		i++;
-		print_list_parsedtoken(data);
-		current = current->next; //este se esta metiendo en sefmentation 
+		//print_list_parsedtoken2(data->array_sublist[i]);
+		//current = current->next; //este se esta metiendo en sefmentation. Despues de cenar bocata seguir aqui
 	}
-	data->array_sublist[i] = NULL;
-	printf("nulltermina el array??\n");
 
+	//printf("nulltermina el array??\n");
+	data->array_sublist[i] = NULL;
+	print_list_parsedtoken(data);
 	//print_list_parsedtoken(data);
 }

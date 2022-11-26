@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 19:21:15 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/26 22:09:34 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/27 00:45:11 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,27 +134,29 @@ void	print_list_parsedtoken(t_minishell *data)
 		int j = 0;
 		if (!data->array_sublist[i])
 		{
-			printf("La Sublista %i esta vacia y no deberia imprimir mas\n", i);
+			printf(" Subliste %i esta vacia y no deberia imprimir mas\n", i);
 		}
-		else
+		else //cambia l acondicion
 		{
-			printf("comienzo de Sublista %i\n", i);
+			printf("Start de Subliste %i\n", i);
 			current_parsedtoken = data->array_sublist[i]->first_prs_tok;
 			while (current_parsedtoken)
 			{
-				printf("	 nodo %i de Sublista %i. ", j, i);
+				printf("	nodo %i de Subliste %i. ", j, i);
 				if (current_parsedtoken->type == COMMAND)
 				{
-					printf("Parsed token COMMAND: \n");
-					int i = -1;
-					while (current_parsedtoken->cmd_flags[i++])
+					printf(" COMMAND: \n");
+					int k = 0;
+					//printf("   fuera Argumento %i, comando:|%s| \n",k , current_parsedtoken->cmd_flags[k]);
+					while (current_parsedtoken->cmd_flags[k])
 					{
-						printf("   Argumento %i, comando:|%s| \n",i , current_parsedtoken->cmd_flags[i]);
+						printf("	- Argument %i, flag:|%s| \n",k , current_parsedtoken->cmd_flags[k]);
+						k++;
 					}
 				}
 				else if (ft_strchr(REDIRECT, current_parsedtoken->type))
 				{
-					printf("Parsed token REDIRECT |%c|: argument value:%s \n", current_parsedtoken->type, current_parsedtoken->word);	
+					printf(" REDIRECT: |%c|, argument: |%s| \n", current_parsedtoken->type, current_parsedtoken->word);	
 				}
 				else
 					printf("what kind of fucking parsed token are you printing?? \n");
@@ -167,29 +169,52 @@ void	print_list_parsedtoken(t_minishell *data)
 	printf("\n-------END from list of parsed tokens----------\n");
 }
 
+//another way printing
+void	print_list_parsedtoken2(t_sublist_prs_tok	*array_sublist)
+{
+	int i = 0;
+	t_prs_tok *current_parsedtoken;
+	//t_sublist_prs_tok	*current_sublist;
+	printf("\n-------BEGIINING de impresion  list unica of parsed tokens----------\n");
+	if (!array_sublist)
+	{
+		printf("-------El array no apunta a nada----------\n");
+		printf("-------END from list of parsed tokens----------\n");
+		return ;
+	}
 
-
-
-/*
-	no need with th array
-*/
-// t_sublist_prs_tok *find_last_sublist(t_head_sublst_parstk	*lst_sublist)
-// {
-// 	t_sublist_prs_tok	*last_sublist;
-// 	if (!lst_sublist)
-// 	{
-// 		printf("there is no header to sublists. somethinhg did not work\n");
-// 		return (NULL);
-// 	}
-// 	if (!lst_sublist->first_sublist)
-// 	{
-// 		printf("header point to any list. we can add first sublist\n");
-// 		return (lst_sublist->first_sublist);
-// 	}
-// 	last_sublist = lst_sublist->first_sublist;
-// 	while (last_sublist)
-// 	{
-// 		last_sublist = last_sublist->next_sublist;
-// 	}
-// 	return (last_sublist);
-// }
+	int j = 0;
+	if (!array_sublist)
+	{
+		printf("La Subliste %i esta vacia y no deberia imprimir mas\n", i);
+	}
+	else //cambia l acondicion
+	{
+		printf("Start subliste %i\n", i);
+		current_parsedtoken = array_sublist->first_prs_tok;
+		while (current_parsedtoken)
+		{
+			printf("	node %i de Subliste %i. ", j, i);
+			if (current_parsedtoken->type == COMMAND)
+			{
+				printf(" COMMAND: \n");
+				int k = 0;
+				//printf("   fuera Argumento %i, comando:|%s| \n",k , current_parsedtoken->cmd_flags[k]);
+				while (current_parsedtoken->cmd_flags[k])
+				{
+					printf("	- Argument %i, command:|%s| \n",k , current_parsedtoken->cmd_flags[k]);
+					k++;
+				}
+			}
+			else if (ft_strchr(REDIRECT, current_parsedtoken->type))
+			{
+				printf(" REDIRECT: |%c|, argument: |%s| \n", current_parsedtoken->type, current_parsedtoken->word);	
+			}
+			else
+				printf("what kind of fucking parsed token are you printing?? \n");
+			j++;
+			current_parsedtoken = current_parsedtoken->next;
+		}
+	}
+	printf("\n-------END from list of parsed tokens----------\n");
+}
