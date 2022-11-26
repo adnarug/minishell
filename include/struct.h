@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/26 14:18:30 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/26 20:34:19 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,10 @@ typedef struct s_sublist_prs_tok
 	int							fd_in; //nomally 0 (STDIN)
 	int							fd_out; //nomrally 1 (STDOUT)
 	int							size_sublist; //i do not think is important
-	int							number_cmd; //if not 1 , error
-	//struct s_sublist_prs_tok		*next_sublist; //not needed
+	int							number_cmd; //if not 1 , error (we can just  one command per sublist)
+	//struct s_sublist_prs_tok		*next_sublist; //not needed with the array
 }	t_sublist_prs_tok;
 
-// typedef struct t_head_sublst_parstk
-// {
-// 	int		number_sublists;
-// 	t_sublist_prs_tok 	*first_sublist;
-// } t_head_sublst_parstk;
 
 typedef struct s_minishell
 {
@@ -108,10 +103,15 @@ typedef struct s_minishell
 	char				**env_argv;
 	t_list_token		list; //
 	struct termios		termios_default;
-	t_sublist_prs_tok	**array_sublist; //array a headers de sublistas (lista de sublistas)
+	t_sublist_prs_tok	**array_sublist; //array of sublists , ended in NULL with len + number of pipes + 2
 	int 				number_pipes;
 }t_minishell;
 
+// typedef struct t_head_sublst_parstk
+// {
+// 	int		number_sublists;
+// 	t_sublist_prs_tok 	*first_sublist;
+// } t_head_sublst_parstk;
 
 #endif
 

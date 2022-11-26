@@ -6,28 +6,45 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 19:21:15 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/26 14:55:08 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/26 20:40:55 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 
-
-
-t_sublist_prs_tok *create_sublist(t_nod_token *current) //corregido a array
-{
-	t_sublist_prs_tok *sub_list_pars;
+/*
 	
-	sub_list_pars = (t_sublist_prs_tok  *)malloc(sizeof(t_sublist_prs_tok)); //we malloc first sublist
-	if(!sub_list_pars)
-		return (NULL);
-	//Probably i will need to iniziale fd values
+*/
+
+// t_sublist_prs_tok *create_sublist(t_nod_token *current) //corregido a array
+// {
+// 	t_sublist_prs_tok sub_list_pars;
+	
+// 	// sub_list_pars = (t_sublist_prs_tok  *)malloc(sizeof(t_sublist_prs_tok)); //we malloc first sublist
+// 	// if(!sub_list_pars)
+// 	// 	return (NULL);
+// 	//Probably i will need to iniziale fd values
+// 	sub_list_pars.first_prs_tok = NULL; //first element of the list of sublists
+// 	sub_list_pars.size_sublist = 0;
+// 	sub_list_pars.number_cmd = 0;
+// 	sub_list_pars.exec_path = NULL;
+// 	sub_list_pars.fd_in = 0; //ask Pavel
+// 	sub_list_pars.fd_out = 0; //ask Pavel
+// 	add_parsedtokns_sublist(current, &sub_list_pars);
+// 	return(&sub_list_pars);
+// }
+
+void	create_sublist2(t_nod_token **current, t_sublist_prs_tok *sub_list_pars) //corregido a array
+{
+	
 	sub_list_pars->first_prs_tok = NULL; //first element of the list of sublists
 	sub_list_pars->size_sublist = 0;
 	sub_list_pars->number_cmd = 0;
+	sub_list_pars->exec_path = NULL;
+	sub_list_pars->fd_in = 0; //ask Pavel
+	sub_list_pars->fd_out = 0; //ask Pavel
 	add_parsedtokns_sublist(current, sub_list_pars);
-	return(sub_list_pars);
 }
 
 
@@ -79,13 +96,13 @@ t_prs_tok *find_last_parsedtok(t_sublist_prs_tok *sub_list_pars)
 
 
 
-//To delete? keep going here
+// To delete? keep going here
 
 void	print_list_parsedtoken(t_minishell *data)
 {
 	int i = 0;
 	t_prs_tok *current_parsedtoken;
-	t_sublist_prs_tok	*current_sublist;
+	//t_sublist_prs_tok	*current_sublist;
 	printf("\n-------BEGIINING from list of parsed tokens----------\n");
 	if (!data->array_sublist)
 	{
@@ -106,8 +123,22 @@ void	print_list_parsedtoken(t_minishell *data)
 			current_parsedtoken = data->array_sublist[i]->first_prs_tok;
 			while (current_parsedtoken)
 			{
-				printf("	%i er nodo de Sublista %i. ", j, i);
-				printf("	Tipo %c \n", current_parsedtoken->type);
+				printf("	 nodo %i de Sublista %i. ", j, i);
+				if (current_parsedtoken->type == COMMAND)
+				{
+					printf("Parsed token COMMAND: \n");
+					int i = -1;
+					while (current_parsedtoken->cmd_flags[i++])
+					{
+						printf("   Argumento %i, comando:|%s| \n",i , current_parsedtoken->cmd_flags[i]);
+					}
+				}
+				else if (ft_strchr(REDIRECT, current_parsedtoken->type))
+				{
+					printf("Parsed token REDIRECT |%c|: argument value:%s \n", current_parsedtoken->type, current_parsedtoken->word);	
+				}
+				else
+					printf("what kind of fucking parsed token are you printing?? \n");
 				j++;
 				current_parsedtoken = current_parsedtoken->next;
 			}

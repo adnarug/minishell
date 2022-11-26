@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 12:46:50 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/26 14:35:25 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/26 20:42:37 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 
 //encontramos un pipe
 
-void	end_sublist_and_add(t_minishell *data, t_sublist_prs_tok *sub_list_pars) //name of function will be not close and . 
-{
-	t_sublist_prs_tok	*last_sublist;
-	//last element of sublist should be already and pointing to NULL
-	//we add to the end of the header of li
-	if (!data->lst_sublist.first_sublist) //list is empty
-	{
-		data->lst_sublist.first_sublist = sub_list_pars;
-		printf("1st sublist added to the minishell structure\n");
-		return ;
-	}
-	last_sublist = find_last_sublist(&data->lst_sublist);
-	last_sublist->next_sublist = sub_list_pars;
-	// If we are in a pipe after , there will be anther sublist
+// void	end_sublist_and_add(t_minishell *data, t_sublist_prs_tok *sub_list_pars) //name of function will be not close and . 
+// {
+// 	t_sublist_prs_tok	*last_sublist;
+// 	//last element of sublist should be already and pointing to NULL
+// 	//we add to the end of the header of li
+// 	if (!data->lst_sublist.first_sublist) //list is empty
+// 	{
+// 		data->lst_sublist.first_sublist = sub_list_pars;
+// 		printf("1st sublist added to the minishell structure\n");
+// 		return ;
+// 	}
+// 	last_sublist = find_last_sublist(&data->lst_sublist);
+// 	last_sublist->next_sublist = sub_list_pars;
+// 	// If we are in a pipe after , there will be anther sublist
 	
-	//at any point  i need to keep malloc nodes for 
-	//i have to inicialze values to null in sub_list_pars, to keep the loop for after next pipe (==next sublist)
-} 
+// 	//at any point  i need to keep malloc nodes for 
+// 	//i have to inicialze values to null in sub_list_pars, to keep the loop for after next pipe (==next sublist)
+// } 
 
 
 /*
@@ -63,14 +63,15 @@ void	end_sublist_and_add(t_minishell *data, t_sublist_prs_tok *sub_list_pars) //
 
 
 
-void	add_parsedtokns_sublist(t_nod_token *current, t_sublist_prs_tok *sub_list_pars)
+void	add_parsedtokns_sublist(t_nod_token **current, t_sublist_prs_tok *sub_list_pars)
 {
-	while (current && current->flag != PIPE)
+	
+	while (current && current. != PIPE)
 	{
 		if (ft_strchr(REDIRECT, current->flag)) //si enconrtrtamos un redirect, cogeremos el siguiente nodo y lo convertimos en psren token
 		{
 			creat_parsedtok_redir(current, sub_list_pars);
-			printf ("hemos encontrado un redirect. anadimos\n"); //we give the list, the beggining of sublist and current of sublist pointing to pipe
+			printf ("hemos encontrado un redirect.\n"); //we give the list, the beggining of sublist and current of sublist pointing to pipe
 			current = current->next; //we will have jooin one node and next in one parsed token.
 		}
 		// else if (current->flag == PIPE)
@@ -80,13 +81,31 @@ void	add_parsedtokns_sublist(t_nod_token *current, t_sublist_prs_tok *sub_list_p
 		// }
 		else
 		{
-			printf ("hemos encontrado una palabra. De momento no anadimos\n");
+			printf ("hemos encontrado una palabra.\n");
 			creat_parsedtok_cmd(current, sub_list_pars);
 			//we will crate the next tken till pipe or redirection, carefull here with current = current->next;
 			//pars_tok_comm(data, current, sub_list_pars);
 		}
+		//print_token(current);
 		current = current->next;
 	}
+}
+
+/*
+	Count the numbr of tokens words before a metachar or null
+	to allocate the memory for the command parsed token
+*/
+int	count_arguments(t_nod_token *current)
+{
+	int	number_argumnents;
+
+	number_argumnents = 0;
+	while (current && (!ft_strchr(METACHAR, current->flag)))
+	{
+		number_argumnents += 1;
+		current = current->next;
+	}
+	return(number_argumnents);
 }
 
 /*
