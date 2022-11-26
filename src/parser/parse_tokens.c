@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 12:46:50 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/26 20:42:37 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/26 21:18:05 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@
 
 
 
-void	add_parsedtokns_sublist(t_nod_token **current, t_sublist_prs_tok *sub_list_pars)
+void	add_parsedtokns_sublist(t_nod_token *current, t_sublist_prs_tok *sub_list_pars)
 {
 	
-	while (current && current. != PIPE)
+	while (current && current->flag != PIPE)
 	{
 		if (ft_strchr(REDIRECT, current->flag)) //si enconrtrtamos un redirect, cogeremos el siguiente nodo y lo convertimos en psren token
 		{
