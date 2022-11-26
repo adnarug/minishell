@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 12:46:50 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/26 21:35:12 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/26 22:26:18 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,13 @@ void	add_parsedtokns_sublist(t_nod_token **current, t_sublist_prs_tok *sub_list_
 	
 	while (*current && (*current)->flag != PIPE)
 	{
+		// printf ("comienzo while.\n");
+		// print_token(*current);
 		if (ft_strchr(REDIRECT, (*current)->flag)) //si enconrtrtamos un redirect, cogeremos el siguiente nodo y lo convertimos en psren token
 		{
 			creat_parsedtok_redir(current, sub_list_pars);
 			printf ("hemos encontrado un redirect.\n"); //we give the list, the beggining of sublist and current of sublist pointing to pipe
-			*current = (*current)->next; //we will have jooin one node and next in one parsed token.
+			*current = (*current)->next->next; //we will have jooin one node and next in one parsed token.
 		}
 		// else if ((*current)->flag == PIPE)
 		// {
@@ -86,9 +88,12 @@ void	add_parsedtokns_sublist(t_nod_token **current, t_sublist_prs_tok *sub_list_
 			//we will crate the next tken till pipe or redirection, carefull here with current = current->next;
 			//pars_tok_comm(data, current, sub_list_pars);
 		}
-		//print_token(current);
-		*current = (*current)->next;
+
+		//*current = (*current)->next;
+		//print_token(*current);
 	}
+	// printf ("end while.\n");
+	// print_token(*current);
 }
 
 /*
@@ -112,6 +117,7 @@ int	count_arguments(t_nod_token *current)
 	We are in a token with command
 	Else, we create the parsed token, with its own chararacteristics
 	 and we add to the sublist
+	 < test.txt  comando1 argumento1
 */
  void creat_parsedtok_cmd(t_nod_token **current, t_sublist_prs_tok *sub_list_pars)
 {
@@ -130,11 +136,16 @@ int	count_arguments(t_nod_token *current)
 	parsedtok_cmd->cmd_flags = (char **)malloc(sizeof(char *) * (size_array_cmd + 1));
 	if (!parsedtok_cmd->cmd_flags)
 		return ;
-	while (*current && !ft_strchr(METACHAR, (*current)->flag))
+	while (*current && (*current)->flag == WORD) //(*current && !ft_strchr(METACHAR, (*current)->flag))
 	{
+		// printf ("en creat_parsedtok_cmd. en el while\n"); //aqui se ha dio al carajo . Corregir depsues d ecenar
+		// print_token(*current);
 		parsedtok_cmd->cmd_flags[i++] = (*current)->name;
 		*current = (*current)->next;
 	}
+	// printf ("en creat_parsedtok_cmd. despues de splitting\n"); //aqui se ha dio al carajo . Corregir depsues d ecenar
+	// print_token(*current);
 	parsedtok_cmd->cmd_flags[i] = NULL; // es un 0 , un NULL o un '/0'. Null terminamos
 	add_parsedtok_sublist(parsedtok_cmd, sub_list_pars);
+	printf ("cuenta argumentos 4.\n");
 }

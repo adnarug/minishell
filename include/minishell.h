@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/26 21:35:54 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/26 22:11:08 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ t_env	*ft_lstnew_env(char *value, char *key);
 # define HEREDOC			'-' // changed
 # define WORD				'w'
 # define QUOTE_OFF			'\0'
-# define COMMAND			'w'
+# define COMMAND			'c'
 
 
 # define	DELIMITERS		" \t|<>"

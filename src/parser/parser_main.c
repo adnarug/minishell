@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:13:48 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/26 21:29:11 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/26 22:26:05 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,16 @@ void ft_parser(t_minishell *data)
 		//inizizalice_sublist(&sub_list_pars);
 		//create_sublist2(&current, &sub_list_pars);
 		data->array_sublist[i] = create_sublist(&current);
+		printf("crea una segunda sublista??\n");
 		// here there should be a free function or exit if there i sa probelm
 		// if (!data->array_sublist[i])
 		// 	free_exit(data);
 		i++;
-		current = current->next;
+		print_list_parsedtoken(data);
+		current = current->next; //este se esta metiendo en sefmentation 
 	}
 	data->array_sublist[i] = NULL;
-	print_list_parsedtoken(data);
+	printf("nulltermina el array??\n");
+
+	//print_list_parsedtoken(data);
 }
