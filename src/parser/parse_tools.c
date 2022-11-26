@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 19:21:15 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/26 21:17:39 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/26 21:29:18 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 // }
 
 //maloqueanndo
-t_sublist_prs_tok *create_sublist(t_nod_token *current) //corregido a array
+t_sublist_prs_tok *create_sublist(t_nod_token **current) //corregido a array
 {
 	t_sublist_prs_tok *sub_list_pars;
 	

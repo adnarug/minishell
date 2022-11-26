@@ -1,7 +1,7 @@
 NAME = minishell
 SRC_DIR = src/
 OBJ_DIR = obj/
-FLAGS = -Wextra -g -Wall #-Werror 
+FLAGS = -Wextra -g -Wall  -Werror  #-fsanitize=address
 LIBFT = libft/
 CC = gcc
 SRC_FILES = main				\
