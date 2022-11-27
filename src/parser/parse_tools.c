@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 19:21:15 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/27 13:42:52 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/27 14:39:29 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_sublist_prs_tok *create_sublist(t_nod_token **current) //corregido a array
 	sub_list_pars->exec_path = NULL;
 	sub_list_pars->fd_in = 0; //ask Pavel
 	sub_list_pars->fd_out = 0; //ask Pavel
-	add_parsedtokns_sublist(current, sub_list_pars);
+	parsing_tokens(current, sub_list_pars);
 	return(sub_list_pars);
 }
 

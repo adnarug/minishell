@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 12:46:50 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/27 13:56:10 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/27 14:49:47 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,16 @@
 	parsedtok_redir->word = (*current)->next->name;
 	parsedtok_redir->cmd_flags = NULL; //this field is not needed, we point to NULL
 	parsedtok_redir->next = NULL; //the node will pointer to NULL
-	add_parsedtok_sublist(parsedtok_redir, sub_list_pars);
+	add_parsedtok_sublist(parsedtok_redir, sub_list_pars); //cambiar nombre por add_parsedtok_sublist
 }
 
 
 
 
-void	add_parsedtokns_sublist(t_nod_token **current, t_sublist_prs_tok *sub_list_pars)
+void	parsing_tokens(t_nod_token **current, t_sublist_prs_tok *sub_list_pars)
 {
 	
-	while (*current && (*current)->flag != PIPE)
+	while (*current) //(*current && (*current)->flag != PIPE)
 	{
 		//printf ("comienzo while.\n");
 		// print_token(*current);
@@ -78,14 +78,16 @@ void	add_parsedtokns_sublist(t_nod_token **current, t_sublist_prs_tok *sub_list_
 			//printf ("hemos encontrado un redirect.\n"); //we give the list, the beggining of sublist and current of sublist pointing to pipe
 			*current = (*current)->next->next; //we will have jooin one node and next in one parsed token.
 		}
-		// else if ((*current)->flag == PIPE)
-		// {
-		// 	end_sublist_and_add(data, sub_list_pars);
-		// 	// sub_list_pars = create_sublist(); esto la lia
-		// }
+		else if ((*current)->flag == PIPE)
+		{
+			*current = (*current)->next;
+			break;
+			// sub_list_pars = create_sublist(); esto la lia
+		}
 		else
 		{
 			//make printf ("hemos encontrado una palabra.\n");
+			sub_list_pars->number_cmd += 1; //if its not 1 , wiill be an errror
 			creat_parsedtok_cmd(current, sub_list_pars);
 			//we will crate the next tken till pipe or redirection, carefull here with current = current->next;
 			//pars_tok_comm(data, current, sub_list_pars);

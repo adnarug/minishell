@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/27 02:06:46 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/27 14:40:42 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,12 @@ int main(int argc, char **argv, char **envp)
 		ft_lexer(&data);
 		// print_list(&data.list);
 		ft_expand(&data);
-		printf("\n*********Print after expand******\n\n");
-		print_list(&data.list);
+		//printf("\n*********Print after expand******\n\n");
+		//print_list(&data.list);
 		ft_parser(&data);
 		//init_simulation(&data);
 		//ft_execution(&data);
+		print_list_parsedtoken(&data);
 		delete_list(&data.list); //free before here. No needed
 		free(line_buffer);//free before here. No needed
 		printf("here ends minishell\n");

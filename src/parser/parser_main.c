@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:13:48 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/27 13:39:40 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/27 14:47:46 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html
 
 Para domingo:
 
-Que salga de todo cuando un redirect no tenga argmento
-crear sublistas sin probelmas con mas de un pipe
+
 Liberar listas y objetos qu eno necessitemos
+actualizar en cada sublist que solo hay un comando
 
 */
 /*
 < test2 < tedt3 grep hi >> '$USER' | wc -w > $HOME | echo >> '$USER'  "$USER"
-<  grep hi | wc -w
+ grep hi | wc 
 
 Elemnt: 0, value= Meta, type = <. 
 Elemnt: 1, value= test2, type = w. 
@@ -68,11 +68,7 @@ void ft_parser(t_minishell *data)
 		if (!data->array_sublist[i])
 			delete_array_parsedtk(data);
 		i++;
-		//print_list_parsedtoken2(data->array_sublist[i]);
-		//current = current->next; //este se esta metiendo en sefmentation. Despues de cenar bocata seguir aqui
 	}
 	//printf("nulltermina el array??\n");
 	data->array_sublist[i] = NULL;
-	print_list_parsedtoken(data);
-	//print_list_parsedtoken(data);
 }

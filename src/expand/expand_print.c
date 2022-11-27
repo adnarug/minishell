@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 01:57:56 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/27 13:54:40 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/27 14:52:09 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	print_list_parsedtoken(t_minishell *data)
 		}
 		else //cambia l acondicion
 		{
-			printf("Start de Subliste %i\n", i);
+			printf("Start of PIPE %i , number of commands: %i (!= 1, error))\n", i, data->array_sublist[i]->number_cmd);
 			current_parsedtoken = data->array_sublist[i]->first_prs_tok;
 			while (current_parsedtoken)
 			{
