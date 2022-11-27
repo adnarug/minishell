@@ -6,14 +6,14 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/25 14:18:21 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/27 16:43:20 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
 
-# include "stdbool.h"
+#include <stdbool.h>
 
 
 //this structur will be in the case we need to increase the number of paramters
@@ -91,6 +91,16 @@ typedef struct s_prs_tok
 	struct s_header_prs_tok *next: first element of list form list
 */
 
+typedef struct s_exec
+{
+	char	**cmd_flags;
+	char	*exec_path;
+	int		cmd_num;
+	int		last_cmd;
+	bool	no_cmd;
+}		t_exec;
+
+
 typedef struct s_hdocs
 {
 	bool			is_hdoc;
@@ -118,6 +128,14 @@ typedef struct s_minishell
 	t_list_token		list; //esto hayq eu cambialo a un puntero. Volver a estudiar esto  y diferencia enntre pointer y &
 	t_header_prs_tok	*lst_prs;
 	t_hdocs				hdoc;
+	int					pipe[2];//Parara
+	t_exec				*exec; //Parara
+	pid_t				pid; // Pararara
+	bool				prs_error;
+	bool				lx_error;
+	bool				ex_error;
+	int					std_in;
+	int					std_out;
 	struct termios		termios_default;
 }	t_minishell;
 

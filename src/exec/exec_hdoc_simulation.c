@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 11:00:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/25 16:23:03 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/25 16:58:03 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,8 @@ int resolve_hdocs(t_minishell	*data)
 	count_hdocs(data);
 	if (data->hdoc.num_hdocs == 0)
 		data->hdoc.is_hdoc = false;
+	else
+		data->hdoc.is_hdoc = true;
 	create_hdoc_files(data);
 	if (DEBUG == 1)
 		printf("num of heredocs %i\n", data->hdoc.num_hdocs);
@@ -143,11 +145,18 @@ int resolve_hdocs(t_minishell	*data)
 	while (i < data->hdoc.num_hdocs)
 	{
 		read_to_hdoc(data, &data->hdoc.hdocs_nodes[i]);
-		destroy_hdocs(data);
+		// destroy_hdocs(data);
 		data->hdoc.index++;
 		i++;
 	}
-	free(data->hdoc.fd_tmp);
-	free(data->hdoc.hdocs_nodes);
+	i = 0;
+	while (i < data->hdoc.num_hdocs)
+	{
+		data->hdoc.hdocs_nodes[i].type = '<';
+		i++;
+	}
+	printf("hdocs done\n");
+	// free(data->hdoc.fd_tmp);
+	// free(data->hdoc.hdocs_nodes);
 	return (EXIT_SUCCESS);
 }

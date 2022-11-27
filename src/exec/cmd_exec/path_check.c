@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 08:18:02 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/23 15:58:35 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/27 17:24:45 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,10 @@ int	find_correct_paths(t_prs_tok *parameters, t_minishell *data)
 	if (path_to_builtins == NULL)
 		printf("Error\nCould not find the PATH =");
 	path_to_builtins = add_path_sign(path_to_builtins);
-	parameters->exec_path = \
+	data->exec->exec_path = \
 		check_paths(path_to_builtins, parameters->cmd_flags[0]);
-	if (parameters->exec_path == NULL)
-		printf("Error\nPlease check cmd1");
+	printf("****%s\n", data->exec->exec_path);
+	if (data->exec->exec_path == NULL)
+		printf("Error\nPlease check cmd:");
 	return (EXIT_SUCCESS);
 }

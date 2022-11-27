@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/24 14:41:12 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/27 17:18:43 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int main(int argc, char **argv, char **envp)
 	// char	**after_split;
 	initializer_data(&data);
 	ft_env(&data, envp);
+
 	(void) (argc);
 	(void) (argv);
 	// while (1)
@@ -79,10 +80,11 @@ int main(int argc, char **argv, char **envp)
 		ft_lexer(&data);
 		// print_list(&data.list);
 		ft_expand(&data);
-		printf("\n*********Print after expand******\n\n");
-		print_list(&data.list);
+		// printf("\n*********Print after expand******\n\n");
+		// print_list(&data.list);
 		init_simulation(&data);
-		ft_execution(&data);
+		execute_tokens(&data);
+		// ft_execution(&data);
 		delete_list(&data.list); //para que no queden leaks
 		//ft_parser(&list, line_buffer);
 

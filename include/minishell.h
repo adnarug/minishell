@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/25 15:51:09 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/27 18:06:48 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,15 @@ t_env	*ft_lstnew_env(char *value, char *key);
 # define QUOTE_OFF			'\0'
 # define COMMAND			'c'
 
+# define CHILD_PROCESS		0
+# define MAIN_PROCESS		1
+# define HDOC				2
+# define RIGHTS				0644
+# define CMD_NOT_FOUND				127
+# define CMD_NOT_FOUND				127
+# define INVALID_EXIT_ARG			255
+# define TERMINATED_BY_CTRL_C		130
+# define PIPE_SYNTAX_ERROR			258
 
 # define	DELIMITERS		" \t|<>"
 # define	SPACE_STRNG		" "
@@ -244,4 +253,21 @@ int					resolve_hdocs(t_minishell	*data);
 int		count_hdocs(t_minishell *data);
 void	destroy_hdocs(t_minishell *data);
 
+
+//RM SIMUL FUNCT
+void	execute_tokens(t_minishell *data);
+	void	exec_cmd(t_minishell *data, t_header_prs_tok *token);
+		void	pipe_last_cmd(t_minishell *data);
+		void	pipe_transitory_cmd(t_minishell *data);
+			void	redirect_stdin_to_pipe(t_minishell *data);
+			void	redirect_transitory_cmd(t_minishell *data);
+			int	create_fork(t_minishell *data);
+			void	exec_bash_cmd(t_minishell *data);
+	void	reset_stdin_stdout(t_minishell *data);
+	void	reset_params(t_minishell *data);
+void	dup_stdin_and_stdout(t_minishell *data);
+void	reset_stdin_stdout(t_minishell *data);
+int		create_pipe(t_minishell *data);
+void	catch_exit_code(t_minishell *data);
+void	close_fds_in_out(t_minishell *data);
 #endif 
