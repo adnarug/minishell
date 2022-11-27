@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_parse.c                                       :+:      :+:    :+:   */
+/*   parse_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 01:33:30 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/27 01:33:58 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/27 13:21:07 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ void	delete_array_parsedtk(t_minishell *data)
 		i++;
 	}
 	free(data->array_sublist);
+	//Delete also the whole list of previous tokens
+	delete_list(&data->list);
+	//free the prompt line, or even when we create tokens
 }
 
 void free_parsed_tok(t_prs_tok	*delete)

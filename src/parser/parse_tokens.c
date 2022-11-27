@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 12:46:50 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/27 00:42:37 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/27 13:56:10 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,11 @@
 {
 	t_prs_tok	*parsedtok_redir;
 
-	if ((*current)->next->flag != WORD)
+	//print_token(*current);
+	//printf ("creat_parsedtok_redir antes de verificar siguiente nodo tok.\n");
+	if (!(*current)->next || (*current)->next->flag != WORD)
 	{
-		printf("the redirection has no a word after. Exit and free whart wver you need to free\n");
+		printf("the redirection |%c| has no a file name after. Exit and free whart wver you need to free\n", (*current)->flag);
 		exit(1);
 	}
 	//this could be a generic function > Create node parsed token o r maybe not
@@ -68,7 +70,7 @@ void	add_parsedtokns_sublist(t_nod_token **current, t_sublist_prs_tok *sub_list_
 	
 	while (*current && (*current)->flag != PIPE)
 	{
-		// printf ("comienzo while.\n");
+		//printf ("comienzo while.\n");
 		// print_token(*current);
 		if (ft_strchr(REDIRECT, (*current)->flag)) //si enconrtrtamos un redirect, cogeremos el siguiente nodo y lo convertimos en psren token
 		{

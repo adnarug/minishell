@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:13:48 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/27 13:12:22 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/27 13:39:40 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ Liberar listas y objetos qu eno necessitemos
 
 */
 /*
-< test2 grep hi >> '$USER' | wc -w > $HOME | echo >> '$USER'  "$USER"
-< test2 grep hi | wc -w
+< test2 < tedt3 grep hi >> '$USER' | wc -w > $HOME | echo >> '$USER'  "$USER"
+<  grep hi | wc -w
 
 Elemnt: 0, value= Meta, type = <. 
 Elemnt: 1, value= test2, type = w. 
@@ -71,13 +71,8 @@ void ft_parser(t_minishell *data)
 		//print_list_parsedtoken2(data->array_sublist[i]);
 		//current = current->next; //este se esta metiendo en sefmentation. Despues de cenar bocata seguir aqui
 	}
-
 	//printf("nulltermina el array??\n");
 	data->array_sublist[i] = NULL;
 	print_list_parsedtoken(data);
 	//print_list_parsedtoken(data);
 }
-
-
-
-

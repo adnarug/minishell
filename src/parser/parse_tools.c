@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 19:21:15 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/27 13:08:09 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/27 13:42:52 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,9 @@ t_prs_tok *find_last_parsedtok(t_sublist_prs_tok *sub_list_pars)
 	last->next = parsedtok;
 }
 
+
+
+// to delete!!
 
 
 void	print_list_parsedtoken2(t_sublist_prs_tok	*array_sublist)

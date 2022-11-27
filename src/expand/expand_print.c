@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 01:57:56 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/27 13:10:56 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/27 13:54:40 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void print_token(t_nod_token	*token)
 		return;
 	}
 	printf("-------imprimirmpos valores det oken----------\n");
-	printf("el valor de name: %s\n", token->name);
+	printf("el valor de name: %s y valor %c\n", token->name, token->flag);
 	printf("-------END  IMPRESION  TOKEN-------\n");
 
 }
