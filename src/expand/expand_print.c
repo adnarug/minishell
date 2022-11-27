@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 01:57:56 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/27 01:59:26 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/27 13:10:56 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,13 @@ void	print_list_parsedtoken(t_minishell *data)
 					//printf("   fuera Argumento %i, comando:|%s| \n",k , current_parsedtoken->cmd_flags[k]);
 					while (current_parsedtoken->cmd_flags[k])
 					{
-						printf("	- Argument %i, flag:|%s| \n",k , current_parsedtoken->cmd_flags[k]);
+						printf("	- Flag %i :|%s| \n",k , current_parsedtoken->cmd_flags[k]);
 						k++;
 					}
 				}
 				else if (ft_strchr(REDIRECT, current_parsedtoken->type))
 				{
-					printf(" REDIRECT: |%c|, argument: |%s| \n", current_parsedtoken->type, current_parsedtoken->word);	
+					printf(" REDIRECT: |%c| \n	-file name: |%s| \n", current_parsedtoken->type, current_parsedtoken->word);	
 				}
 				else
 					printf("what kind of fucking parsed token are you printing?? \n");
@@ -112,51 +112,3 @@ void	print_list_parsedtoken(t_minishell *data)
 }
 
 //another way printing
-void	print_list_parsedtoken2(t_sublist_prs_tok	*array_sublist)
-{
-	int i = 0;
-	t_prs_tok *current_parsedtoken;
-	//t_sublist_prs_tok	*current_sublist;
-	printf("\n-------BEGIINING de impresion  list unica of parsed tokens----------\n");
-	if (!array_sublist)
-	{
-		printf("-------El array no apunta a nada----------\n");
-		printf("-------END from list of parsed tokens----------\n");
-		return ;
-	}
-
-	int j = 0;
-	if (!array_sublist)
-	{
-		printf("La Subliste %i esta vacia y no deberia imprimir mas\n", i);
-	}
-	else //cambia l acondicion
-	{
-		printf("Start subliste %i\n", i);
-		current_parsedtoken = array_sublist->first_prs_tok;
-		while (current_parsedtoken)
-		{
-			printf("	node %i de Subliste %i. ", j, i);
-			if (current_parsedtoken->type == COMMAND)
-			{
-				printf(" COMMAND: \n");
-				int k = 0;
-				//printf("   fuera Argumento %i, comando:|%s| \n",k , current_parsedtoken->cmd_flags[k]);
-				while (current_parsedtoken->cmd_flags[k])
-				{
-					printf("	- Argument %i, command:|%s| \n",k , current_parsedtoken->cmd_flags[k]);
-					k++;
-				}
-			}
-			else if (ft_strchr(REDIRECT, current_parsedtoken->type))
-			{
-				printf(" REDIRECT: |%c|, argument: |%s| \n", current_parsedtoken->type, current_parsedtoken->word);	
-			}
-			else
-				printf("what kind of fucking parsed token are you printing?? \n");
-			j++;
-			current_parsedtoken = current_parsedtoken->next;
-		}
-	}
-	printf("\n-------END from list of parsed tokens----------\n");
-}
