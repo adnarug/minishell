@@ -6,21 +6,12 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/27 00:54:42 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/27 02:06:46 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-
-/*
- 11/11/22
- Incluir en el nodo de la lista un char para el texto antiguo y para despues de la expansion
- Incluir en el nodo si hay comillas o no . Vermos despues
- echo $ $ >> no hay que expandir
- echo text"$USER" >>> Expandir sin tener en cuenta las "" , also for cd,  cd "$HOME"
-
-*/
 
 /*
 	tcgetattr(STDOUT_FILENO, &data->termios_default);
@@ -87,9 +78,8 @@ int main(int argc, char **argv, char **envp)
 		ft_parser(&data);
 		//init_simulation(&data);
 		//ft_execution(&data);
-		delete_list(&data.list); //para que no queden leaks
-		//ft_parser(&data);
-		free(line_buffer);
+		delete_list(&data.list); //free before here. No needed
+		free(line_buffer);//free before here. No needed
 		printf("here ends minishell\n");
 		//atexit(check_leaks);
 		//system("leaks minishell");

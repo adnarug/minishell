@@ -5,8 +5,6 @@ FLAGS = -Wextra -g -Wall  -Werror  #-fsanitize=address
 LIBFT = libft/
 CC = gcc
 SRC_FILES = main				\
-			utils				\
-			lst_utils 			\
 			lexer/lexer_main	\
 			lexer/lexer_tools	\
 			lexer/lexer_quote	\
@@ -14,6 +12,7 @@ SRC_FILES = main				\
 			lexer/lexer_meta	\
 			expand/expand_main		\
 			expand/expand_tools	\
+			expand/expand_print \
 			signals/signals_main \
 			signals/signals_termios	\
 			signals/signals_child_process \
@@ -33,6 +32,7 @@ SRC_FILES = main				\
 			parser/parser_main		\
 			parser/parse_tools	\
 			parser/parse_tokens	\
+			parser/parse_free \
 			# exec/execution_main \
 			# exec/exec_init_simulation \
 			# exec/cmd_exec/path_check \

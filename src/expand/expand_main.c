@@ -6,18 +6,12 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 00:25:54 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/22 23:01:41 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/27 01:43:42 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// minishell $ 0$USER >>> de alguna manera esta impriemdno al detras de user
-// char *compare_env_list(t_minishell *data, char *env_var)
-// {
-// 	//funcin para comprar un dato en una lista enlazada y que devuelva el valor. Seguir por aqui lunes por  latarde
-// }
-// 0$USER9
 /*
 	Find the key value, 
 	compare to the values of env list,
@@ -39,7 +33,6 @@ char	*expand_variable(t_minishell *data , char *buf, char **s)
 
 		if (is_not_end_expand(*ptr))
 		{
-			//printf("en if, char: %c \n", *ptr);	
 			env_var = ft_strjoin_char(env_var, *ptr);
 			//printf("hasta aqui exapnd 2.1 \n");
 		}

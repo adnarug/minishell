@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 14:42:56 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/22 19:40:05 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/27 01:40:01 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,36 +58,4 @@ void	ft_lexer(t_minishell *data) //(t_list_token *list, char *line)
 	}
 	//system("leaks minishell");
 }
- /*
-
-para pruebas
- mi > mama|< me <mima >>yo 'amo'>> ||<<
-  | > >> < << hola
- | > >> <  hola
-
-feli'mimimi'mamama''mumu | lalala  --> 3 words
-fel 'mimimi' mamama''mumu --> 3 words
-
-bash-3.2$ mi
-mimamame
-bash-3.2$ echo 'mimama'me
-mimamame
-bash-3.2$ echo 'mimama'|me
-bash: me: command not found
-bash-3.2$ echo "mimi"mama
-mimimama
-bash-3.2$ echo "mimi" mama
-mimi mama
-bash-3.2$ 
-bash-3.2$ 'mi' mama
-bash: mi: command not found
-bash-3.2$ 'mi'mama
-bash: mimama: command not found
-bash-3.2$ echo 'mi''mama'
-mimama
-bash-3.2$ echo 'mi''mama' me
-mimama me
-bash-3.2$ echo 'mi''mama' 'me' 
-mimama me
-echo 'mi''" a'
- */
+ 

@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/26 23:55:42 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/27 01:53:38 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,11 @@ void add_parsedtok_sublist(t_prs_tok *parsedtok_redir, t_sublist_prs_tok *sub_li
 
 void	print_list_parsedtoken(t_minishell *data);
 void	print_list_parsedtoken2(t_sublist_prs_tok	*array_sublist);
+
+//Parse free
+void	delete_array_parsedtk(t_minishell *data);
+void	free_parsed_tok(t_prs_tok	*delete);
+void	free_list_parsedtok(t_sublist_prs_tok *sublist);
 
 
 

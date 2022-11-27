@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 11:46:51 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/22 00:30:10 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/27 01:43:05 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,12 @@ void	change_quot_modus(char *quote, char c)
 			*quote = QUOTE_OFF;
 	}
 }
+
  /*
-	Recorremos el input para verificar las dobles/simples comillas
-	Si encontramos una comilla(s), cambiamos el estatus hasta que 
-	volvamos a encontrar la misma comilla(s) y volvamos a cambiar el status
-	Si al final char quote es 0, todas las comillas se ha cerrado correctamente
+	We scroll through the input to check for double/single quotation marks.
+	If we find a quote(s), we change the status until we find the same quote(s)
+	and change the status again. 
+	If at the end char quote is 0, all quotes have been closed correctly.
  */
 int are_quote_closed(t_minishell *data)
 {
@@ -51,12 +52,12 @@ int are_quote_closed(t_minishell *data)
 			change_quot_modus(&quote, *ptr);
 		ptr++;
 	}
-	if (quote) //quote active at the end , means quote not closed
+	if (quote)
 		return (0);
-	return (1); //quote closed
+	return (1);
 }
 
-// esta funcion y la de abao no son necesarias 
+// 2 fucntions below not needed
 void	find_2nd_quote(t_minishell *data, t_lexing *lex_struct)
 {
 	char *point_2nd_quote;
