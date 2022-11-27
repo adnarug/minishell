@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/27 13:24:45 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/27 15:52:47 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ typedef struct s_lexing
 {
 	char	*buff;
 	int		c_pos;
-	char	c; //we can take out
+	// char	c; //we can take out
 	char	type;
-	int		simple_quote;
-	int		double_quote;
+	// int		simple_quote;
+	// int		double_quote;
 	int		expand;
 	char	quote;
 	//char	*ptr;

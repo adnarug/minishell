@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/27 14:40:42 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/27 16:09:08 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,13 @@ int main(int argc, char **argv, char **envp)
 		line_buffer = readline("minishell $ ");
 		data.line = line_buffer; //what about free line_buffer??
 		add_history(line_buffer); // is it &data.line ?? , 
-		// after_split = ft_split_meta(line_buffer);
+		// after_split = ft_split_meta(line_buffer);git sg
 		// print_2d(after_split);
 		ft_lexer(&data);
 		// print_list(&data.list);
 		ft_expand(&data);
-		//printf("\n*********Print after expand******\n\n");
-		//print_list(&data.list);
+		printf("\n*********Print after expand******\n\n");
+		print_list(&data.list);
 		ft_parser(&data);
 		//init_simulation(&data);
 		//ft_execution(&data);

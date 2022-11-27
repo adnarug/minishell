@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 14:42:53 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/27 01:50:24 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/27 16:20:17 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,10 @@ t_nod_token *create_tok(t_lexing *lex_struct)
 		new_tok = NULL;
 		return (NULL);
 	}
+	//new_tok->flag = lex_struct->type;
+	// new_tok->simple_quote = lex_struct->simple_quote;
+	// new_tok->double_quote = lex_struct->double_quote;
 	new_tok->flag = lex_struct->type;
-	new_tok->simple_quote = lex_struct->simple_quote;
-	new_tok->double_quote = lex_struct->double_quote;
 	new_tok->quote = lex_struct->quote; //con cual de las 3 anteriores me quedo
 	return(new_tok);
 }

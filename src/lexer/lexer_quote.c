@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 11:46:51 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/27 01:43:05 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/27 16:20:29 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	find_2nd_quote(t_minishell *data, t_lexing *lex_struct)
 		exit(1);
 	}
 	pos_2nd_quote = point_2nd_quote - data->line - lex_struct->c_pos + 1;
-	lex_struct->simple_quote = 0; //este puedo borrar
+	//lex_struct->simple_quote = 0; //este puedo borrar
 	lex_struct->quote = 0;
 	lex_struct->c_pos = lex_struct->c_pos + pos_2nd_quote - 1; //nos da el lgar de la posicion de la comilla
 }
