@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 00:25:54 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/28 20:54:36 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/28 21:42:15 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,11 @@
 	if find it in the list substitute
 	otherwise returns 0
 	We pass the pointer to the adress of the string
-
-	$? == global var
-	$$ == $$
-	just 1 $ = $
 	$$ >> no funciona , verificar
 	< test2 < tedt3 grep hi >> '$USER' | wc -w > $HOME | echo >> $? | cd $$ << $
+	"'$USER'"
+	'"$USER mi mama"'
+	"'$USER mi papa'" >>> comillas dento de comillas no uitar las comillas. Mirar en expansion
 */
 
 // 
@@ -88,27 +87,20 @@ void expand_find(t_minishell *data, t_nod_token *current)
 		{
 			s++;
 			if (*s == DOLLAR)
-			{
-				//value = ft_strjoin_char("$", *s);
 				value = ft_strdup("$$");
-			}
 			else if (*s == '\0')
 			{
 				new_buff = ft_strjoin_char(new_buff, DOLLAR);
 				break; //no podemos continuar o nos metemos en un seg fault
 			}
 			else if (*s == '?')
-			{
 				value = ft_itoa(glob_var_exit);
-				//s++;
-			}
 			else
 			{
 				value = expand_variable(data, new_buff, &s);	
 			}
 			new_buff = ft_strjoin(new_buff, value);
-			//printf("2 valor: %s\n", new_buff);
-			//printf("and pointer_posit after %s\n", s);
+
 		}
 		else
 		{

@@ -134,7 +134,7 @@ Parsing
 	echo -n -n -n bonjour
 	echo "-n" bonjour
 	echo text"$USER"
-	echo text"'$USER'" ' $USER '
+atention >>>	echo text"'$USER'" ' $USER '  
 	echo "text"   "$USER"    "$USER"
 	echo               text "$USER"            "$USER"text
 	echo ''''''''''$USER''''''''''

@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 11:46:51 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/27 16:20:29 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/28 21:37:59 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,23 @@ void	change_quot_modus(char *quote, char c)
 		if ((*quote == SINGLE_QUOTE || *quote == DOUBLE_QUOTE ) && *quote == c)
 			*quote = QUOTE_OFF;
 	}
+}
+
+bool	change_quot_modus2(char *quote, char c)
+{
+
+	if (*quote == QUOTE_OFF)
+	{
+		*quote = c;
+		return true; // el modo se ha cambiado
+	}
+	else 
+	{
+		if ((*quote == SINGLE_QUOTE || *quote == DOUBLE_QUOTE ) && *quote == c)
+			*quote = QUOTE_OFF;
+		return true; // el modo se ha cambiado
+	}
+	return false; // el modo no se ha cambiado, se trata de quotes dentro de otros quotes
 }
 
  /*
