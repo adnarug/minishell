@@ -25,6 +25,7 @@ SRC_FILES = main				\
 			exec/exec_hdoc_simulation \
 			exec/exec_hdoc_utils \
 			exec/exec_rm_tools \
+			exec/trans_last \
 			env/env_main \
 			env/initializer_env \
 			utils/lst_utils \

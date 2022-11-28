@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 14:57:54 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/28 10:32:17 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/28 14:58:02 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,32 +44,6 @@ int	create_fork(t_minishell *data)
 	return (0);
 }
 
-void	redirect_transitory_cmd(t_minishell *data)
-{
-	close(data->pipe[0]);
-	if (data->std_in != STDIN_FILENO)
-	{
-		if (dup2(data->std_in, STDIN_FILENO) < 0)
-		{
-			perror(NULL);
-			exit (EXIT_FAILURE);
-		}
-		close(data->std_in);
-	}
-	if (data->std_out != STDOUT_FILENO)
-	{
-		if (dup2(data->std_out, STDOUT_FILENO) < 0)
-		{
-			perror(NULL);
-			exit (EXIT_FAILURE);
-		}
-		close(data->std_out);
-	}
-	else
-		dup2(data->pipe[1], STDOUT_FILENO);
-	close(data->pipe[1]);
-}
-
 void	exec_bash_cmd(t_minishell *data)
 {
 	if (data->ex_error == true)
@@ -95,9 +69,10 @@ void	reset_params(t_minishell *data)
 {
 	data->prs_error = false;
 	data->ex_error = false;
+	data->exec->is_builtin = false;
 	data->exec->no_cmd = false;
-	data->std_in = STDIN_FILENO;
-	data->std_out = STDOUT_FILENO;
+	data->curr_fd_in = STDIN_FILENO;
+	data->curr_fd_out = STDOUT_FILENO;
 }
 
 //To be done somewhere else
@@ -136,8 +111,36 @@ void	catch_exit_code(t_minishell *data)
 
 void	close_fds_in_out(t_minishell *data)
 {
-	if (data->std_in != STDIN_FILENO)
-		close(data->std_in);
-	if (data->std_out != STDOUT_FILENO)
-		close(data->std_out);
+	if (data->curr_fd_in != STDIN_FILENO)
+		close(data->curr_fd_in);
+	if (data->curr_fd_out != STDOUT_FILENO)
+		close(data->curr_fd_out);
 }
+
+
+// void	pipe_transitory_cmd(t_minishell *data)
+// {
+// 	int	builtin;
+
+// 	if (create_pipe(data) < 0)
+// 		return ;
+// 	// if (data->exec->no_cmd == true || data->parse_error == true)
+// 	// {
+// 	// 	redirect_stdin_to_pipe(data);
+// 	// 	return ;
+// 	// }
+// 	if (data->exec->is_builtin == true && data->exec->last_cmd > 1)
+// 		exec_transitory_builtin(data);
+// 	else
+// 	{
+// 		if (create_fork(data) < 0)
+// 			return ;
+// 		if (data->pid == 0)
+// 		{
+// 			// ft_signals(CHILD_PROCESS);
+// 			redirect_transitory_cmd(data);
+// 			exec_bash_cmd(data);
+// 		}
+// 		redirect_stdin_to_pipe(data);
+// 	}
+// }

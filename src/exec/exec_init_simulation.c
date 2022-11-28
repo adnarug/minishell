@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 11:06:11 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/28 10:59:46 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/28 15:28:27 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,23 +117,23 @@ void	init_simulation(t_minishell *data)
 	t_prs_tok			*token_2_1;
 
 	header_lst_node_0 = ft_lstnew_header_prs_tok();//create header 1
-	token_0_1 = ft_lstnew_prs_tok(COMMAND, NULL, ft_split("ifconfig", ' '));//create token 1
+	token_0_1 = ft_lstnew_prs_tok(COMMAND, NULL, ft_split("env", ' '));//create token 1
 	header_lst_node_0->prs_tok = token_0_1;//linking
 
 	
 	header_lst_node_1 = ft_lstnew_header_prs_tok();
-	token_1_1 = ft_lstnew_prs_tok(COMMAND, NULL, ft_split("grep :", ' '));
+	token_1_1 = ft_lstnew_prs_tok(COMMAND, NULL, ft_split("grep PATH", ' '));
 	header_lst_node_1->prs_tok = token_1_1;
 
 
-	header_lst_node_2 = ft_lstnew_header_prs_tok();
-	token_2_1 = ft_lstnew_prs_tok(COMMAND, NULL, ft_split("grep flags=8051", ' '));
-	header_lst_node_2->prs_tok = token_2_1;
+	// header_lst_node_2 = ft_lstnew_header_prs_tok();
+	// token_2_1 = ft_lstnew_prs_tok(COMMAND, NULL, ft_split("grep a", ' '));
+	// header_lst_node_2->prs_tok = token_2_1;
 	// ft_lstadd_back_prs_tok(&token, ft_lstnew_prs_tok(HEREDOC, "outfile", NULL));
 	header_lst_node_0->next = header_lst_node_1;
 	data->lst_prs = header_lst_node_0;
-	header_lst_node_1->next = header_lst_node_2;
-	data->lst_prs = header_lst_node_0;
+	// header_lst_node_1->next = header_lst_node_2;
+	// data->lst_prs = header_lst_node_0;
 	// printf("%c %s %s %c %s\n",data->lst_prs->prs_tok->type, data->lst_prs->prs_tok->word, data->lst_prs->prs_tok->next->cmd_flags[0], data->lst_prs->prs_tok->next->next->type, data->lst_prs->prs_tok->next->next->word);
 	return ;
 }

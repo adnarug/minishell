@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/27 18:06:48 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/28 14:54:33 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,7 +230,7 @@ int			builtin_exit(char	**token);
 
 //Execution 
 int			cmd_exec(t_prs_tok *token, t_minishell *data);
-int			exec_builtin(t_prs_tok *token_node, t_minishell *data);
+int			exec_builtin(t_minishell *data);
 int			ft_execution(t_minishell *data);
 char		**init_builtins_arr(char **builtins);
 // int		find_correct_paths(t_nod_token *parameters, t_minishell *data);
@@ -270,4 +270,7 @@ void	reset_stdin_stdout(t_minishell *data);
 int		create_pipe(t_minishell *data);
 void	catch_exit_code(t_minishell *data);
 void	close_fds_in_out(t_minishell *data);
+void	exec_transitory_builtin(t_minishell *data);
+void	exec_last_builtin(t_minishell *data);
+void	redirect_last_cmd(t_minishell *data);
 #endif 

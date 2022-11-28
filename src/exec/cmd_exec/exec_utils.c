@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:19:06 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/23 11:49:30 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/28 13:11:28 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,8 +153,8 @@ int make_command_table(char *argv)
 // }
 
 
-int sorted_token(t_minishell )
-<test2 grep hi >text1 |  wc -w >> text2
-1. < test2 grep hi
-	type
-2. wc -w 
+// int sorted_token(t_minishell )
+// <test2 grep hi >text1 |  wc -w >> text2
+// 1. < test2 grep hi
+// 	type
+// 2. wc -w 

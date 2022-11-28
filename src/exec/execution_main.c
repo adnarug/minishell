@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:22:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/28 10:59:09 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/28 15:50:32 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,45 +42,49 @@ char **init_builtins_arr(char **builtins)
 // // 		cmd_exec(tokens_lst, data)
 // // }
 
-// int	exec_builtin(t_prs_tok *token_node, t_minishell *data)
-// {
-// 	char	**cmd_flags;
-// 	char	*token;
-// 	t_env	*env;
-	
-// 	token = token_node->cmd_flags[0];
-// 	printf("%s\n", token);
-// 	env = data->env_lst;
-// 	cmd_flags = ft_split(token, ' ');
-// 	if (ft_strncmp(token, "cd", ft_strlen("cd")) == 0)
-// 		builtin_cd(env, cmd_flags);
-	
-// 	//ENV
-// 	if (ft_strncmp(token, "env", ft_strlen("env")) == 0)
-// 		builtin_env(env, token);
+int	exec_builtin(t_minishell *data)
+{
+	char	**cmd_flags;
+	char	*token;
+	t_env	*env;
 
-// 	// pwd
-// 	// if (ft_strncmp(token, "pwd", ft_strlen("pwd")) == 0)
-// 	// 	builtin_pwd(cmd_flags[0]);
+	// token = token_node->cmd_flags[0];
+	// printf("%s\n", token);
+	env = data->env_lst;
+	// cmd_flags = ft_split(token, ' ');
+	if (ft_strncmp(data->exec->cmd_flags[0], "cd", ft_strlen("cd")) == 0)
+		builtin_cd(env, data->exec->cmd_flags);
 	
-// 	//UNSET
-// 	if (ft_strncmp(token, "unset", ft_strlen("unset")) == 0)
-// 		builtin_unset(env, cmd_flags);
+	//ENV
+	if (ft_strncmp(data->exec->cmd_flags[0], "env", ft_strlen("env")) == 0)
+	{
+		builtin_env(env, data->exec->cmd_flags[0]);
+		write (2, "check\n",6);
+		return (EXIT_SUCCESS);
+	}
+
+	// pwd
+	// if (ft_strncmp(token, "pwd", ft_strlen("pwd")) == 0)
+	// 	builtin_pwd(cmd_flags[0]);
 	
-// 	// // EXPORT
-// 	// if (ft_strnstr(token, "export", ft_strlen("export ")) != NULL)
-// 	// {
-// 	// 	// token += ft_strlen("export ");
-// 	// 	builtin_export(env, cmd_flags);
-// 	// }
+	//UNSET
+	if (ft_strncmp(data->exec->cmd_flags[0], "unset", ft_strlen("unset")) == 0)
+		builtin_unset(env, data->exec->cmd_flags);
+	
+	// EXPORT
+	if (ft_strnstr(data->exec->cmd_flags[0], "export", ft_strlen("export ")) != NULL)
+	{
+		// token += ft_strlen("export ");
+		builtin_export(env, data->exec->cmd_flags);
+	}
 
-// 	//EXIT
-// 	// exit_args = ft_split(token, ' ');
-// 	if (ft_strnstr(token, "exit", ft_strlen("exit")) != NULL)
-// 		builtin_exit(cmd_flags);
+	//EXIT
+	// exit_args = ft_split(token, ' ');
+	if (ft_strnstr(token, "exit", ft_strlen("exit")) != NULL)
+		builtin_exit(data->exec->cmd_flags);
 
-// 	return (EXIT_SUCCESS);
-// }
+	return (EXIT_SUCCESS);
+}
 
 // int run_execution(t_prs_tok *token, t_minishell *data)
 // {
@@ -235,27 +239,9 @@ t_prs_tok *iter_until_cmd(t_header_prs_tok *header)
 
 /***********************************************************/
 
-void	init_exec(t_minishell *data)
-{
-	data->exec = malloc(sizeof(t_exec));
-	if (data->exec == NULL)
-		return ;
-	data->exec->cmd_flags = NULL;
-	data->exec->no_cmd = false;
-	data->exec->exec_path = NULL;
-	data->exec->cmd_num = 0;//HARDCODED FOR SIMILATION TODO:reset
-	data->exec->last_cmd = 2;
-	data->pid = 0;
-	data->prs_error = false;
-	data->lx_error = false;
-	data->ex_error = false;
-	data->pipe[0] = -1;
-	data->pipe[1] = -1;
-}
 
 void	pipe_transitory_cmd(t_minishell *data)
 {
-	int	builtin;
 
 	if (create_pipe(data) < 0)
 		return ;
@@ -264,11 +250,13 @@ void	pipe_transitory_cmd(t_minishell *data)
 	// 	redirect_stdin_to_pipe(data);
 	// 	return ;
 	// }
-	// builtin = ft_get_builtin(data);
-	// if (builtin >= 0)
-	// 	exec_transitory_builtin(data, builtin);
-	// else
-	// {
+	if (data->exec->is_builtin == true)
+	{
+		printf("coming to execute builtin: %s\n", data->exec->cmd_flags[0]);
+		exec_transitory_builtin(data);
+	}
+	else
+	{
 		if (create_fork(data) < 0)
 			return ;
 		if (data->pid == 0)
@@ -280,34 +268,10 @@ void	pipe_transitory_cmd(t_minishell *data)
 			exec_bash_cmd(data);
 		}
 		redirect_stdin_to_pipe(data);
-	// }
+	}
 }
 
 /* Redirects the last non-builtin command. */
-void	redirect_last_cmd(t_minishell *data)
-{
-	if (data->std_in != STDIN_FILENO)
-	{
-		printf("****%d %d***", data->std_in, STDIN_FILENO);
-		if (dup2(data->std_in, STDIN_FILENO) < 0)
-		{
-			printf("error1\n");
-			perror (NULL);
-			exit (EXIT_FAILURE);
-		}
-		close(data->std_in);
-	}
-	if (data->std_out != STDOUT_FILENO)
-	{
-		if (dup2(data->std_out, STDOUT_FILENO) < 0)
-		{
-				printf("Error2\n");
-			perror (NULL);
-			exit (EXIT_FAILURE);
-		}
-		close(data->std_out);
-	}
-}
 
 // void	ft_signals(int flag)
 // {
@@ -334,8 +298,6 @@ void	redirect_last_cmd(t_minishell *data)
 
 void	pipe_last_cmd(t_minishell *data)
 {
-	int	builtin;
-
 	// if (data->exec->no_cmd == true || data->prs_error == true)
 	// {
 	// 	reset_stdin_stdout(data);
@@ -343,11 +305,10 @@ void	pipe_last_cmd(t_minishell *data)
 	// 		// g_exit_code = EXIT_FAILURE;
 	// 	return ;
 	// }
-	// builtin = ft_get_builtin(data);
-	// if (builtin >= 0)
-	// // 	exec_last_builtin(data, builtin);
-	// else
-	// {
+	if (data->exec->is_builtin == true)
+		exec_last_builtin(data);
+	else
+	{
 		if (create_fork(data) < 0)
 			return ;
 		if (data->pid == 0)
@@ -359,9 +320,8 @@ void	pipe_last_cmd(t_minishell *data)
 				printf("*******Executing the last command\n");
 			exec_bash_cmd(data);
 		}
-	// }
+	}
 	reset_stdin_stdout(data);
-
 }
 
 /*
@@ -372,22 +332,49 @@ void	exec_cmd(t_minishell *data, t_header_prs_tok *token)
 {
 	// extract_cmd_and_path(data, token); let say we have the cmd and the path to it
 	data->exec->cmd_flags = token->prs_tok->cmd_flags;
-	if(is_builtin(token->prs_tok) == 0)
+	if (is_builtin(token->prs_tok) == 0)
 		find_correct_paths(token->prs_tok, data);
-	// else
-	// {
+	else
+	{
+		printf("builtin detected\n");
+		data->exec->is_builtin = true;
+	}
+	if (DEBUG == 1)
+		printf("\ndata->exec_path:%s data->cmd_flags:%s\n", data->exec->exec_path, data->exec->cmd_flags[0]);
+	if (data->exec->cmd_num < data->exec->last_cmd)
+	{
 		if (DEBUG == 1)
-			printf("\ndata->exec_path:%s data->cmd_flags:%s\n", data->exec->exec_path, data->exec->cmd_flags[0] );
-		if (data->exec->cmd_num < data->exec->last_cmd)
-			pipe_transitory_cmd(data);
-		else if (data->exec->cmd_num == data->exec->last_cmd)
-		{
-			if (DEBUG == 1)
-				printf("running the last command\n");
-			pipe_last_cmd(data);
-		}
-	// }
+			printf("running the trans command\n");
+		pipe_transitory_cmd(data);
+	}
+	else if (data->exec->cmd_num == data->exec->last_cmd)
+	{
+		if (DEBUG == 1)
+			printf("running the last command\n");
+		pipe_last_cmd(data);
+	}
 	// free_cmd_and_path(data);
+}
+
+void	init_exec(t_minishell *data)
+{
+	data->exec = malloc(sizeof(t_exec));
+	if (data->exec == NULL)
+		return ;
+	data->exec->cmd_flags = NULL;
+	data->curr_fd_in = STDIN_FILENO;
+	data->curr_fd_out = STDOUT_FILENO;
+	data->exec->no_cmd = false;
+	data->exec->is_builtin = false;
+	data->exec->exec_path = NULL;
+	data->exec->cmd_num = 0;//HARDCODED FOR SIMILATION TODO:reset
+	data->exec->last_cmd = 1;
+	data->pid = 0;
+	data->prs_error = false;
+	data->lx_error = false;
+	data->ex_error = false;
+	data->pipe[0] = -1;
+	data->pipe[1] = -1;
 }
 
 void	execute_tokens(t_minishell *data)
@@ -395,8 +382,8 @@ void	execute_tokens(t_minishell *data)
 	t_header_prs_tok *tmp_node;
 
 	tmp_node = data->lst_prs;
-	dup_stdin_and_stdout(data);
 	init_exec(data);
+	dup_stdin_and_stdout(data);
 	//data->exec->last_cmd = ft_get_num_cmds(data);
 	data->hdoc.index= 0;
 	while (tmp_node != NULL)
@@ -415,11 +402,12 @@ void	execute_tokens(t_minishell *data)
 			exec_cmd(data, tmp_node);
 			data->exec->cmd_num++;
 		}
-		close_fds_in_out(data);
 		tmp_node = tmp_node->next;
+		close_fds_in_out(data);
 		// delete_words(data);
 		// ft_del_first_token(&data);
 	}
 	catch_exit_code(data);
 	// destroy_hdocs(data);
+	printf("finishes execution\n");
 }

@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/27 16:43:20 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/28 11:32:34 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct s_exec
 	char	*exec_path;
 	int		cmd_num;
 	int		last_cmd;
+	bool	is_builtin;
 	bool	no_cmd;
 }		t_exec;
 
@@ -134,6 +135,8 @@ typedef struct s_minishell
 	bool				prs_error;
 	bool				lx_error;
 	bool				ex_error;
+	int					curr_fd_in;
+	int					curr_fd_out;
 	int					std_in;
 	int					std_out;
 	struct termios		termios_default;
