@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 00:25:54 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/27 01:43:42 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/28 15:37:49 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,18 @@
 /*
 	Find the key value, 
 	compare to the values of env list,
+	
 	if find it in the list substitute
 	otherwise returns 0
 	We pass the pointer to the adress of the string
+
+	$? == global var
+	$$ == $$
+	just 1 $ = $
+	
 */
+
+// 
 char	*expand_variable(t_minishell *data , char *buf, char **s)
 {
 	char	*env_var; //aqui guardaremos la expansion
@@ -48,7 +56,6 @@ char	*expand_variable(t_minishell *data , char *buf, char **s)
 	*s = --ptr;
 	//printf(" *pointer decrementado: %c \n", *ptr);
 	node_env = ft_lst_find(data->env_lst, env_var);
-
 	if(!node_env)
 	{
 			//printf("valor  nullo:\n");
@@ -60,6 +67,15 @@ char	*expand_variable(t_minishell *data , char *buf, char **s)
 		return(node_env->value);
 	}
 }
+
+//funcion not even needed
+// char	*expand_global_error(t_minishell *data , char *buf, char **s)
+// {
+// 	char *global_error;
+
+// 	global_error = ft_itoa(glob_var_exit);
+// 	return (glob_var_exit); //do we need to free later?
+// }
 
 /*
 
@@ -82,9 +98,25 @@ void expand_find(t_minishell *data, t_nod_token *current)
 		else if (*s == DOLLAR && quote_mod != SINGLE_QUOTE) // in single quote we do not expand
 		{
 			s++;
-			//printf("Kany pointer_posit before %s\n", s);
-			value = expand_variable(data, new_buff, &s);
-			//printf("2 valor new_buff: %s and value: %s\n", new_buff, value);
+			if (*s == DOLLAR)
+			{
+				value = ft_strjoin_char("$", *s);
+				// value = "$$"; creo que s lo miso 
+			}
+			else if (*s == '\0')
+			{
+				new_buff = ft_strjoin_char(new_buff, DOLLAR);
+				break; //no podemos continuar o nos metemos en un seg fault
+			}
+			else if (*s == '?')
+			{
+				value = ft_itoa(glob_var_exit);
+				//s++;
+			}
+			else
+			{
+				value = expand_variable(data, new_buff, &s);	
+			}
 			new_buff = ft_strjoin(new_buff, value);
 			//printf("2 valor: %s\n", new_buff);
 			//printf("and pointer_posit after %s\n", s);
@@ -125,56 +157,3 @@ void	ft_expand(t_minishell *data)
 	}
 
 }
-
-//0$USER999
-
-// void expand_find(t_minishell *data, t_nod_token *current)
-// {
-// 	char	*s;
-// 	char	quote_mod;
-// 	char	*new_buff;
-// 	char	*value;
-
-// 	quote_mod = 0;
-// 	s  = current->name;
-// 	new_buff = NULL;
-// 	while (*s)
-// 	{
-// 		//printf("hasta aqui 1\n");
-// 		if (*s == SINGLE_QUOTE || *s == DOUBLE_QUOTE)
-// 			change_quot_modus(&quote_mod, *s);
-// 		else if (*s == DOLLAR && !quote_mod)
-// 		{
-// 			//printf("hasta aqui 1.2\n");
-// 			value = expand_variable(data, new_buff, ++s);
-// 			new_buff = ft_strjoin(new_buff, value);
-// 		}
-// 		else
-// 		{
-// 			new_buff = ft_strjoin_char(new_buff, *s);
-// 		}
-// 		s++;
-// 	}
-// 	free(current->name); //verificar esto anque creoo que es demasiaod
-// 	// current->name = NULL;
-// 	current->name = new_buff;
-// 	// free(new_buff);
-// }
-
-// //funcion del examen
-// void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)())
-// {
-// 	if (begin_list == NULL || *begin_list == NULL)
-// 		return;
-
-// 	t_list *cur = *begin_list;
-// //	 TODO: commented out, to be reviewed
-// 	// if (cmp(cur->data, data_ref) == 0)
-// 	// {
-// 	// 	*begin_list = cur->next;
-// 	// 	free(cur);
-// 	// 	ft_list_remove_if(begin_list, data_ref, cmp);
-// 	// }
-// 	// cur = *begin_list;
-// 	// ft_list_remove_if(&cur->next, data_ref, cmp);
-// }

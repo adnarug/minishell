@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/27 16:09:08 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/28 15:36:04 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 
 /*
-	tcgetattr(STDOUT_FILENO, &data->termios_default);
-	We make a copy of the default atributes of termios
+	Merge with Pasha. 
+	change file strsuct. make everything work together,
+	and after change the main.c, according to Rom model 
 */
 
 //void initializer_header_sublist(t_minishell *data)
+
+//int glob_var_exit = 5; //we give this valu as test for expansion $?
 
 void	initializer_data(t_minishell *data) //still any values to inicialze (could be done in the later functions but all variables must be inizialice)
 {
@@ -31,6 +34,7 @@ void	initializer_data(t_minishell *data) //still any values to inicialze (could 
 	data->number_pipes = 0;
 	// ask PAvel about the other all his var to inizialice
 	tcgetattr(STDOUT_FILENO, &data->termios_default);
+	glob_var_exit = 5; //just as test
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 11:45:02 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/21 19:58:19 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/28 14:08:36 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@
 	to reflect the current contents of rl_line_buffer
 
 	(*1)Problems with rl_replace_line (from SLack)
-	brew link --force readline
+	brew link --force readline  
+	or: brew unlink readline && brew link --force readline
 	export C_INCLUDE_PATH="$HOME/.brew/include:$C_INCLUDE_PATH"
 	export LIBRARY_PATH="$HOME/.brew/lib:$LIBRARY_PATH"
 */
