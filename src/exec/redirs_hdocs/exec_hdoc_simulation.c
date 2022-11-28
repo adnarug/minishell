@@ -6,12 +6,12 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 11:00:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/25 16:58:03 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/28 17:09:54 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #define DEBUG 1
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 
 /*Reading and writing hdcos to the specific files*/
 static void	read_from_stdin(t_minishell *data, t_prs_tok *token)
@@ -135,7 +135,10 @@ int resolve_hdocs(t_minishell	*data)
 	data->hdoc.index = 0;
 	count_hdocs(data);
 	if (data->hdoc.num_hdocs == 0)
+	{
 		data->hdoc.is_hdoc = false;
+		return (EXIT_SUCCESS);
+	}
 	else
 		data->hdoc.is_hdoc = true;
 	create_hdoc_files(data);

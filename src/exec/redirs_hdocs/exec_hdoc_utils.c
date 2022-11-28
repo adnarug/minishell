@@ -6,11 +6,11 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:46:17 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/25 16:26:43 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/28 17:09:34 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 
 static int is_heredoc(t_prs_tok *prs_tok)
 {
@@ -21,6 +21,7 @@ static int is_heredoc(t_prs_tok *prs_tok)
 	num_hdoc = 0;
 	while (tmp != NULL)
 	{
+		printf("type %c word %s \n", tmp->type, tmp->word);
 		if (tmp->type == HEREDOC)
 			num_hdoc++;
 		tmp = tmp->next;
@@ -58,8 +59,10 @@ int	count_hdocs(t_minishell *data)
 	i = 0;
 	while (tmp_prs_lst != NULL)
 	{
-		if (is_heredoc(data->lst_prs->prs_tok) != 0)
-			data->hdoc.num_hdocs += is_heredoc(data->lst_prs->prs_tok);
+		// printf("%c\n", tmp_prs_lst->prs_tok->type);
+		// data->hdoc.num_hdocs += is_heredoc(data->lst_prs->prs_tok);
+		if (tmp_prs_lst->prs_tok->type == HEREDOC)
+			data->hdoc.num_hdocs++;
 		tmp_prs_lst = tmp_prs_lst->next;
 	}
 	return (EXIT_SUCCESS);

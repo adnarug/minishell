@@ -6,12 +6,12 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 11:02:58 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/24 15:08:35 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/28 16:20:05 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #define DEBUG 0
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 
 /*Openning the given < redir and swapping it with STDIN*/
 static int	change_read(t_prs_tok *token, t_header_prs_tok *prs_lst)

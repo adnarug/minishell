@@ -21,11 +21,13 @@ SRC_FILES = main				\
 			exec/execution_main \
 			exec/exec_init_simulation \
 			exec/cmd_exec/path_check \
-			exec/exec_redir_simulation \
-			exec/exec_hdoc_simulation \
-			exec/exec_hdoc_utils \
-			exec/exec_rm_tools \
-			exec/trans_last \
+			exec/redirs_hdocs/exec_redir_simulation \
+			exec/redirs_hdocs/exec_hdoc_simulation \
+			exec/redirs_hdocs/exec_hdoc_utils \
+			exec/cmd_exec/pipe_operations \
+			exec/cmd_exec/exec_tools \
+			exec/cmd_exec/exec_utils \
+			exec/cmd_exec/execution_redir \
 			env/env_main \
 			env/initializer_env \
 			utils/lst_utils \
@@ -70,6 +72,8 @@ $(OBJF):
 	@mkdir -p $(OBJ_DIR)/exec/
 	@mkdir -p $(OBJ_DIR)/exec/cmd_exec/
 	@mkdir -p $(OBJ_DIR)/exec/pipex/
+	@mkdir -p $(OBJ_DIR)/exec/redirs_hdocs/
+	@mkdir -p $(OBJ_DIR)/exec//
 
 run: all
 	@./minishell

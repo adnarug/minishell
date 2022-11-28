@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   trans_last.c                                       :+:      :+:    :+:   */
+/*   execution_redir.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 11:26:06 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/28 15:52:50 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/28 16:20:43 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 
 /*
 	Executes builtins between pipes (all except the last one).
@@ -128,5 +128,11 @@ void	redirect_last_cmd(t_minishell *data)
 		}
 		close(data->curr_fd_out);
 	}
+}
 
+void	redirect_stdin_to_pipe(t_minishell *data)
+{
+	close(data->pipe[1]);
+	dup2(data->pipe[0], STDIN_FILENO);
+	close(data->pipe[0]);
 }
