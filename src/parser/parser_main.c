@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:13:48 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/27 15:54:33 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/28 20:55:23 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html
 
 /*
 < test2 < tedt3 grep hi >> '$USER' | wc -w > $HOME | echo >> '$USER'  "$USER"
+	< test2 < tedt3 grep hi >> '$USER' | wc -w > $HOME | echo >> $? | cd $$ << $
 
  grep hi | wc 
 */

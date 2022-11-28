@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/28 15:36:04 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/28 20:54:58 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int main(int argc, char **argv, char **envp)
 		// after_split = ft_split_meta(line_buffer);git sg
 		// print_2d(after_split);
 		ft_lexer(&data);
-		// print_list(&data.list);
+		//print_list(&data.list);
 		ft_expand(&data);
 		printf("\n*********Print after expand******\n\n");
 		print_list(&data.list);
@@ -83,7 +83,7 @@ int main(int argc, char **argv, char **envp)
 		//init_simulation(&data);
 		//ft_execution(&data);
 		print_list_parsedtoken(&data);
-		delete_list(&data.list); //free before here. No needed
+		//delete_list(&data.list); //free before here. No needed
 		free(line_buffer);//free before here. No needed
 		printf("here ends minishell\n");
 		//atexit(check_leaks);

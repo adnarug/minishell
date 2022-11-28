@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 00:25:54 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/28 15:37:49 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/28 20:54:36 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 	$? == global var
 	$$ == $$
 	just 1 $ = $
-	
+	$$ >> no funciona , verificar
+	< test2 < tedt3 grep hi >> '$USER' | wc -w > $HOME | echo >> $? | cd $$ << $
 */
 
 // 
@@ -46,13 +47,10 @@ char	*expand_variable(t_minishell *data , char *buf, char **s)
 		}
 		else
 		{
-			//printf("antes del break, char: %c \n", *ptr);
-			//printf("hasta aqui exapnd 2 \n");
 			break;
 		}
 		ptr++;
 	}
-	//printf("hasta aqui exapnd *pointer: %c \n", *ptr);
 	*s = --ptr;
 	//printf(" *pointer decrementado: %c \n", *ptr);
 	node_env = ft_lst_find(data->env_lst, env_var);
@@ -67,15 +65,6 @@ char	*expand_variable(t_minishell *data , char *buf, char **s)
 		return(node_env->value);
 	}
 }
-
-//funcion not even needed
-// char	*expand_global_error(t_minishell *data , char *buf, char **s)
-// {
-// 	char *global_error;
-
-// 	global_error = ft_itoa(glob_var_exit);
-// 	return (glob_var_exit); //do we need to free later?
-// }
 
 /*
 
@@ -100,8 +89,8 @@ void expand_find(t_minishell *data, t_nod_token *current)
 			s++;
 			if (*s == DOLLAR)
 			{
-				value = ft_strjoin_char("$", *s);
-				// value = "$$"; creo que s lo miso 
+				//value = ft_strjoin_char("$", *s);
+				value = ft_strdup("$$");
 			}
 			else if (*s == '\0')
 			{
@@ -131,6 +120,7 @@ void expand_find(t_minishell *data, t_nod_token *current)
 	// current->name = NULL;
 	current->name = new_buff;
 	// free(new_buff);
+	//do we have to free  value 
 }
 
 /*
