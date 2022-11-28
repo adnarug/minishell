@@ -1,4 +1,4 @@
-NAME = minishell
+NAME = minishell.a
 SRC_DIR = src/
 OBJ_DIR = obj/
 FLAGS = -Wextra -g -Wall #-Werror 
@@ -54,7 +54,8 @@ OBJF = .cache_exists
 
 $(NAME): $(OBJ)
 	@make -C libft/
-	@$(CC) $(FLAGS) libft/libft.a -lreadline $(OBJ) -o $(NAME)
+	@ar rcs $(NAME) $(OBJ)
+	@$(CC) $(FLAGS) $(OBJ) libft/libft.a minishell.a -lreadline -o minishell
 	@echo "$(GREEN)minishell compiled$(DEF_COLOR)"
 
 $(OBJ_DIR)%.o	:	$(SRC_DIR)%.c | $(OBJF)

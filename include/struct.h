@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pasha <pasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/28 11:32:34 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/28 21:44:40 by pasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ typedef struct s_minishell
 	char				**env_argv;
 	t_list_token		list; //esto hayq eu cambialo a un puntero. Volver a estudiar esto  y diferencia enntre pointer y &
 	t_header_prs_tok	*lst_prs;
-	t_hdocs				hdoc;
+	t_hdocs				*hdoc;
 	int					pipe[2];//Parara
 	t_exec				*exec; //Parara
 	pid_t				pid; // Pararara

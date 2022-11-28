@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_main.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pasha <pasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:22:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/28 16:38:18 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/28 21:51:48 by pasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,31 +191,33 @@ void	execute_tokens(t_minishell *data)
 	tmp_node = data->lst_prs;
 	init_exec(data);
 	dup_stdin_and_stdout(data);
-	data->hdoc.index= 0;
+	printf("comes here\n");
+	
+	print_exec_lists(data);
 	resolve_hdocs(data);
-	// while (tmp_node != NULL)
-	// {
-	// 	reset_params(data);
-	// 	// resolve_redirections(data); to be conenected
-	// 	if (!tmp_node)
-	// 	{
-	// 		reset_stdin_stdout(data);
-	// 		// set_global_exit_code(data);
-	// 	}
-	// 	else if (tmp_node->prs_tok->type == COMMAND)//flag for no cmd to be set somewhere
-	// 	{
-	// 		if (DEBUG == 1)
-	// 			printf("command for exec :%s\n", tmp_node->prs_tok->cmd_flags[0]);
-	// 		exec_cmd(data, tmp_node);
-	// 		data->exec->cmd_num++;
-	// 	}
-	// 	tmp_node = tmp_node->next;
-	// 	close_fds_in_out(data);
-	// 	// delete_words(data);
-	// 	// ft_del_first_token(&data);
-	// }
-	// catch_exit_code(data);
-	// // destroy_hdocs(data);
+	while (tmp_node != NULL)
+	{
+		reset_params(data);
+		//resolve_redir(tmp_node->prs_tok, tmp_node);
+		if (!tmp_node)
+		{
+			reset_stdin_stdout(data);
+			// set_global_exit_code(data);
+		}
+		else if (tmp_node->prs_tok->type == COMMAND)//flag for no cmd to be set somewhere
+		{
+			if (DEBUG == 1)
+				printf("command for exec :%s\n", tmp_node->prs_tok->cmd_flags[0]);
+			exec_cmd(data, tmp_node);
+			data->exec->cmd_num++;
+		}
+		tmp_node = tmp_node->next;
+		close_fds_in_out(data);
+		// delete_words(data);
+		// ft_del_first_token(&data);
+	}
+	catch_exit_code(data);
+	// destroy_hdocs(data);
 	printf("finishes execution\n");
 	// system("leaks minishell");
 }
