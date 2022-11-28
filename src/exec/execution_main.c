@@ -6,11 +6,11 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:22:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/27 18:05:07 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/28 10:59:09 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# define DEBUG 1
+#define DEBUG 1
 
 #include "../../include/minishell.h"
 
@@ -19,18 +19,18 @@
 // - How does the overall sequence of the execution works?
 // - Is the created env sufficient. */
 
-// char **init_builtins_arr(char **builtins)
-// {
-// 	builtins[0] = "cd";
-// 	builtins[1] = "echo";
-// 	builtins[2] = "exit";
-// 	builtins[3] = "unset";
-// 	builtins[4] = "env";
-// 	builtins[5] = "export";
-// 	builtins[6] = "pwd";
-// 	builtins[7] = NULL;;
-// 	return (builtins);
-// }
+char **init_builtins_arr(char **builtins)
+{
+	builtins[0] = "cd";
+	builtins[1] = "echo";
+	builtins[2] = "exit";
+	builtins[3] = "unset";
+	builtins[4] = "env";
+	builtins[5] = "export";
+	builtins[6] = "pwd";
+	builtins[7] = NULL;;
+	return (builtins);
+}
 
 // // void	ft_execution(t_minishell *data)
 // // {
@@ -163,22 +163,22 @@
 // 	return (argv);
 // }
 
-// static int	is_builtin(t_prs_tok *token)
-// {
-// 	char			*builtins[9];
-// 	int				i;
+static int	is_builtin(t_prs_tok *token)
+{
+	char			*builtins[9];
+	int				i;
 
-// 	i = 0;
-// 	init_builtins_arr(builtins);
+	i = 0;
+	init_builtins_arr(builtins);
 	
-// 	while (i < 7)
-// 	{
-// 		if (ft_strcmp(token->cmd_flags[0], builtins[i]) == 0)
-// 			return (1);
-// 		i++;
-// 	}
-// 	return(0);
-// }
+	while (i < 7)
+	{
+		if (ft_strcmp(token->cmd_flags[0], builtins[i]) == 0)
+			return (1);
+		i++;
+	}
+	return(0);
+}
 
 t_prs_tok *iter_until_cmd(t_header_prs_tok *header)
 {
@@ -244,7 +244,7 @@ void	init_exec(t_minishell *data)
 	data->exec->no_cmd = false;
 	data->exec->exec_path = NULL;
 	data->exec->cmd_num = 0;//HARDCODED FOR SIMILATION TODO:reset
-	data->exec->last_cmd = 1;
+	data->exec->last_cmd = 2;
 	data->pid = 0;
 	data->prs_error = false;
 	data->lx_error = false;
@@ -273,6 +273,8 @@ void	pipe_transitory_cmd(t_minishell *data)
 			return ;
 		if (data->pid == 0)
 		{
+			if (DEBUG == 1)
+				printf("*******Trans comand\n");
 			// ft_signals(CHILD_PROCESS);
 			redirect_transitory_cmd(data);
 			exec_bash_cmd(data);
@@ -307,27 +309,27 @@ void	redirect_last_cmd(t_minishell *data)
 	}
 }
 
-void	ft_signals(int flag)
-{
-	if (flag == MAIN_PROCESS)
-	{
-		signal(SIGINT, &ctrl_c);
-		signal(SIGQUIT, SIG_IGN);
-	}
-	else if (flag == CHILD_PROCESS)
-	{
-		signal(SIGQUIT, SIG_DFL);
-		signal(SIGINT, &catch_ctrlc);
-	}
-	else if (flag == HDOC)
-	{
-		signal(SIGQUIT, SIG_IGN);
-		signal(SIGINT, &ctrl_c);
-		signal(SIGINT, (void *)catch_herd);
-		if (catch_herd(99) == 42)
-			exit(TERMINATED_BY_CTRL_C);
-	}
-}
+// void	ft_signals(int flag)
+// {
+// 	if (flag == MAIN_PROCESS)
+// 	{
+// 		signal(SIGINT, &ctrl_c);
+// 		signal(SIGQUIT, SIG_IGN);
+// 	}
+// 	else if (flag == CHILD_PROCESS)
+// 	{
+// 		signal(SIGQUIT, SIG_DFL);
+// 		signal(SIGINT, &catch_ctrlc);
+// 	}
+// 	else if (flag == HDOC)
+// 	{
+// 		signal(SIGQUIT, SIG_IGN);
+// 		signal(SIGINT, &ctrl_c);
+// 		signal(SIGINT, (void *)catch_herd);
+// 		if (catch_herd(99) == 42)
+// 			exit(TERMINATED_BY_CTRL_C);
+// 	}
+// }
 
 
 void	pipe_last_cmd(t_minishell *data)
@@ -350,10 +352,11 @@ void	pipe_last_cmd(t_minishell *data)
 			return ;
 		if (data->pid == 0)
 		{
-			printf("in the last child \n");
-			ft_signals(CHILD_PROCESS);
-			printf("fdin: %d fdout: %d pid:%d stdin:%d\n", data->std_in, data->std_out, data->pid, STDIN_FILENO);
+			// ft_signals(CHILD_PROCESS);
+			// printf("fdin: %d fdout: %d pid:%d stdin:%d\n", data->std_in, data->std_out, data->pid, STDIN_FILENO);
 			redirect_last_cmd(data);
+			if (DEBUG == 1)
+				printf("*******Executing the last command\n");
 			exec_bash_cmd(data);
 		}
 	// }
@@ -369,15 +372,21 @@ void	exec_cmd(t_minishell *data, t_header_prs_tok *token)
 {
 	// extract_cmd_and_path(data, token); let say we have the cmd and the path to it
 	data->exec->cmd_flags = token->prs_tok->cmd_flags;
-	find_correct_paths(token->prs_tok, data);
-	printf("\ndata->exec_path:%s data->cmd_flags:%s\n", data->exec->exec_path, data->exec->cmd_flags[0] );
-	if (data->exec->cmd_num < data->exec->last_cmd)
-		pipe_transitory_cmd(data);
-	else if (data->exec->cmd_num == data->exec->last_cmd)
-	{
-		printf("running the last command\n");
-		pipe_last_cmd(data);
-	}
+	if(is_builtin(token->prs_tok) == 0)
+		find_correct_paths(token->prs_tok, data);
+	// else
+	// {
+		if (DEBUG == 1)
+			printf("\ndata->exec_path:%s data->cmd_flags:%s\n", data->exec->exec_path, data->exec->cmd_flags[0] );
+		if (data->exec->cmd_num < data->exec->last_cmd)
+			pipe_transitory_cmd(data);
+		else if (data->exec->cmd_num == data->exec->last_cmd)
+		{
+			if (DEBUG == 1)
+				printf("running the last command\n");
+			pipe_last_cmd(data);
+		}
+	// }
 	// free_cmd_and_path(data);
 }
 
@@ -401,7 +410,8 @@ void	execute_tokens(t_minishell *data)
 		}
 		else if (tmp_node->prs_tok->type == COMMAND)//flag for no cmd to be set somewhere
 		{
-			printf("command for exec :%s\n", tmp_node->prs_tok->cmd_flags[0]);
+			if (DEBUG == 1)
+				printf("command for exec :%s\n", tmp_node->prs_tok->cmd_flags[0]);
 			exec_cmd(data, tmp_node);
 			data->exec->cmd_num++;
 		}

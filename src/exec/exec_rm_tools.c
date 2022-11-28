@@ -6,10 +6,11 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 14:57:54 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/27 17:50:49 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/28 10:32:17 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+# define DEBUG 1
 #include "../../include/minishell.h"
 
 int	create_pipe(t_minishell *data)
@@ -95,8 +96,8 @@ void	reset_params(t_minishell *data)
 	data->prs_error = false;
 	data->ex_error = false;
 	data->exec->no_cmd = false;
-	data->lst_prs->fd_in = STDIN_FILENO;
-	data->lst_prs->fd_out = STDOUT_FILENO;
+	data->std_in = STDIN_FILENO;
+	data->std_out = STDOUT_FILENO;
 }
 
 //To be done somewhere else
@@ -127,7 +128,7 @@ void	catch_exit_code(t_minishell *data)
 	int	status;
 
 	// status = g_exit_code;
-	printf("pid %d", data->pid);
+
 	waitpid(data->pid, &status, 0);
 	// if (WIFEXITED(status))
 	// 	g_exit_code = WEXITSTATUS(status);
