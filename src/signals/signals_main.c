@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 11:45:02 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/28 14:08:36 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/29 17:11:35 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 	or: brew unlink readline && brew link --force readline
 	export C_INCLUDE_PATH="$HOME/.brew/include:$C_INCLUDE_PATH"
 	export LIBRARY_PATH="$HOME/.brew/lib:$LIBRARY_PATH"
+	
+	For testing: a.out >>> es un child
+	Heredoc : create a heredoc, for a father
 */
 
 void	new_prompt(int signal)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/29 15:22:21 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/29 17:28:17 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 	este caso "'$USER'" >> atencion .echo text"'$USER'" ' $USER '  
 	Real bash 'fnieves-'
 	My bash fnieves- >>> se come las comillas simples
+	ls -a | grep out | wc -l
+	
 */
 
 //void initializer_header_sublist(t_minishell *data)
@@ -38,7 +40,7 @@ void	initializer_data(t_minishell *data) //still any values to inicialze (could 
 	data->number_pipes = 0;
 	// ask PAvel about the other all his var to inizialice
 	tcgetattr(STDOUT_FILENO, &data->termios_default);
-	glob_var_exit = 5; //just as test
+	glob_var_exit = 8; //just as test
 }
 
 /*
@@ -62,10 +64,10 @@ void debuggear(t_minishell *data)
 //i think it does not free line at the end 
 int main(int argc, char **argv, char **envp)
 {
-	// t_input		input;
+
 	char	*line_buffer;
 	t_minishell	data;
-	// char	**after_split;
+
 	initializer_data(&data);
 	ft_env(&data, envp);
 
@@ -77,24 +79,17 @@ int main(int argc, char **argv, char **envp)
 		line_buffer = readline("minishell $ ");
 		data.line = line_buffer; //what about free line_buffer??
 		add_history(line_buffer); // is it &data.line ?? , 
-		// after_split = ft_split_meta(line_buffer);git sg
-		// print_2d(after_split);
 		ft_lexer(&data);
-		//print_list(&data.list);
+		print_list(&data.list);
 		ft_expand(&data);
-		//printf("\n*********Print after expand******\n\n");
-		//print_list(&data.list);
+		printf("\n*********Print after expand******\n\n");
+		print_list(&data.list);
 		ft_parser(&data);
-		//init_simulation(&data);
-		// ft_execution(&data);
 		print_list_parsedtoken(&data);
-		// printf("\n*********Print after expand******\n\n");
-		// print_list(&data.list);
-		execute_tokens(&data);
+		
+		//execute_tokens(&data);
 		delete_list(&data.list); //para que no queden leaks
 		free(line_buffer);//free before here. No needed
-		//ft_parser(&list, line_buffer);
-
 		//atexit(check_leaks);
 		//system("leaks minishell");
 	}

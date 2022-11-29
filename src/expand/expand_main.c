@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 00:25:54 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/29 01:51:56 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/29 17:27:06 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*expand_variable(t_minishell *data , char *buf, char **s)
 SI ENCONTRAMOS UNA COMILLA DENTRO DE OTRAS CIOMILLAS , NO LAS QUITAMOS 
 "'$USER'" For this case : if (change_quot_modus(&quote_mod, *s) && quote_mod && (quote_mod != *s)) 
 'fnieves-'
-echo text"'$USER'" ' $USER '  
+echo text"'$USER'" ' $USER '   '"'$USER'"'
 */
 void expand_find(t_minishell *data, t_nod_token *current)
 {
@@ -64,7 +64,6 @@ void expand_find(t_minishell *data, t_nod_token *current)
 	char	quote_mod;
 	char	*new_buff;
 	char	*value;
-	//int value_function = 0;
 
 	quote_mod = 0;
 	s  = current->name;
@@ -73,7 +72,7 @@ void expand_find(t_minishell *data, t_nod_token *current)
 	{
 		if (*s == SINGLE_QUOTE || *s == DOUBLE_QUOTE)
 		{
-			if (change_quot_modus(&quote_mod, *s) && quote_mod && (quote_mod != *s)) 
+			if (change_quot_modus(&quote_mod, *s) && quote_mod && (quote_mod != *s)) //what if we leav just like  if (quote_mod && (quote_mod != *s)) ??
 				new_buff = ft_strjoin_char(new_buff, *s);
 		}
 		else if (*s == DOLLAR && quote_mod != SINGLE_QUOTE) // in single quote we do not expand
@@ -91,19 +90,13 @@ void expand_find(t_minishell *data, t_nod_token *current)
 			else
 				value = expand_variable(data, new_buff, &s);	
 			new_buff = ft_strjoin(new_buff, value);
-
 		}
 		else
-		{
 			new_buff = ft_strjoin_char(new_buff, *s);
-		}
 		s++;
 	}
 	free(current->name); //verificar esto anque creoo que es demasiaod
-	// current->name = NULL;
 	current->name = new_buff;
-	// free(new_buff);
-	//do we have to free  value 
 }
 
 /*
