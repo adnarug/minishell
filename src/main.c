@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/29 15:22:21 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/29 16:50:09 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,12 @@ int main(int argc, char **argv, char **envp)
 		ft_parser(&data);
 		//init_simulation(&data);
 		// ft_execution(&data);
-		print_list_parsedtoken(&data);
+		// print_list_parsedtoken(&data);
 		// printf("\n*********Print after expand******\n\n");
 		// print_list(&data.list);
 		execute_tokens(&data);
 		delete_list(&data.list); //para que no queden leaks
+
 		free(line_buffer);//free before here. No needed
 		//ft_parser(&list, line_buffer);
 

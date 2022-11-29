@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:22:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/29 15:16:51 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/29 16:50:04 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	exec_builtin(t_minishell *data)
 		return (EXIT_SUCCESS);
 	}
 	// PWD
-	if (ft_strncmp(token, "pwd", ft_strlen("pwd")) == 0)
+	if (ft_strncmp(data->exec->cmd_flags[0], "pwd", ft_strlen("pwd")) == 0)
 	{
 		builtin_pwd(data->exec->cmd_flags[0]);
 		return (EXIT_SUCCESS);
@@ -81,7 +81,7 @@ int	exec_builtin(t_minishell *data)
 		return (EXIT_SUCCESS);
 	}
 
-	return (EXIT_SUCCESS);
+	return (EXIT_FAILURE);
 }
 
 static int	is_builtin(t_prs_tok *token)
@@ -170,18 +170,18 @@ void	execute_tokens(t_minishell *data)
 	dup_stdin_and_stdout(data);
 	data->exec->last_cmd = data->array_sublist[0]->number_cmd;
 	printf("%d\n", data->exec->last_cmd);
-	// print_exec_lists(data);
-	// print_exec_lists(data);
-	
-	// resolve_hdocs(data);
+
+	resolve_hdocs(data);
+	// print_list_parsedtoken(data);
 	// print_exec_lists(data);
 	while (data->array_sublist[i] != NULL)
 	{
 		reset_params(data);
 		// printf("%c\n", data->array_sublist[i]->prs_tok->type);
-		// resolve_redir(data->array_sublist[i]->prs_tok, data->array_sublist[i]);
+		resolve_redir(data->array_sublist[i], data);
 		if (!data->array_sublist[i])
 		{
+			printf("does it come here|\n");
 			reset_stdin_stdout(data);
 			// set_global_exit_code(data);
 		}
@@ -199,6 +199,7 @@ void	execute_tokens(t_minishell *data)
 	}
 	catch_exit_code(data);
 	// destroy_hdocs(data);
-	printf("finishes execution\n");
+	if (DEBUG == 1)
+		printf("finishes execution\n");
 	// system("leaks minishell");
 }

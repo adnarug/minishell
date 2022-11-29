@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/29 12:26:09 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/29 16:45:16 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,7 +267,7 @@ int			find_correct_paths(t_prs_tok *parameters, t_minishell *data);
 // int		pipex(int argc, char **argv, char **envp);
 
 //Exec simulation
-int					resolve_redir(t_prs_tok *prs_token, t_sublist_prs_tok *prs_lst);
+int					resolve_redir(t_sublist_prs_tok *prs_lst, t_minishell *data);
 int					resolve_hdocs(t_minishell	*data);
 
 ///HDOCS
@@ -294,5 +294,4 @@ void	close_fds_in_out(t_minishell *data);
 void	exec_transitory_builtin(t_minishell *data);
 void	exec_last_builtin(t_minishell *data);
 void	redirect_last_cmd(t_minishell *data);
-void print_exec_lists(t_minishell *data);
 #endif 

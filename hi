@@ -1,0 +1,5 @@
+surives write dup2
+**iterations 2
+**comes out of redir with curr_fd_in 0 curr_fd_out 1 STDIN 0 STDOUT 1
+finishes execution
+minishell $ 

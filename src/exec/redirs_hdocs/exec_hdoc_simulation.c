@@ -6,11 +6,11 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 11:00:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/29 13:10:27 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/29 16:51:10 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define DEBUG 1
+#define DEBUG 0
 #include "../../../include/minishell.h"
 
 /*Reading and writing hdcos to the specific files*/
@@ -135,6 +135,7 @@ void init_hdocs(t_minishell *data)
 	data->hdoc->hdocs_nodes = NULL;
 	data->hdoc->is_hdoc = false;
 }
+
 /*Count hdocs, creates a file in the same folder with the number
 matching the index of the hdoc, stores its fd and pointer to the
 node with the hdoc. */
@@ -146,8 +147,6 @@ int resolve_hdocs(t_minishell	*data)
 	i = 0;
 	init_hdocs(data);
 	count_hdocs(data);
-	printf("hdocs here\n");
-	print_exec_lists(data);
 	if (data->hdoc->num_hdocs == 0)
 	{
 		data->hdoc->is_hdoc = false;
@@ -160,8 +159,6 @@ int resolve_hdocs(t_minishell	*data)
 	if (DEBUG == 1)
 		printf("num of heredocs %i\n", data->hdoc->num_hdocs);
 	find_hdoc_nodes(data);
-	printf("hdocs here1\n");
-	print_exec_lists(data);
 	while (i < data->hdoc->num_hdocs)
 	{
 		read_to_hdoc(data, data->hdoc->hdocs_nodes[i]);
@@ -174,35 +171,10 @@ int resolve_hdocs(t_minishell	*data)
 	while (i < data->hdoc->num_hdocs)
 	{
 		data->hdoc->hdocs_nodes[i]->type = REDIRECT_IN;
+		data->hdoc->hdocs_nodes[i]->word = ft_itoa(i);
 		i++;
 	}
 	// free(data->hdoc->fd_tmp);
 	// free(data->hdoc->hdocs_nodes);
 	return (EXIT_SUCCESS);
-}
-
-
-void print_exec_lists(t_minishell *data)
-{
-	int i = 0;
-	int counter = 0; 
-	t_prs_tok		*tmp_prs_tk;
-
-	tmp_prs_tk = data->array_sublist[counter]->prs_tok;
-	while(data->array_sublist[counter] != NULL)
-	{
-		tmp_prs_tk= data->array_sublist[counter]->prs_tok;
-		while(tmp_prs_tk != NULL)
-		{
-			printf("type:%c ", tmp_prs_tk->type);
-			if (tmp_prs_tk->type != COMMAND)
-				printf("word:%s\n", tmp_prs_tk->word);
-			if (tmp_prs_tk->type == COMMAND)
-				printf("cmd:%s\n", tmp_prs_tk->cmd_flags[0]);
-			i++;
-			tmp_prs_tk = tmp_prs_tk->next;
-		}
-		printf("*****END OF A SUBLIST******\n");
-		counter++;
-	}
 }
