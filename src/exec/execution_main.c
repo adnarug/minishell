@@ -6,16 +6,17 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:22:46 by pguranda          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/11/25 19:57:21 by fnieves-         ###   ########.fr       */
+=======
+/*   Updated: 2022/11/29 11:22:04 by pguranda         ###   ########.fr       */
+>>>>>>> origin/expand_quote_vpg1
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#define DEBUG 1
 
-/*
-Big quesitons:
-- How does the overall sequence of the execution works?
-- Is the created env sufficient. */
+#include "../../include/minishell.h"
 
 char **init_builtins_arr(char **builtins)
 {
@@ -30,132 +31,44 @@ char **init_builtins_arr(char **builtins)
 	return (builtins);
 }
 
-// void	ft_execution(t_minishell *data)
-// {
-
-// 	// printf("%s\n", data->list.head->name);
-// 	if (is_builtin(data) == 1)
-// 		exec_builtin(tokens_lst, data);
-// 	else
-// 		cmd_exec(tokens_lst, data)
-// }
-
- int	exec_builtin(t_prs_tok *token_node, t_minishell *data)
+int	exec_builtin(t_minishell *data)
 {
 	char	**cmd_flags;
 	char	*token;
 	t_env	*env;
-	
-	token = token_node->cmd_flags[0];
-	printf("%s\n", token);
+
+	// token = token_node->cmd_flags[0];
+	// printf("%s\n", token);
 	env = data->env_lst;
-	cmd_flags = ft_split(token, ' ');
-	if (ft_strncmp(token, "cd", ft_strlen("cd")) == 0)
-		builtin_cd(env, cmd_flags);
+	// cmd_flags = ft_split(token, ' ');
+	if (ft_strncmp(data->exec->cmd_flags[0], "cd", ft_strlen("cd")) == 0)
+		builtin_cd(env, data->exec->cmd_flags);
 	
 	//ENV
-	if (ft_strncmp(token, "env", ft_strlen("env")) == 0)
-		builtin_env(env, token);
-
+	if (ft_strncmp(data->exec->cmd_flags[0], "env", ft_strlen("env")) == 0)
+	{
+		builtin_env(env, data->exec->cmd_flags[0]);
+		write (2, "check\n",6);
+		return (EXIT_SUCCESS);
+	}
 	// pwd
 	// if (ft_strncmp(token, "pwd", ft_strlen("pwd")) == 0)
 	// 	builtin_pwd(cmd_flags[0]);
-	
 	//UNSET
-	if (ft_strncmp(token, "unset", ft_strlen("unset")) == 0)
-		builtin_unset(env, cmd_flags);
-	
-	// // EXPORT
-	// if (ft_strnstr(token, "export", ft_strlen("export ")) != NULL)
-	// {
-	// 	// token += ft_strlen("export ");
-	// 	builtin_export(env, cmd_flags);
-	// }
-
+	if (ft_strncmp(data->exec->cmd_flags[0], "unset", ft_strlen("unset")) == 0)
+		builtin_unset(env, data->exec->cmd_flags);
+	// EXPORT
+	if (ft_strnstr(data->exec->cmd_flags[0], "export", ft_strlen("export ")) != NULL)
+	{
+		// token += ft_strlen("export ");
+		builtin_export(env, data->exec->cmd_flags);
+	}
 	//EXIT
 	// exit_args = ft_split(token, ' ');
 	if (ft_strnstr(token, "exit", ft_strlen("exit")) != NULL)
-		builtin_exit(cmd_flags);
+		builtin_exit(data->exec->cmd_flags);
 
 	return (EXIT_SUCCESS);
-}
-
-int run_execution(t_prs_tok *token, t_minishell *data)
-{
-	//taking the tokes of the input and the output file from the struct
-	//running the execution 
-	printf("FD IN:%d\n", token->fd_in);
-	printf("FD OUT: %d\n", token->fd_out);
-	dup2(token->fd_in, STDIN_FILENO);
-	dup2(token->fd_out, STDOUT_FILENO);
-	printf("***toke->exec_pat:%s", token->exec_path);
-	printf("comes to exec\n");
-	if (execve(token->exec_path, token->cmd_flags, (char*const *)data->env_lst) == -1)
-		perror("Error\nExecve issue in the child");
-	return (EXIT_SUCCESS);
-}
-
-int	cmd_exec(t_prs_tok *token, t_minishell *data)
-{
-	pid_t	pid;
-
-	token->fd_in = open("in_file", O_RDWR, 0644);
-	token->fd_out = open("out_file", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (find_correct_paths(token, data) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	if (token->exec_path == NULL)
-		printf("minishell: command not found\n"); // not correct message
-	pid = fork();
-	if (pid < 0)
-		return (EXIT_FAILURE);
-	if (pid == 0)
-	{
-		return (run_execution(token, data));
-	}
-	// close(token->fd_in);
-	// close(token->fd_out);
-	wait(NULL);
-	return (EXIT_SUCCESS);
-}
-
-//Convering a token from a list to argv for execution
-static char	**token_lst_to_argv(t_nod_token *token)
-{
-	char		**argv;
-	t_nod_token	*tmp_head;
-	t_nod_token	*tmp2_head;
-	int			i;
-	int			counter;
-
-	i = 0;
-	counter = 0;
-	tmp_head = token;
-	tmp2_head = token;
-	argv = NULL;
-	printf("%s\n", tmp_head->name);
-	while (tmp_head != NULL)
-	{
-		if (ft_strcmp(tmp_head->name, "Meta") != 0)
-		{
-			i++;
-			tmp_head = tmp_head->next;
-		}
-		else
-			break;
-	}
-	argv = malloc (sizeof(char *) * (i + 1));
-	if (argv == NULL)
-		return (NULL);
-	while (tmp2_head != NULL && counter < i)
-	{
-		if (tmp2_head->name == NULL)
-			break ;
-		argv[counter] = tmp2_head->name;
-		counter++;
-		tmp2_head = tmp2_head->next;
-	}
-	argv[counter] = NULL;
-	return (argv);
 }
 
 static int	is_builtin(t_prs_tok *token)
@@ -175,37 +88,145 @@ static int	is_builtin(t_prs_tok *token)
 	return(0);
 }
 
+<<<<<<< HEAD
 t_prs_tok *iter_until_cmd(t_sublist_prs_tok *header)
+=======
+// t_prs_tok *iter_until_cmd(t_header_prs_tok *header)
+// {
+// 	while (header != NULL)
+// 	{
+// 		while(header->prs_tok != NULL)
+// 		{
+// 			if (header->prs_tok->type == COMMAND)
+// 			{
+// 				if (DEBUG == 1)
+// 					printf("returns the comand\n");
+// 				return (header->prs_tok);
+// 			}
+// 			header->prs_tok = header->prs_tok->next;
+// 		}
+// 		header = header->next;
+// 	}
+// 	return (NULL);
+// }
+
+
+/***********************************************************/
+
+
+/* Redirects the last non-builtin command. */
+
+// void	ft_signals(int flag)
+// {
+// 	if (flag == MAIN_PROCESS)
+// 	{
+// 		signal(SIGINT, &ctrl_c);
+// 		signal(SIGQUIT, SIG_IGN);
+// 	}
+// 	else if (flag == CHILD_PROCESS)
+// 	{
+// 		signal(SIGQUIT, SIG_DFL);
+// 		signal(SIGINT, &catch_ctrlc);
+// 	}
+// 	else if (flag == HDOC)
+// 	{
+// 		signal(SIGQUIT, SIG_IGN);
+// 		signal(SIGINT, &ctrl_c);
+// 		signal(SIGINT, (void *)catch_herd);
+// 		if (catch_herd(99) == 42)
+// 			exit(TERMINATED_BY_CTRL_C);
+// 	}
+// }
+
+/*
+	Extracts the cmd and path and executes the given token (cmd).
+	Redirects the cmd input/output based on the cmd number.
+*/
+void	exec_cmd(t_minishell *data, t_header_prs_tok *token)
+>>>>>>> origin/expand_quote_vpg1
 {
-	while (header != NULL)
+	// extract_cmd_and_path(data, token); let say we have the cmd and the path to it
+	data->exec->cmd_flags = token->prs_tok->cmd_flags;
+	if (is_builtin(token->prs_tok) == 0)
+		find_correct_paths(token->prs_tok, data);
+	else
 	{
-		while(header->prs_tok != NULL)
-		{
-			if (header->prs_tok->type == 'c')
-				return (header->prs_tok);
-			header->prs_tok = header->prs_tok->next;
-		}
-		header = header->next;
+		printf("builtin detected\n");
+		data->exec->is_builtin = true;
 	}
-	return (NULL);
+	if (DEBUG == 1)
+		printf("\ndata->exec_path:%s data->cmd_flags:%s\n", data->exec->exec_path, data->exec->cmd_flags[0]);
+	if (data->exec->cmd_num < data->exec->last_cmd)
+	{
+		if (DEBUG == 1)
+			printf("running the trans command\n");
+		pipe_transitory_cmd(data);
+	}
+	else if (data->exec->cmd_num == data->exec->last_cmd)
+	{
+		if (DEBUG == 1)
+			printf("running the last command\n");
+		pipe_last_cmd(data);
+	}
+	// free_cmd_and_path(data);
 }
 
-/*TODO:check for leaking fds*/
-int	ft_execution(t_minishell *data)
+void	init_exec(t_minishell *data)
 {
-	t_prs_tok	*token;
-	
-	token = iter_until_cmd(data->lst_prs);
-	if (token == NULL)
-		return (EXIT_FAILURE);
-	printf("%s", token->cmd_flags[0]);
-	// if (is_builtin(token) == 1)
-	// 	exec_builtin(token, data);
-	// else
-	// {
-		// tokens_lst->argv = token_lst_to_argv(token);
-		// counter = count_strings(tokens_lst->argv);
-		cmd_exec(token, data);
-	// }
-	return (EXIT_SUCCESS);
+	data->exec = malloc(sizeof(t_exec));
+	if (data->exec == NULL)
+		return ;
+	data->exec->cmd_flags = NULL;
+	data->curr_fd_in = STDIN_FILENO;
+	data->curr_fd_out = STDOUT_FILENO;
+	data->exec->no_cmd = false;
+	data->exec->is_builtin = false;
+	data->exec->exec_path = NULL;
+	data->exec->cmd_num = 0;//HARDCODED FOR SIMILATION TODO:reset
+	data->exec->last_cmd = 2;
+	data->pid = 0;
+	data->prs_error = false;
+	data->lx_error = false;
+	data->ex_error = false;
+	data->pipe[0] = -1;
+	data->pipe[1] = -1;
+}
+
+void	execute_tokens(t_minishell *data)
+{
+	t_header_prs_tok *tmp_node;
+
+	tmp_node = data->lst_prs;
+	init_exec(data);
+	dup_stdin_and_stdout(data);
+	// print_exec_lists(data);
+	// print_exec_lists(data);
+	resolve_hdocs(data);
+	printf("comes here\n");
+	print_exec_lists(data);
+	while (tmp_node != NULL)
+	{
+		reset_params(data);
+		resolve_redir(tmp_node->prs_tok, tmp_node);
+		if (!tmp_node)
+		{
+			reset_stdin_stdout(data);
+			// set_global_exit_code(data);
+		}
+		else if (tmp_node->prs_tok->type == COMMAND)//flag for no cmd to be set somewhere
+		{
+			if (DEBUG == 1)
+				printf("command for exec :%s\n", tmp_node->prs_tok->cmd_flags[0]);
+			exec_cmd(data, tmp_node);
+			data->exec->cmd_num++;
+		}
+		tmp_node = tmp_node->next;
+		close_fds_in_out(data);
+		// delete_words(data);
+		// ft_del_first_token(&data);
+	}
+	catch_exit_code(data);
+	// destroy_hdocs(data);
+	printf("finishes execution\n");
+	// system("leaks minishell");
 }

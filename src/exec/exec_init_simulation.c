@@ -6,7 +6,11 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 11:06:11 by pguranda          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/11/25 19:57:21 by fnieves-         ###   ########.fr       */
+=======
+/*   Updated: 2022/11/29 11:23:22 by pguranda         ###   ########.fr       */
+>>>>>>> origin/expand_quote_vpg1
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,16 +113,37 @@ void	ft_lstadd_back_prs_tok(t_prs_tok **lst, t_prs_tok *new)
 
 void	init_simulation(t_minishell *data)
 {
+<<<<<<< HEAD
 	t_sublist_prs_tok	*header_lst;
 	t_prs_tok			*token;
-	
+=======
+	t_header_prs_tok	*header_lst_node_0;
+	t_header_prs_tok	*header_lst_node_1;
+	t_header_prs_tok	*header_lst_node_2;
+	t_prs_tok			*token_0_1;
+	t_prs_tok			*token_1_1;
+	t_prs_tok			*token_2_1;
 
-	token = ft_lstnew_prs_tok('<', "infile", NULL);
-	header_lst = ft_lstnew_header_prs_tok();
-	ft_lstadd_back_prs_tok(&token, ft_lstnew_prs_tok('c', NULL, ft_split("pwd", ' ')));
-	ft_lstadd_back_prs_tok(&token, ft_lstnew_prs_tok('>', "outfile", NULL));
-	header_lst->prs_tok = token;
-	data->lst_prs = header_lst;
-	printf("%c %s %s %c %s\n",data->lst_prs->prs_tok->type, data->lst_prs->prs_tok->word, data->lst_prs->prs_tok->next->cmd_flags[0], data->lst_prs->prs_tok->next->next->type, data->lst_prs->prs_tok->next->next->word);
+	header_lst_node_0 = ft_lstnew_header_prs_tok();//create header 1
+	token_0_1 = ft_lstnew_prs_tok(HEREDOC, "stop", NULL);//create token 1
+	header_lst_node_0->prs_tok = token_0_1;//linking
+
+>>>>>>> origin/expand_quote_vpg1
+	
+	header_lst_node_1 = ft_lstnew_header_prs_tok();
+	token_1_1 = ft_lstnew_prs_tok(COMMAND, NULL, ft_split("ls -a", ' '));
+	header_lst_node_1->prs_tok = token_1_1;
+
+
+	header_lst_node_2 = ft_lstnew_header_prs_tok();
+	token_2_1 = ft_lstnew_prs_tok(REDIRECT_OUT, "final", NULL);
+	header_lst_node_2->prs_tok = token_2_1;
+	
+	// ft_lstadd_back_prs_tok(&token, ft_lstnew_prs_tok(HEREDOC, "outfile", NULL));
+	header_lst_node_0->next = header_lst_node_1;
+	header_lst_node_1->next = header_lst_node_2;
+	data->lst_prs = header_lst_node_0;
+	// data->lst_prs = header_lst_node_0;
+	// printf("%c %s %s %c %s\n",data->lst_prs->prs_tok->type, data->lst_prs->prs_tok->word, data->lst_prs->prs_tok->next->cmd_flags[0], data->lst_prs->prs_tok->next->next->type, data->lst_prs->prs_tok->next->next->word);
 	return ;
 }

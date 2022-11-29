@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/28 23:12:38 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/29 12:07:48 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 # include <limits.h>
 # include <signal.h>
+# include <stdbool.h>
 
 # include <sys/types.h>
 # include <sys/wait.h>
@@ -85,6 +86,15 @@ t_env	*ft_lstnew_env(char *value, char *key);
 # define QUOTE_OFF			'\0'
 # define COMMAND			'c'
 
+# define CHILD_PROCESS		0
+# define MAIN_PROCESS		1
+# define HDOC				2
+# define RIGHTS				0644
+# define CMD_NOT_FOUND				127
+# define CMD_NOT_FOUND				127
+# define INVALID_EXIT_ARG			255
+# define TERMINATED_BY_CTRL_C		130
+# define PIPE_SYNTAX_ERROR			258
 
 # define	DELIMITERS		" \t|<>"
 # define	SPACE_STRNG		" "
@@ -237,23 +247,23 @@ char		**split_into_key_value(char *string);
 long int	ft_atol(const char *str);
 
 //Builtins
-int		builtin_env(t_env *env, char *argv) ;
-int		builtin_cd(t_env *env, char **argv);
-int		builtin_unset(t_env *env, char **argv);
-int		builtin_export(t_env *envp, char **argv);
-int		builtin_exit(char	**token);
+int			builtin_env(t_env *env, char *argv) ;
+int			builtin_cd(t_env *env, char **argv);
+int			builtin_unset(t_env *env, char **argv);
+int			builtin_export(t_env *envp, char **argv);
+int			builtin_exit(char	**token);
 
 //Execution 
-int 	cmd_exec(t_prs_tok *token, t_minishell *data);
-int	    exec_builtin(t_prs_tok *token_node, t_minishell *data);
-int		ft_execution(t_minishell *data);
-char    **init_builtins_arr(char **builtins);
+int			cmd_exec(t_prs_tok *token, t_minishell *data);
+int			exec_builtin(t_minishell *data);
+int			ft_execution(t_minishell *data);
+char		**init_builtins_arr(char **builtins);
 // int		find_correct_paths(t_nod_token *parameters, t_minishell *data);
-char	**find_path(char **envp);
-char	*check_paths(char **path_to_builtins, char	*command);
-char	**add_path_sign(char **path_to_builtins);
-char	**add_path_sign(char **path_to_builtins);
-int	    find_correct_paths(t_prs_tok *parameters, t_minishell *data);
+char		**find_path(char **envp);
+char		*check_paths(char **path_to_builtins, char	*command);
+char		**add_path_sign(char **path_to_builtins);
+char		**add_path_sign(char **path_to_builtins);
+int			find_correct_paths(t_prs_tok *parameters, t_minishell *data);
 // int		pipex(int argc, char **argv, char **envp);
 
 //Exec simulation
@@ -261,4 +271,36 @@ void	init_simulation(t_minishell *data);
 t_prs_tok	*ft_lstnew_prs_tok(char type, char *word, char **cmd_flags);
 t_sublist_prs_tok	*ft_lstnew_header_prs_tok();
 t_prs_tok *iter_until_cmd(t_sublist_prs_tok *header);
+void				init_simulation(t_minishell *data);
+t_prs_tok			*ft_lstnew_prs_tok(char type, char *word, char **cmd_flags);
+t_header_prs_tok	*ft_lstnew_header_prs_tok();
+t_prs_tok			*iter_until_cmd(t_header_prs_tok *header);
+int					resolve_redir(t_prs_tok *prs_token, t_header_prs_tok *prs_lst);
+int					resolve_hdocs(t_minishell	*data);
+
+///HDOCS
+int		count_hdocs(t_minishell *data);
+void	destroy_hdocs(t_minishell *data);
+
+
+//RM SIMUL FUNCT
+void	execute_tokens(t_minishell *data);
+	void	exec_cmd(t_minishell *data, t_header_prs_tok *token);
+		void	pipe_last_cmd(t_minishell *data);
+		void	pipe_transitory_cmd(t_minishell *data);
+			void	redirect_stdin_to_pipe(t_minishell *data);
+			void	redirect_transitory_cmd(t_minishell *data);
+			int	create_fork(t_minishell *data);
+			void	exec_bash_cmd(t_minishell *data);
+	void	reset_stdin_stdout(t_minishell *data);
+	void	reset_params(t_minishell *data);
+void	dup_stdin_and_stdout(t_minishell *data);
+void	reset_stdin_stdout(t_minishell *data);
+int		create_pipe(t_minishell *data);
+void	catch_exit_code(t_minishell *data);
+void	close_fds_in_out(t_minishell *data);
+void	exec_transitory_builtin(t_minishell *data);
+void	exec_last_builtin(t_minishell *data);
+void	redirect_last_cmd(t_minishell *data);
+void print_exec_lists(t_minishell *data);
 #endif 

@@ -6,12 +6,14 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/27 15:52:47 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/29 11:59:10 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
+
+#include <stdbool.h>
 
 
 //this structur will be in the case we need to increase the number of paramters
@@ -71,18 +73,44 @@ typedef struct s_list_token
 //main structur. Here will pend everything but lexing struct
 typedef struct s_prs_tok
 {
-	char			type;
-	char			*word; //just for redirect
-	char			**cmd_flags; //just for commands
+	char            type;
+	char            *word;
+	char            **cmd_flags;
 
 	struct s_prs_tok *next;
-}	t_prs_tok; 
+}   t_prs_tok;
+/*
+	List of headers to parsed tokens between pipes	
+	t_prs_tok   *tokens : Starting from list of tokens
+	struct s_header_prs_tok *next: first element of list form list
+*/
+
+typedef struct s_exec
+{
+	char	**cmd_flags;
+	char	*exec_path;
+	int		cmd_num;
+	int		last_cmd;
+	bool	is_builtin;
+	bool	no_cmd;
+}		t_exec;
+
+
+typedef struct s_hdocs
+{
+	bool			is_hdoc;
+	int				index;
+	int				*fd_tmp;
+	t_prs_tok		**hdocs_nodes;
+	int				num_hdocs;
+}	t_hdocs;
 
 /*
-    List of headers to sublist of parsed tokens between pipes
-    t_prs_tok	*first_prs_tok; : First element from list of parsed tokens
-    struct s_sublist_prs_tok *next_sublist: first element of list form list
+	List of headers to parsed tokens between pipes	
+	t_prs_tok   *tokens : Starting from list of tokens
+	struct s_header_prs_tok *next: first element of list form list
 */
+
 
 typedef struct s_sublist_prs_tok
 {
@@ -105,7 +133,20 @@ typedef struct s_minishell
 	struct termios		termios_default;
 	t_sublist_prs_tok	**array_sublist; //array of sublists , ended in NULL with len + number of pipes + 2
 	int 				number_pipes;
-}t_minishell;
+
+	
+	t_hdocs				*hdoc;
+	int					pipe[2];
+	t_exec				*exec;
+	pid_t				pid;
+	bool				prs_error;
+	bool				lx_error;
+	bool				ex_error;
+	int					curr_fd_in;
+	int					curr_fd_out;
+	int					std_in;
+	int					std_out;
+}	t_minishell;
 
 // typedef struct t_head_sublst_parstk
 // {

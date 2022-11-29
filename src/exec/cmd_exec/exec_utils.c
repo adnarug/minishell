@@ -5,156 +5,62 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 16:19:06 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/23 11:49:30 by pguranda         ###   ########.fr       */
+/*   Created: 2022/11/27 14:57:54 by pguranda          #+#    #+#             */
+/*   Updated: 2022/11/28 16:20:36 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+# define DEBUG 1
 #include "../../../include/minishell.h"
 
-
-int	check_pipe_redir(char *c)
+void	reset_params(t_minishell *data)
 {
-	if (c == PIPE)
-		return (TYP_PIPE);
-	if (c == HEREDOC)
-		return (TYP_HEREDOC);
-	if (c == APPEND)
-		return (TYP_APPEND);
-	if (c == REDIRECT_IN)
-		return (TYP_REDIRECT_IN);
-	if (c == REDIRECT_OUT)
-		return (TYP_REDIRECT_OUT);
-	return (0);
+	data->prs_error = false;
+	data->ex_error = false;
+	data->exec->is_builtin = false;
+	data->exec->no_cmd = false;
+	data->curr_fd_in = STDIN_FILENO;
+	data->curr_fd_out = STDOUT_FILENO;
 }
 
-int make_command_table(char *argv)
+//To be done somewhere else
+void	dup_stdin_and_stdout(t_minishell *data)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (argv[i] != NULL)
+	data->std_in = dup(STDIN_FILENO);
+	if (!data->std_in)
 	{
-		while(check_pipe_redir(argv[i][j]) == 0)
-			j++;
-		i++;
+		// free(data->fd);
+		exit(EXIT_FAILURE);
 	}
-	if argv[1]
-} 
+	data->std_out = dup(STDOUT_FILENO);
+	if (!data->std_out)
+	{
+		// free(data->fd);
+		exit(EXIT_FAILURE);
+	}
+}
 
-// /*
-// 	Extracts the cmd and path based on the following cases:
-	
-// 	1) Absolute or relative path is given:
-// 		extracts the path from the given input.
-// 		searches for the appropriate cmd in PATH env and saves it as exec->cmd.
-	
-// 	2) Only the command name is given:
-// 		searches for the appropriate cmd in PATH env and saves it as cmd with
-// 		another arguments (next word tokens).
-// 		Then also adds the found path to exec->path.
-// */
-// static void	extract_cmd_and_path(t_data *data, t_token *token)
-// {
-// 	if (data->exec->no_cmd == true || !data->tokens->content)
-// 		return ;
-// 	if (token->content[0] == '.' || token->content[0] == SLASH)
-// 	{
-// 		data->exec->cmd = extract_cmd_from_path(data);
-// 		if (!data->exec->cmd || !data->exec->path)
-// 		{
-// 			data->exec_error = true;
-// 			return ;
-// 		}
-// 	}
-// 	else
-// 	{
-// 		data->exec->cmd = get_cmd(data);
-// 		if (data->exec_error == true)
-// 			return ;
-// 		data->exec->path = get_cmd_path(data);
-// 		if (!data->exec->path)
-// 			data->exec_error = true;
-// 	}
-// }
+void	reset_stdin_stdout(t_minishell *data)
+{
+	dup2(data->std_in, STDIN_FILENO);
+	dup2(data->std_out, STDOUT_FILENO);
+}
 
-// /*
-// 	Extracts the cmd and path and executes the given token (cmd).
-// 	Redirects the cmd input/output based on the cmd number.
-// */
-// static void	exec_cmd(t_data *data, t_token *token)
-// {
-// 	extract_cmd_and_path(data, token);
-// 	if (data->exec->cmd_num < data->exec->last_cmd)
-// 		pipe_transitory_cmd(data);
-// 	else if (data->exec->cmd_num == data->exec->last_cmd)
-// 		pipe_last_cmd(data);
-// 	free_cmd_and_path(data);
-// }
+void	catch_exit_code(t_minishell *data)
+{
+	int	status;
 
-// /* reset parameters to initial values. */
-// static void	reset_params(t_data *data)
-// {
-// 	data->parse_error = false;
-// 	data->exec_error = false;
-// 	data->exec->no_cmd = false;
-// 	data->fd->in = STDIN_FILENO;
-// 	data->fd->out = STDOUT_FILENO;
-// }
+	// status = g_exit_code;
 
+	waitpid(data->pid, &status, 0);
+	// if (WIFEXITED(status))
+	// 	g_exit_code = WEXITSTATUS(status);
+}
 
-// void	init_exec(t_data *data)
-// {
-// 	data->exec->cmd = NULL;
-// 	data->exec->path = NULL;
-// 	data->exec->cmd_num = 1;
-// 	data->exec->last_cmd = 0;
-// 	data
-// /*
-// 	Algorithm for executing commands, separated with pipes.
-
-// 	Given are at the beginning tokens with already merged 
-// 	redirections.
-// 	First the redirections are resolved. As a result we get
-// 	the final input fd_in and output fd_out.
-// 	After that a command is built from all word tokens until the pipe/end.
-// 	The command is executed and redirected until the next pipe 
-// 	over the desired input/output.
-//  	All word tokens are immediately deleted after execution.
-// 	At the end the allocated heredoc-files are deleted and freed.
-// */
-// void	execute_tokens(t_nod_token *node, t_minishell *data)
-// {
-// 	init_exec(data);
-// 	data->exec->last_cmd = ft_get_num_cmds(data);
-// 	data->fd->hdoc_index = 0;
-// 	while (data->tokens != NULL)
-// 	{
-// 		reset_params(data);
-// 		resolve_redirections(data);
-// 		if (!data->tokens)
-// 		{
-// 			reset_stdin_stdout(data);
-// 			set_global_exit_code(data);
-// 		}
-// 		else if (data->exec->no_cmd == true || data->tokens->flag == T_WORD)
-// 		{
-// 			exec_cmd(data, data->tokens);
-// 			data->exec->cmd_num++;
-// 		}
-// 		delete_words(data);
-// 		ft_del_first_token(&data);
-// 		close_fds_in_out(data);
-// 	}
-// 	catch_exit_code(data);
-// 	destroy_hdocs(data);
-// }
-
-
-int sorted_token(t_minishell )
-<test2 grep hi >text1 |  wc -w >> text2
-1. < test2 grep hi
-	type
-2. wc -w 
+void	close_fds_in_out(t_minishell *data)
+{
+	if (data->curr_fd_in != STDIN_FILENO)
+		close(data->curr_fd_in);
+	if (data->curr_fd_out != STDOUT_FILENO)
+		close(data->curr_fd_out);
+}

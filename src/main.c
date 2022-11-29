@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/29 01:56:56 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/29 12:03:10 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int main(int argc, char **argv, char **envp)
 	// char	**after_split;
 	initializer_data(&data);
 	ft_env(&data, envp);
+
 	(void) (argc);
 	(void) (argv);
 	while (1)
@@ -87,9 +88,16 @@ int main(int argc, char **argv, char **envp)
 		//init_simulation(&data);
 		//ft_execution(&data);
 		print_list_parsedtoken(&data);
-		delete_list(&data.list); //free before here. No needed
+		// printf("\n*********Print after expand******\n\n");
+		// print_list(&data.list);
+		execute_tokens(&data);
+		// ft_execution(&data);
+		delete_list(&data.list); //para que no queden leaks
 		free(line_buffer);//free before here. No needed
-		printf("here ends minishell\n");
+		//ft_parser(&list, line_buffer);
+
+		free(line_buffer);
+
 		//atexit(check_leaks);
 		//system("leaks minishell");
 	}
