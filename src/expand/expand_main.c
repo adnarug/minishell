@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 00:25:54 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/29 17:27:06 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/29 21:36:25 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 char	*expand_variable(t_minishell *data , char *buf, char **s)
 {
 	char	*env_var; //aqui guardaremos la expansion
-	// char	*var_expanded;
 	t_env	*node_env;
 	
 	char	*ptr = *s;
@@ -52,18 +51,43 @@ char	*expand_variable(t_minishell *data , char *buf, char **s)
 		return(node_env->value);
 }
 
+
+/*
+	else if (*s == DOLLAR && quote_mod != SINGLE_QUOTE)
+	first weWe are in the char after $
+*/
+static char *perform_expansion(t_minishell *data , char *old_buf, char **s_arr)
+{
+	char *new_buff;
+	char *s;
+	
+	s = *s_arr;
+	s++;
+	if (*s == '\0') //we find $
+		new_buff = ft_strjoin_char(old_buf, DOLLAR);
+	else if (*s == DOLLAR) //we find $$
+		new_buff = ft_strjoin(old_buf, "$$");
+	else if (*s == '?') //we find $?
+		new_buff = ft_strjoin(old_buf, ft_itoa(glob_var_exit));
+	else
+		new_buff = ft_strjoin(old_buf, expand_variable(data, old_buf, &s));
+	*s_arr = s;
+	return (new_buff);
+}
+
 /*
 SI ENCONTRAMOS UNA COMILLA DENTRO DE OTRAS CIOMILLAS , NO LAS QUITAMOS 
 "'$USER'" For this case : if (change_quot_modus(&quote_mod, *s) && quote_mod && (quote_mod != *s)) 
 'fnieves-'
 echo text"'$USER'" ' $USER '   '"'$USER'"'
+ grep hi -l >> '$USER' | wc -w > $HOME | echo >> $? | cd "$USER" '"'$USER'"' "'$USER'" $$  << $
 */
+
 void expand_find(t_minishell *data, t_nod_token *current)
 {
 	char	*s;
 	char	quote_mod;
 	char	*new_buff;
-	char	*value;
 
 	quote_mod = 0;
 	s  = current->name;
@@ -72,28 +96,15 @@ void expand_find(t_minishell *data, t_nod_token *current)
 	{
 		if (*s == SINGLE_QUOTE || *s == DOUBLE_QUOTE)
 		{
-			if (change_quot_modus(&quote_mod, *s) && quote_mod && (quote_mod != *s)) //what if we leav just like  if (quote_mod && (quote_mod != *s)) ??
+			if (change_quot_modus(&quote_mod, *s) && quote_mod && (quote_mod != *s)) 
 				new_buff = ft_strjoin_char(new_buff, *s);
 		}
 		else if (*s == DOLLAR && quote_mod != SINGLE_QUOTE) // in single quote we do not expand
-		{
-			s++;
-			if (*s == DOLLAR) //we find $$
-				value = ft_strdup("$$");
-			else if (*s == '\0') //we find $
-			{
-				new_buff = ft_strjoin_char(new_buff, DOLLAR);
-				break; //no podemos continuar o nos metemos en un seg fault
-			}
-			else if (*s == '?') //we find $?
-				value = ft_itoa(glob_var_exit);
-			else
-				value = expand_variable(data, new_buff, &s);	
-			new_buff = ft_strjoin(new_buff, value);
-		}
+			new_buff = perform_expansion(data, new_buff, &s);
 		else
 			new_buff = ft_strjoin_char(new_buff, *s);
-		s++;
+		if (*s)
+			s++;
 	}
 	free(current->name); //verificar esto anque creoo que es demasiaod
 	current->name = new_buff;
@@ -121,5 +132,4 @@ void	ft_expand(t_minishell *data)
 		}
 		current = current->next;
 	}
-
 }

@@ -40,6 +40,21 @@
 		"locale": "c",
 		"termios.h": "c",
 		"types.h": "c",
-		"string.h": "c"
+		"string.h": "c",
+		"__bit_reference": "c",
+		"__functional_base": "c",
+		"__node_handle": "c",
+		"algorithm": "c",
+		"atomic": "c",
+		"chrono": "c",
+		"__memory": "c",
+		"functional": "c",
+		"limits": "c",
+		"memory": "c",
+		"optional": "c",
+		"ratio": "c",
+		"system_error": "c",
+		"tuple": "c",
+		"type_traits": "c"
 	}
 }
