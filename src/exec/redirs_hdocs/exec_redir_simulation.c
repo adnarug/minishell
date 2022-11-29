@@ -6,11 +6,11 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 11:02:58 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/29 17:15:24 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/29 17:26:24 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define DEBUG 0
+#define DEBUG 1
 #include "../../../include/minishell.h"
 
 /*Openning the given < redir and swapping it with STDIN*/
@@ -24,12 +24,12 @@ static int	change_read(t_prs_tok *token, t_sublist_prs_tok *prs_lst, t_minishell
 	if (prs_lst->fd_in < 0)
 		return (EXIT_FAILURE); // TODO: exit code, signal>
 	data->curr_fd_in = prs_lst->fd_in;
-	// if (dup2(prs_lst->fd_in, data->curr_fd_in) == -1)
+	// if (dup2(prs_lst->fd_in, STDIN_FILENO) == -1)
 	// 	return (EXIT_FAILURE);// TODO: exit code, signal>
 	if (DEBUG == 1)
 		printf("surives read dup2 with prs fd %i\n", prs_lst->fd_in);
-	if (close(prs_lst->fd_in) == -1)
-		return (EXIT_FAILURE);// TODO: exit code, signal>
+	// if (close(prs_lst->fd_in) == -1)
+	// 	return (EXIT_FAILURE);// TODO: exit code, signal>
 	return (EXIT_SUCCESS);
 }
 
@@ -44,10 +44,11 @@ static int	change_write(t_prs_tok *token, t_sublist_prs_tok *prs_lst, t_minishel
 	// if (dup2(prs_lst->fd_out, data->curr_fd_out) == -1)
 	// 	return (EXIT_FAILURE);// TODO: exit code, signal>
 	data->curr_fd_out = prs_lst->fd_out;
+	
 	if (DEBUG == 1)
 		printf("surives write dup2\n");
-	if (close(prs_lst->fd_out) == -1)
-		return (EXIT_FAILURE);// TODO: exit code, signal>
+	// if (close(prs_lst->fd_out) == -1)
+	// 	return (EXIT_FAILURE);// TODO: exit code, signal>
 	return (EXIT_SUCCESS);
 }
 
@@ -63,8 +64,8 @@ static int	append(t_prs_tok *token, t_sublist_prs_tok *prs_lst, t_minishell *dat
 	data->curr_fd_out = prs_lst->fd_out;
 	if (DEBUG == 1)
 		printf("surives write dup2\n");
-	if (close(prs_lst->fd_out) == -1)
-		return (EXIT_FAILURE);// TODO: exit code, signal>
+	// if (close(prs_lst->fd_out) == -1)
+	// 	return (EXIT_FAILURE);// TODO: exit code, signal>
 	return (EXIT_SUCCESS);
 }
 

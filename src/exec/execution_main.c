@@ -6,11 +6,11 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:22:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/29 16:50:04 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/29 17:39:04 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define DEBUG 0
+#define DEBUG 1
 
 #include "../../include/minishell.h"
 
@@ -159,7 +159,7 @@ int count_size(t_minishell *data)
 		counter++;
 	data->array_sublist[0]->number_cmd = counter;
 }
-
+/*TODO: line 190*/
 void	execute_tokens(t_minishell *data)
 {
 	int		i;
@@ -179,18 +179,25 @@ void	execute_tokens(t_minishell *data)
 		reset_params(data);
 		// printf("%c\n", data->array_sublist[i]->prs_tok->type);
 		resolve_redir(data->array_sublist[i], data);
-		if (!data->array_sublist[i])
+		printf("chec\n");
+		if (data->array_sublist[i] ==  NULL)
 		{
 			printf("does it come here|\n");
 			reset_stdin_stdout(data);
 			// set_global_exit_code(data);
 		}
-		else if (data->array_sublist[i]->prs_tok->type == COMMAND)//flag for no cmd to be set somewhere
+		while (data->array_sublist[i]->prs_tok != NULL)//flag for no cmd to be set somewhere
 		{
 			if (DEBUG == 1)
-				printf("command for exec :%s\n", data->array_sublist[i]->prs_tok->cmd_flags[0]);
-			exec_cmd(data, data->array_sublist[i]);
-			data->exec->cmd_num++;
+				printf("current type:%c\n", data->array_sublist[i]->prs_tok->type);
+			if (data->array_sublist[i]->prs_tok->type == COMMAND)
+			{
+				printf("enters exec");
+				exec_cmd(data, data->array_sublist[i]);
+				data->exec->cmd_num++;
+				break;
+			}
+			data->array_sublist[i]->prs_tok = data->array_sublist[i]->prs_tok->next;
 		}
 		close_fds_in_out(data);
 		i++;
