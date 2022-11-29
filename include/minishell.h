@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/29 12:07:48 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/29 12:26:09 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,15 +267,7 @@ int			find_correct_paths(t_prs_tok *parameters, t_minishell *data);
 // int		pipex(int argc, char **argv, char **envp);
 
 //Exec simulation
-void	init_simulation(t_minishell *data);
-t_prs_tok	*ft_lstnew_prs_tok(char type, char *word, char **cmd_flags);
-t_sublist_prs_tok	*ft_lstnew_header_prs_tok();
-t_prs_tok *iter_until_cmd(t_sublist_prs_tok *header);
-void				init_simulation(t_minishell *data);
-t_prs_tok			*ft_lstnew_prs_tok(char type, char *word, char **cmd_flags);
-t_header_prs_tok	*ft_lstnew_header_prs_tok();
-t_prs_tok			*iter_until_cmd(t_header_prs_tok *header);
-int					resolve_redir(t_prs_tok *prs_token, t_header_prs_tok *prs_lst);
+int					resolve_redir(t_prs_tok *prs_token, t_sublist_prs_tok *prs_lst);
 int					resolve_hdocs(t_minishell	*data);
 
 ///HDOCS
@@ -285,7 +277,7 @@ void	destroy_hdocs(t_minishell *data);
 
 //RM SIMUL FUNCT
 void	execute_tokens(t_minishell *data);
-	void	exec_cmd(t_minishell *data, t_header_prs_tok *token);
+	void	exec_cmd(t_minishell *data, t_sublist_prs_tok *token);
 		void	pipe_last_cmd(t_minishell *data);
 		void	pipe_transitory_cmd(t_minishell *data);
 			void	redirect_stdin_to_pipe(t_minishell *data);

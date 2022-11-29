@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 19:21:15 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/27 14:39:29 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/29 12:49:04 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_sublist_prs_tok *create_sublist(t_nod_token **current) //corregido a array
 	if(!sub_list_pars)
 		return (NULL);
 	//Probably i will need to iniziale fd values
-	sub_list_pars->first_prs_tok = NULL; //first element of the list of sublists
+	sub_list_pars->prs_tok = NULL; //first element of the list of sublists
 	sub_list_pars->size_sublist = 0;
 	sub_list_pars->number_cmd = 0;
 	sub_list_pars->exec_path = NULL;
@@ -43,12 +43,12 @@ t_prs_tok *find_last_parsedtok(t_sublist_prs_tok *sub_list_pars)
 	// 	printf("sublist does not exit, something wrong is happening\n");
 	// 	return (NULL);
 	// }
-	if (!sub_list_pars->first_prs_tok)
+	if (!sub_list_pars->prs_tok)
 	{
 		printf("sublist empty. it also shoul dnot happen becaise its covered before\n");
 		//return (sub_list_pars);
 	}
-	last = sub_list_pars->first_prs_tok;
+	last = sub_list_pars->prs_tok;
 	while (last->next) //while node does not point to null
 	{
 		last = last->next;
@@ -70,9 +70,9 @@ t_prs_tok *find_last_parsedtok(t_sublist_prs_tok *sub_list_pars)
 		printf("sub_list_pars does not exit. Check, because this should not happen \n");
 		exit(1);
 	}
-	if (!sub_list_pars->first_prs_tok) //sublist is empty
+	if (!sub_list_pars->prs_tok) //sublist is empty
 	{
-		sub_list_pars->first_prs_tok = parsedtok;
+		sub_list_pars->prs_tok = parsedtok;
 		return ; // we need to check, if we have to return a value
 	}
 	//otherwise , find the last element and add to the end
@@ -106,7 +106,7 @@ void	print_list_parsedtoken2(t_sublist_prs_tok	*array_sublist)
 	else //cambia l acondicion
 	{
 		printf("Start subliste %i\n", i);
-		current_parsedtoken = array_sublist->first_prs_tok;
+		current_parsedtoken = array_sublist->prs_tok;
 		while (current_parsedtoken)
 		{
 			printf("	node %i de Subliste %i. ", j, i);

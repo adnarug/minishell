@@ -6,11 +6,11 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 16:06:37 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/28 16:20:24 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/29 13:44:42 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define DEBUG 1
+#define DEBUG 0
 #include "../../../include/minishell.h"
 
 void	pipe_last_cmd(t_minishell *data)
@@ -53,7 +53,8 @@ void	pipe_transitory_cmd(t_minishell *data)
 	// }
 	if (data->exec->is_builtin == true)
 	{
-		printf("coming to execute builtin: %s\n", data->exec->cmd_flags[0]);
+		if (DEBUG == 1)
+			printf("coming to execute builtin: %s\n", data->exec->cmd_flags[0]);
 		exec_transitory_builtin(data);
 	}
 	else

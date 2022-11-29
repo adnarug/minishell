@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 17:05:18 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/18 17:12:12 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/29 15:13:43 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	builtin_echo(char **args_echo)//to be adjusted based on the token format
 	int	nl_flag;
 
 	nl_flag = 1;
-	if (ft_strncmp(*args_echo, "echo ", 5) != 0)
+	if (ft_strncmp(*args_echo, "echo ", 4) != 0)
 		return(EXIT_FAILURE);
 	args_echo++;
 	if (ft_strncmp(*args_echo, "-n", 2) == 0)

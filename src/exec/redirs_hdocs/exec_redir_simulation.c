@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir_simulation.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pasha <pasha@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 11:02:58 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/28 20:51:27 by pasha            ###   ########.fr       */
+/*   Updated: 2022/11/29 12:47:58 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../../../include/minishell.h"
 
 /*Openning the given < redir and swapping it with STDIN*/
-static int	change_read(t_prs_tok *token, t_header_prs_tok *prs_lst)
+static int	change_read(t_prs_tok *token, t_sublist_prs_tok *prs_lst)
 {
 	if (token->word == NULL)
 		return (EXIT_FAILURE);
@@ -31,7 +31,7 @@ static int	change_read(t_prs_tok *token, t_header_prs_tok *prs_lst)
 }
 
 /*Openning the given > redir and swapping it with STDOUT*/
-static int	change_write(t_prs_tok *token, t_header_prs_tok *prs_lst)
+static int	change_write(t_prs_tok *token, t_sublist_prs_tok *prs_lst)
 {
 	if (token->word == NULL)
 		return (EXIT_FAILURE);
@@ -47,7 +47,7 @@ static int	change_write(t_prs_tok *token, t_header_prs_tok *prs_lst)
 	return (EXIT_SUCCESS);
 }
 
-static int	append(t_prs_tok *token, t_header_prs_tok *prs_lst)
+static int	append(t_prs_tok *token, t_sublist_prs_tok *prs_lst)
 {
 	if (token->word == NULL)
 		return (EXIT_FAILURE);
@@ -64,7 +64,7 @@ static int	append(t_prs_tok *token, t_header_prs_tok *prs_lst)
 }
 
 /*Going through all < and > and changing the STDIN and STDOUT accordingly*/
-int	resolve_redir(t_prs_tok *prs_token, t_header_prs_tok *prs_lst)
+int	resolve_redir(t_prs_tok *prs_token, t_sublist_prs_tok *prs_lst)
 {
 	t_prs_tok *tmp_tok;
 	int i;

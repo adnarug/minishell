@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:46:17 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/29 10:43:48 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/29 13:13:14 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	destroy_hdocs(t_minishell *data)
 	int	i;
 	char	*path_to_hdoc;
 
+	i = 0;
 	if (data->hdoc->fd_tmp == NULL)
 		return ;
 	while (data->hdoc->fd_tmp[i])
@@ -49,20 +50,21 @@ void	destroy_hdocs(t_minishell *data)
 
 int	count_hdocs(t_minishell *data)
 {
-	t_header_prs_tok *tmp;
+	int				counter;
 	t_prs_tok		*tmp_prs_tk;
 	
-	tmp = data->lst_prs;
-	tmp_prs_tk = tmp->prs_tok;
-	while(tmp != NULL)
+	counter = 0;
+	while(data->array_sublist[counter] != NULL)
 	{
-		tmp_prs_tk= tmp->prs_tok;
+		tmp_prs_tk = data->array_sublist[counter]->prs_tok;
+		tmp_prs_tk= data->array_sublist[counter]->prs_tok;
 		while(tmp_prs_tk!= NULL)
 		{
 			if (tmp_prs_tk->type == HEREDOC)
 				data->hdoc->num_hdocs++;
 			tmp_prs_tk = tmp_prs_tk->next;
 		}
-		tmp = tmp->next;
+		counter++;
 	}
+	return (EXIT_SUCCESS);
 }

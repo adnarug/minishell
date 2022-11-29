@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 11:00:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/29 11:17:05 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/29 13:10:27 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void	read_from_stdin(t_minishell *data, t_prs_tok *token)
 {
 	char	*input;
 	bool	lim_found;
-	int		fd;
 
 	lim_found = false;
 	while (lim_found == false)
@@ -48,7 +47,6 @@ static void	read_from_stdin(t_minishell *data, t_prs_tok *token)
 matching the index*/
 static int create_hdoc_files(t_minishell *data)
 {
-	char	*tmp;
 	int		i;
 	char	*hdoc_index;
 	int		fd;
@@ -98,19 +96,20 @@ static void read_to_hdoc(t_minishell *data, t_prs_tok *token)
 an array of hdocs in data->hdoc*/
 static t_prs_tok	*find_hdoc_nodes(t_minishell *data)
 {
-	t_header_prs_tok *tmp;
+
 	t_prs_tok		*tmp_prs_tk;
 	int 			i;
+	int				counter;
 
 	i = 0;
-	tmp = data->lst_prs;
-	tmp_prs_tk = tmp->prs_tok;
+	counter = 0;
+
 	data->hdoc->hdocs_nodes = malloc(sizeof(t_prs_tok * ) * (data->hdoc->num_hdocs));
 	if (data->hdoc->hdocs_nodes == NULL)
 		return NULL;
-	while(tmp != NULL)
+	while(data->array_sublist[i] != NULL)
 	{
-		tmp_prs_tk= tmp->prs_tok;
+		tmp_prs_tk= data->array_sublist[i]->prs_tok;
 		while(tmp_prs_tk!= NULL)
 		{
 			if (tmp_prs_tk->type == HEREDOC)
@@ -120,7 +119,7 @@ static t_prs_tok	*find_hdoc_nodes(t_minishell *data)
 			}
 			tmp_prs_tk = tmp_prs_tk->next;
 		}
-		tmp = tmp->next;
+		counter++;
 	}
 	return (NULL);
 }
@@ -186,25 +185,24 @@ int resolve_hdocs(t_minishell	*data)
 void print_exec_lists(t_minishell *data)
 {
 	int i = 0;
-	t_header_prs_tok *tmp;
+	int counter = 0; 
 	t_prs_tok		*tmp_prs_tk;
-	
-	tmp = data->lst_prs;
-	tmp_prs_tk = tmp->prs_tok;
-	while(tmp != NULL)
+
+	tmp_prs_tk = data->array_sublist[counter]->prs_tok;
+	while(data->array_sublist[counter] != NULL)
 	{
-		tmp_prs_tk= tmp->prs_tok;
-		while(tmp_prs_tk!= NULL)
+		tmp_prs_tk= data->array_sublist[counter]->prs_tok;
+		while(tmp_prs_tk != NULL)
 		{
 			printf("type:%c ", tmp_prs_tk->type);
-			if (tmp->prs_tok->type != COMMAND)
+			if (tmp_prs_tk->type != COMMAND)
 				printf("word:%s\n", tmp_prs_tk->word);
-			if (tmp->prs_tok->type == COMMAND)
+			if (tmp_prs_tk->type == COMMAND)
 				printf("cmd:%s\n", tmp_prs_tk->cmd_flags[0]);
 			i++;
 			tmp_prs_tk = tmp_prs_tk->next;
 		}
 		printf("*****END OF A SUBLIST******\n");
-		tmp = tmp->next;
+		counter++;
 	}
 }

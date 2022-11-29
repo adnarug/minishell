@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 01:33:30 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/27 13:21:07 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/29 12:49:16 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void free_list_parsedtok(t_sublist_prs_tok *sublist)
 	
 	if (!sublist)
 		return ;
-	current = sublist->first_prs_tok;
+	current = sublist->prs_tok;
 	delete = current;
 	while(current)
 	{

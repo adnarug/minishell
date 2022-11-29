@@ -1,7 +1,7 @@
 NAME = minishell.a
 SRC_DIR = src/
 OBJ_DIR = obj/
-FLAGS = -Wextra -g -Wall  -Werror  #-fsanitize=address
+FLAGS = -Wextra -g -Wall # -Werror  #-fsanitize=address
 LIBFT = libft/
 CC = gcc
 SRC_FILES = main				\
@@ -18,7 +18,6 @@ SRC_FILES = main				\
 			signals/signals_child_process \
 			signals/signals_parent_process \
 			exec/execution_main \
-			exec/exec_init_simulation \
 			exec/cmd_exec/path_check \
 			exec/redirs_hdocs/exec_redir_simulation \
 			exec/redirs_hdocs/exec_hdoc_simulation \

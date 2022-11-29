@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_print.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 01:57:56 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/28 20:46:59 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/29 13:06:13 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	print_list_parsedtoken(t_minishell *data)
 		else //cambia l acondicion
 		{
 			printf("Start of PIPE %i:\n", i);
-			current_parsedtoken = data->array_sublist[i]->first_prs_tok;
+			current_parsedtoken = data->array_sublist[i]->prs_tok;
 			while (current_parsedtoken)
 			{
 				printf("	node %i . ", j);
@@ -110,5 +110,56 @@ void	print_list_parsedtoken(t_minishell *data)
 	}
 	printf("\n-------END from list of parsed tokens----------\n");
 }
+
+
+void	iter_tks(t_minishell *data)
+{
+	int i = 0;
+	t_prs_tok *current_parsedtoken;
+
+	if (!data->array_sublist)
+	{
+		return ;
+	}
+	while (data->array_sublist[i])
+	{
+		int j = 0;
+		if (!data->array_sublist[i])
+		{
+			printf(" Subliste %i esta vacia y no deberia imprimir mas\n", i);
+		}
+		else //cambia l acondicion
+		{
+			printf("Start of PIPE %i:\n", i);
+			current_parsedtoken = data->array_sublist[i]->prs_tok;
+			while (current_parsedtoken)
+			{
+				printf("	node %i . ", j);
+				if (current_parsedtoken->type == COMMAND)
+				{
+					printf(" Command of this pipe: \n");
+					int k = 0;
+					//printf("   fuera Argumento %i, comando:|%s| \n",k , current_parsedtoken->cmd_flags[k]);
+					while (current_parsedtoken->cmd_flags[k])
+					{
+						printf("	- Flag %i :|%s| \n",k , current_parsedtoken->cmd_flags[k]);
+						k++;
+					}
+				}
+				else if (ft_strchr(REDIRECT, current_parsedtoken->type))
+				{
+					printf(" REDIRECT: |%c| \n	-file name: |%s| \n", current_parsedtoken->type, current_parsedtoken->word);	
+				}
+				else
+					printf("what kind of fucking parsed token are you printing?? \n");
+				j++;
+				current_parsedtoken = current_parsedtoken->next;
+			}
+		}
+		i++;
+	}
+	printf("\n-------END from list of parsed tokens----------\n");
+}
+
 
 //another way printing

@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 14:57:54 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/28 16:20:36 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/29 13:46:29 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	reset_params(t_minishell *data)
 	data->exec->no_cmd = false;
 	data->curr_fd_in = STDIN_FILENO;
 	data->curr_fd_out = STDOUT_FILENO;
+
 }
 
 //To be done somewhere else

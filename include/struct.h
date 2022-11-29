@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/29 11:59:10 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/29 12:46:25 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ typedef struct s_hdocs
 
 typedef struct s_sublist_prs_tok
 {
-	t_prs_tok					*first_prs_tok;
+	t_prs_tok					*prs_tok;//CHANGED!
 	char						*exec_path;
 	int							fd_in; //nomally 0 (STDIN)
 	int							fd_out; //nomrally 1 (STDOUT)
@@ -133,8 +133,6 @@ typedef struct s_minishell
 	struct termios		termios_default;
 	t_sublist_prs_tok	**array_sublist; //array of sublists , ended in NULL with len + number of pipes + 2
 	int 				number_pipes;
-
-	
 	t_hdocs				*hdoc;
 	int					pipe[2];
 	t_exec				*exec;

@@ -6,10 +6,11 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 08:18:02 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/27 17:24:45 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/29 13:45:55 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+# define DEBUG 0
 #include "../../../include/minishell.h"
 
 char	**add_path_sign(char **path_to_builtins)
@@ -80,7 +81,8 @@ int	find_correct_paths(t_prs_tok *parameters, t_minishell *data)
 	path_to_builtins = add_path_sign(path_to_builtins);
 	data->exec->exec_path = \
 		check_paths(path_to_builtins, parameters->cmd_flags[0]);
-	printf("****%s\n", data->exec->exec_path);
+	if (DEBUG == 1)
+		printf("****%s\n", data->exec->exec_path);
 	if (data->exec->exec_path == NULL)
 		printf("Error\nPlease check cmd:");
 	return (EXIT_SUCCESS);

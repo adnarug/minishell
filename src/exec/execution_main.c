@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execution_main.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:22:46 by pguranda          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/11/25 19:57:21 by fnieves-         ###   ########.fr       */
-=======
-/*   Updated: 2022/11/29 11:22:04 by pguranda         ###   ########.fr       */
->>>>>>> origin/expand_quote_vpg1
+/*   Updated: 2022/11/29 15:16:51 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define DEBUG 1
+#define DEBUG 0
 
 #include "../../include/minishell.h"
 
@@ -33,7 +29,6 @@ char **init_builtins_arr(char **builtins)
 
 int	exec_builtin(t_minishell *data)
 {
-	char	**cmd_flags;
 	char	*token;
 	t_env	*env;
 
@@ -42,31 +37,49 @@ int	exec_builtin(t_minishell *data)
 	env = data->env_lst;
 	// cmd_flags = ft_split(token, ' ');
 	if (ft_strncmp(data->exec->cmd_flags[0], "cd", ft_strlen("cd")) == 0)
+	{
 		builtin_cd(env, data->exec->cmd_flags);
-	
+		return (EXIT_SUCCESS);
+	}
 	//ENV
 	if (ft_strncmp(data->exec->cmd_flags[0], "env", ft_strlen("env")) == 0)
 	{
 		builtin_env(env, data->exec->cmd_flags[0]);
-		write (2, "check\n",6);
 		return (EXIT_SUCCESS);
 	}
-	// pwd
-	// if (ft_strncmp(token, "pwd", ft_strlen("pwd")) == 0)
-	// 	builtin_pwd(cmd_flags[0]);
+	//ECHO
+	if (ft_strncmp(data->exec->cmd_flags[0], "echo", ft_strlen("echo")) == 0)
+	{
+		builtin_echo(data->exec->cmd_flags);
+		return (EXIT_SUCCESS);
+	}
+	// PWD
+	if (ft_strncmp(token, "pwd", ft_strlen("pwd")) == 0)
+	{
+		builtin_pwd(data->exec->cmd_flags[0]);
+		return (EXIT_SUCCESS);
+	}
 	//UNSET
 	if (ft_strncmp(data->exec->cmd_flags[0], "unset", ft_strlen("unset")) == 0)
+	{
 		builtin_unset(env, data->exec->cmd_flags);
+		return (EXIT_SUCCESS);
+	}
 	// EXPORT
 	if (ft_strnstr(data->exec->cmd_flags[0], "export", ft_strlen("export ")) != NULL)
 	{
 		// token += ft_strlen("export ");
 		builtin_export(env, data->exec->cmd_flags);
+		return (EXIT_SUCCESS);
 	}
+	
 	//EXIT
 	// exit_args = ft_split(token, ' ');
 	if (ft_strnstr(token, "exit", ft_strlen("exit")) != NULL)
+	{
 		builtin_exit(data->exec->cmd_flags);
+		return (EXIT_SUCCESS);
+	}
 
 	return (EXIT_SUCCESS);
 }
@@ -88,62 +101,7 @@ static int	is_builtin(t_prs_tok *token)
 	return(0);
 }
 
-<<<<<<< HEAD
-t_prs_tok *iter_until_cmd(t_sublist_prs_tok *header)
-=======
-// t_prs_tok *iter_until_cmd(t_header_prs_tok *header)
-// {
-// 	while (header != NULL)
-// 	{
-// 		while(header->prs_tok != NULL)
-// 		{
-// 			if (header->prs_tok->type == COMMAND)
-// 			{
-// 				if (DEBUG == 1)
-// 					printf("returns the comand\n");
-// 				return (header->prs_tok);
-// 			}
-// 			header->prs_tok = header->prs_tok->next;
-// 		}
-// 		header = header->next;
-// 	}
-// 	return (NULL);
-// }
-
-
-/***********************************************************/
-
-
-/* Redirects the last non-builtin command. */
-
-// void	ft_signals(int flag)
-// {
-// 	if (flag == MAIN_PROCESS)
-// 	{
-// 		signal(SIGINT, &ctrl_c);
-// 		signal(SIGQUIT, SIG_IGN);
-// 	}
-// 	else if (flag == CHILD_PROCESS)
-// 	{
-// 		signal(SIGQUIT, SIG_DFL);
-// 		signal(SIGINT, &catch_ctrlc);
-// 	}
-// 	else if (flag == HDOC)
-// 	{
-// 		signal(SIGQUIT, SIG_IGN);
-// 		signal(SIGINT, &ctrl_c);
-// 		signal(SIGINT, (void *)catch_herd);
-// 		if (catch_herd(99) == 42)
-// 			exit(TERMINATED_BY_CTRL_C);
-// 	}
-// }
-
-/*
-	Extracts the cmd and path and executes the given token (cmd).
-	Redirects the cmd input/output based on the cmd number.
-*/
-void	exec_cmd(t_minishell *data, t_header_prs_tok *token)
->>>>>>> origin/expand_quote_vpg1
+void	exec_cmd(t_minishell *data, t_sublist_prs_tok *token)
 {
 	// extract_cmd_and_path(data, token); let say we have the cmd and the path to it
 	data->exec->cmd_flags = token->prs_tok->cmd_flags;
@@ -182,8 +140,8 @@ void	init_exec(t_minishell *data)
 	data->exec->no_cmd = false;
 	data->exec->is_builtin = false;
 	data->exec->exec_path = NULL;
-	data->exec->cmd_num = 0;//HARDCODED FOR SIMILATION TODO:reset
-	data->exec->last_cmd = 2;
+	data->exec->cmd_num = 1;//HARDCODED FOR SIMILATION TODO:reset
+	data->exec->last_cmd = data->array_sublist[0]->number_cmd;
 	data->pid = 0;
 	data->prs_error = false;
 	data->lx_error = false;
@@ -192,36 +150,50 @@ void	init_exec(t_minishell *data)
 	data->pipe[1] = -1;
 }
 
+int count_size(t_minishell *data)
+{
+	int counter;
+
+	counter = 0;
+	while (data->array_sublist[counter] != NULL)
+		counter++;
+	data->array_sublist[0]->number_cmd = counter;
+}
+
 void	execute_tokens(t_minishell *data)
 {
-	t_header_prs_tok *tmp_node;
+	int		i;
 
-	tmp_node = data->lst_prs;
+	i = 0;
+	count_size(data);
 	init_exec(data);
 	dup_stdin_and_stdout(data);
+	data->exec->last_cmd = data->array_sublist[0]->number_cmd;
+	printf("%d\n", data->exec->last_cmd);
 	// print_exec_lists(data);
 	// print_exec_lists(data);
-	resolve_hdocs(data);
-	printf("comes here\n");
-	print_exec_lists(data);
-	while (tmp_node != NULL)
+	
+	// resolve_hdocs(data);
+	// print_exec_lists(data);
+	while (data->array_sublist[i] != NULL)
 	{
 		reset_params(data);
-		resolve_redir(tmp_node->prs_tok, tmp_node);
-		if (!tmp_node)
+		// printf("%c\n", data->array_sublist[i]->prs_tok->type);
+		// resolve_redir(data->array_sublist[i]->prs_tok, data->array_sublist[i]);
+		if (!data->array_sublist[i])
 		{
 			reset_stdin_stdout(data);
 			// set_global_exit_code(data);
 		}
-		else if (tmp_node->prs_tok->type == COMMAND)//flag for no cmd to be set somewhere
+		else if (data->array_sublist[i]->prs_tok->type == COMMAND)//flag for no cmd to be set somewhere
 		{
 			if (DEBUG == 1)
-				printf("command for exec :%s\n", tmp_node->prs_tok->cmd_flags[0]);
-			exec_cmd(data, tmp_node);
+				printf("command for exec :%s\n", data->array_sublist[i]->prs_tok->cmd_flags[0]);
+			exec_cmd(data, data->array_sublist[i]);
 			data->exec->cmd_num++;
 		}
-		tmp_node = tmp_node->next;
 		close_fds_in_out(data);
+		i++;
 		// delete_words(data);
 		// ft_del_first_token(&data);
 	}
