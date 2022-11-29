@@ -6,22 +6,14 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 11:46:51 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/28 21:37:59 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/29 01:52:53 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/*
-	Knowing that all quotation marks are correctly closed,
-	if a first quotation mark is encountered, it switches
-	to quotation mark ON mode until it encounters the same
-	type of quotation mark and returns to quotation mark OFF mode.
-	FAQ
-	Is it correct to pass a pointer to a char that is not a string?
-	(i.e. not ending in \0)?
-*/
-void	change_quot_modus(char *quote, char c)
+
+void	change_quot_modus2(char *quote, char c) //old fucntion
 {
 
 	if (*quote == QUOTE_OFF)
@@ -33,21 +25,31 @@ void	change_quot_modus(char *quote, char c)
 	}
 }
 
-bool	change_quot_modus2(char *quote, char c)
-{
+/*
+	Knowing that all quotation marks are correctly closed,
+	if a first quotation mark is encountered, it switches
+	to quotation mark ON mode until it encounters the same
+	type of quotation mark and returns to quotation mark OFF mode.
+	FAQ
+	Is it correct to pass a pointer to a char that is not a string?
+	(i.e. not ending in \0)?
+	Return value will be for this case : "'$USER'" >>> 'fnieves-'
+*/
 
+int	change_quot_modus(char *quote, char c)
+{
 	if (*quote == QUOTE_OFF)
 	{
 		*quote = c;
-		return true; // el modo se ha cambiado
+		return 1; // el modo se ha cambiado
 	}
 	else 
 	{
 		if ((*quote == SINGLE_QUOTE || *quote == DOUBLE_QUOTE ) && *quote == c)
 			*quote = QUOTE_OFF;
-		return true; // el modo se ha cambiado
+		return 1; // el modo se ha cambiado
 	}
-	return false; // el modo no se ha cambiado, se trata de quotes dentro de otros quotes
+	return 0; // el modo no se ha cambiado, se trata de quotes dentro de otros quotes
 }
 
  /*

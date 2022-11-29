@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 00:25:54 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/28 21:42:15 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/29 01:51:56 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 	< test2 < tedt3 grep hi >> '$USER' | wc -w > $HOME | echo >> $? | cd $$ << $
 	"'$USER'"
 	'"$USER mi mama"'
-	"'$USER mi papa'" >>> comillas dento de comillas no uitar las comillas. Mirar en expansion
+	"'$USER mi papa'" >>> comillas dento de comillas no quitar las comillas. Mirar en expansion
 */
 
 // 
@@ -38,35 +38,25 @@ char	*expand_variable(t_minishell *data , char *buf, char **s)
 	(void)buf;
 	while (*ptr)
 	{
-
 		if (is_not_end_expand(*ptr))
-		{
 			env_var = ft_strjoin_char(env_var, *ptr);
-			//printf("hasta aqui exapnd 2.1 \n");
-		}
 		else
-		{
 			break;
-		}
 		ptr++;
 	}
 	*s = --ptr;
-	//printf(" *pointer decrementado: %c \n", *ptr);
 	node_env = ft_lst_find(data->env_lst, env_var);
 	if(!node_env)
-	{
-			//printf("valor  nullo:\n");
 			return("");
-	}
 	else
-	{
-		//printf("valor: %s\n", node_env->value);
 		return(node_env->value);
-	}
 }
 
 /*
-
+SI ENCONTRAMOS UNA COMILLA DENTRO DE OTRAS CIOMILLAS , NO LAS QUITAMOS 
+"'$USER'" For this case : if (change_quot_modus(&quote_mod, *s) && quote_mod && (quote_mod != *s)) 
+'fnieves-'
+echo text"'$USER'" ' $USER '  
 */
 void expand_find(t_minishell *data, t_nod_token *current)
 {
@@ -74,31 +64,32 @@ void expand_find(t_minishell *data, t_nod_token *current)
 	char	quote_mod;
 	char	*new_buff;
 	char	*value;
+	//int value_function = 0;
 
 	quote_mod = 0;
 	s  = current->name;
 	new_buff = ft_strdup(""); //atencio que habra que hacer free en algun momento
 	while (*s)
 	{
-		//printf("hasta aqui 1\n");
 		if (*s == SINGLE_QUOTE || *s == DOUBLE_QUOTE)
-			change_quot_modus(&quote_mod, *s);
+		{
+			if (change_quot_modus(&quote_mod, *s) && quote_mod && (quote_mod != *s)) 
+				new_buff = ft_strjoin_char(new_buff, *s);
+		}
 		else if (*s == DOLLAR && quote_mod != SINGLE_QUOTE) // in single quote we do not expand
 		{
 			s++;
-			if (*s == DOLLAR)
+			if (*s == DOLLAR) //we find $$
 				value = ft_strdup("$$");
-			else if (*s == '\0')
+			else if (*s == '\0') //we find $
 			{
 				new_buff = ft_strjoin_char(new_buff, DOLLAR);
 				break; //no podemos continuar o nos metemos en un seg fault
 			}
-			else if (*s == '?')
+			else if (*s == '?') //we find $?
 				value = ft_itoa(glob_var_exit);
 			else
-			{
 				value = expand_variable(data, new_buff, &s);	
-			}
 			new_buff = ft_strjoin(new_buff, value);
 
 		}
