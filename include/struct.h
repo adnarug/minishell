@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pasha <pasha@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/28 21:44:40 by pasha            ###   ########.fr       */
+/*   Updated: 2022/11/29 11:22:36 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ typedef struct s_hdocs
 	bool			is_hdoc;
 	int				index;
 	int				*fd_tmp;
-	t_prs_tok		*hdocs_nodes;
+	t_prs_tok		**hdocs_nodes;
 	int				num_hdocs;
 }	t_hdocs;
 
@@ -129,9 +129,9 @@ typedef struct s_minishell
 	t_list_token		list; //esto hayq eu cambialo a un puntero. Volver a estudiar esto  y diferencia enntre pointer y &
 	t_header_prs_tok	*lst_prs;
 	t_hdocs				*hdoc;
-	int					pipe[2];//Parara
-	t_exec				*exec; //Parara
-	pid_t				pid; // Pararara
+	int					pipe[2];
+	t_exec				*exec;
+	pid_t				pid;
 	bool				prs_error;
 	bool				lx_error;
 	bool				ex_error;

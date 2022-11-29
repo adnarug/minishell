@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_main.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pasha <pasha@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:22:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/28 21:51:48 by pasha            ###   ########.fr       */
+/*   Updated: 2022/11/29 11:22:04 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ void	init_exec(t_minishell *data)
 	data->exec->is_builtin = false;
 	data->exec->exec_path = NULL;
 	data->exec->cmd_num = 0;//HARDCODED FOR SIMILATION TODO:reset
-	data->exec->last_cmd = 1;
+	data->exec->last_cmd = 2;
 	data->pid = 0;
 	data->prs_error = false;
 	data->lx_error = false;
@@ -191,14 +191,15 @@ void	execute_tokens(t_minishell *data)
 	tmp_node = data->lst_prs;
 	init_exec(data);
 	dup_stdin_and_stdout(data);
-	printf("comes here\n");
-	
-	print_exec_lists(data);
+	// print_exec_lists(data);
+	// print_exec_lists(data);
 	resolve_hdocs(data);
+	printf("comes here\n");
+	print_exec_lists(data);
 	while (tmp_node != NULL)
 	{
 		reset_params(data);
-		//resolve_redir(tmp_node->prs_tok, tmp_node);
+		resolve_redir(tmp_node->prs_tok, tmp_node);
 		if (!tmp_node)
 		{
 			reset_stdin_stdout(data);

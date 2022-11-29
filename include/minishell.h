@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/28 16:08:20 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/29 10:02:36 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,4 +273,5 @@ void	close_fds_in_out(t_minishell *data);
 void	exec_transitory_builtin(t_minishell *data);
 void	exec_last_builtin(t_minishell *data);
 void	redirect_last_cmd(t_minishell *data);
+void print_exec_lists(t_minishell *data);
 #endif 

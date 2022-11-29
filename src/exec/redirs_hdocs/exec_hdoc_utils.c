@@ -3,29 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   exec_hdoc_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pasha <pasha@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:46:17 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/28 22:00:20 by pasha            ###   ########.fr       */
+/*   Updated: 2022/11/29 10:43:48 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-static int is_heredoc(t_prs_tok *prs_tok, t_minishell *data)
-{
-	t_prs_tok	*tmp;
-	int			num_hdoc;
+// static int is_heredoc(t_prs_tok *prs_tok, t_minishell *data)
+// {
+// 	t_prs_tok	*tmp;
+// 	int			num_hdoc;
 
-	tmp = prs_tok;
-	num_hdoc = 0;
-printf("count1\n");
-		if (tmp->type == HEREDOC)
-			data->hdoc->num_hdocs++;
-
-
-	return (num_hdoc);
-}
+// 	printf("tmp->type %c\n", tmp->type);
+// 	tmp = data->lst_prs->prs_tok;
+// 	num_hdoc = 0;
+// 	if (tmp->type == HEREDOC)
+// 			data->hdoc->num_hdocs++;
+// 	printf("hdoc num %d\n", data->hdoc->num_hdocs);
+// 	return (num_hdoc);
+// }
 
 /*Destroys the temp files created by hdocs
 IMPORTANT: path to the file i.e. its name
@@ -50,17 +49,20 @@ void	destroy_hdocs(t_minishell *data)
 
 int	count_hdocs(t_minishell *data)
 {
-	t_header_prs_tok *tmp_prs_lst;
-	int	i;
-
-	tmp_prs_lst = data->lst_prs;
-	i = 0;
-	while (tmp_prs_lst != NULL)
+	t_header_prs_tok *tmp;
+	t_prs_tok		*tmp_prs_tk;
+	
+	tmp = data->lst_prs;
+	tmp_prs_tk = tmp->prs_tok;
+	while(tmp != NULL)
 	{
-		printf("count\n");
-		// data->hdoc->num_hdocs += is_heredoc(data->lst_prs->prs_tok);
-		is_heredoc(tmp_prs_lst->prs_tok, data);
-		tmp_prs_lst = tmp_prs_lst->next;
+		tmp_prs_tk= tmp->prs_tok;
+		while(tmp_prs_tk!= NULL)
+		{
+			if (tmp_prs_tk->type == HEREDOC)
+				data->hdoc->num_hdocs++;
+			tmp_prs_tk = tmp_prs_tk->next;
+		}
+		tmp = tmp->next;
 	}
-	return (EXIT_SUCCESS);
 }

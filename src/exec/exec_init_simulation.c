@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_init_simulation.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pasha <pasha@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 11:06:11 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/28 21:23:42 by pasha            ###   ########.fr       */
+/*   Updated: 2022/11/29 11:23:22 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,12 +122,12 @@ void	init_simulation(t_minishell *data)
 
 	
 	header_lst_node_1 = ft_lstnew_header_prs_tok();
-	token_1_1 = ft_lstnew_prs_tok(COMMAND, NULL, ft_split("cat", ' '));
+	token_1_1 = ft_lstnew_prs_tok(COMMAND, NULL, ft_split("ls -a", ' '));
 	header_lst_node_1->prs_tok = token_1_1;
 
 
 	header_lst_node_2 = ft_lstnew_header_prs_tok();
-	token_2_1 = ft_lstnew_prs_tok(HEREDOC, "stop1", NULL);
+	token_2_1 = ft_lstnew_prs_tok(REDIRECT_OUT, "final", NULL);
 	header_lst_node_2->prs_tok = token_2_1;
 	
 	// ft_lstadd_back_prs_tok(&token, ft_lstnew_prs_tok(HEREDOC, "outfile", NULL));

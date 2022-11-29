@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_hdoc_simulation.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pasha <pasha@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 11:00:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/28 21:54:15 by pasha            ###   ########.fr       */
+/*   Updated: 2022/11/29 11:17:05 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int create_hdoc_files(t_minishell *data)
 }
 
 /*Launching a child process to read from STDIN for each hdoc*/
-static void	read_to_hdoc(t_minishell *data, t_prs_tok *token)
+static void read_to_hdoc(t_minishell *data, t_prs_tok *token)
 {
 	int	status;
 	int pid;
@@ -98,30 +98,44 @@ static void	read_to_hdoc(t_minishell *data, t_prs_tok *token)
 an array of hdocs in data->hdoc*/
 static t_prs_tok	*find_hdoc_nodes(t_minishell *data)
 {
-	t_header_prs_tok *tmp_prs_lst;
-	int	i;
+	t_header_prs_tok *tmp;
+	t_prs_tok		*tmp_prs_tk;
+	int 			i;
 
-	tmp_prs_lst = data->lst_prs;
 	i = 0;
-	data->hdoc->hdocs_nodes = malloc(sizeof(t_prs_tok) * (data->hdoc->num_hdocs));
+	tmp = data->lst_prs;
+	tmp_prs_tk = tmp->prs_tok;
+	data->hdoc->hdocs_nodes = malloc(sizeof(t_prs_tok * ) * (data->hdoc->num_hdocs));
 	if (data->hdoc->hdocs_nodes == NULL)
 		return NULL;
-	while (tmp_prs_lst != NULL)
+	while(tmp != NULL)
 	{
-		while (tmp_prs_lst->prs_tok != NULL)
+		tmp_prs_tk= tmp->prs_tok;
+		while(tmp_prs_tk!= NULL)
 		{
-			if (tmp_prs_lst->prs_tok->type == HEREDOC)
+			if (tmp_prs_tk->type == HEREDOC)
 			{
-				data->hdoc->hdocs_nodes[i] = *(tmp_prs_lst->prs_tok);
+				data->hdoc->hdocs_nodes[i] = tmp_prs_tk;
 				i++;
 			}
-			tmp_prs_lst->prs_tok = tmp_prs_lst->prs_tok->next;
+			tmp_prs_tk = tmp_prs_tk->next;
 		}
-		tmp_prs_lst = tmp_prs_lst->next;
+		tmp = tmp->next;
 	}
 	return (NULL);
 }
 
+void init_hdocs(t_minishell *data)
+{
+	data->hdoc = malloc(sizeof(t_hdocs));
+	if (data->hdoc == NULL)
+		return ;
+	data->hdoc->num_hdocs = 0;
+	data->hdoc->index = 0;
+	data->hdoc->fd_tmp = NULL;
+	data->hdoc->hdocs_nodes = NULL;
+	data->hdoc->is_hdoc = false;
+}
 /*Count hdocs, creates a file in the same folder with the number
 matching the index of the hdoc, stores its fd and pointer to the
 node with the hdoc. */
@@ -131,13 +145,10 @@ int resolve_hdocs(t_minishell	*data)
 	t_prs_tok	*hdoc_for_exec;
 
 	i = 0;
-	data->hdoc = malloc(sizeof(t_hdocs));
-	if (data->hdoc == NULL)
-		return (NULL);
-	data->hdoc->num_hdocs = 0;
-	data->hdoc->index = 0;
-	printf("hdocs here\n");
+	init_hdocs(data);
 	count_hdocs(data);
+	printf("hdocs here\n");
+	print_exec_lists(data);
 	if (data->hdoc->num_hdocs == 0)
 	{
 		data->hdoc->is_hdoc = false;
@@ -146,23 +157,26 @@ int resolve_hdocs(t_minishell	*data)
 	else
 		data->hdoc->is_hdoc = true;
 	create_hdoc_files(data);
+
 	if (DEBUG == 1)
 		printf("num of heredocs %i\n", data->hdoc->num_hdocs);
 	find_hdoc_nodes(data);
+	printf("hdocs here1\n");
+	print_exec_lists(data);
 	while (i < data->hdoc->num_hdocs)
 	{
-		read_to_hdoc(data, &data->hdoc->hdocs_nodes[i]);
+		read_to_hdoc(data, data->hdoc->hdocs_nodes[i]);
 		// destroy_hdocs(data);
 		data->hdoc->index++;
 		i++;
 	}
 	i = 0;
+	/*Turning hdocs in redirs*/
 	while (i < data->hdoc->num_hdocs)
 	{
-		data->hdoc->hdocs_nodes[i].type = REDIRECT_IN;
+		data->hdoc->hdocs_nodes[i]->type = REDIRECT_IN;
 		i++;
 	}
-
 	// free(data->hdoc->fd_tmp);
 	// free(data->hdoc->hdocs_nodes);
 	return (EXIT_SUCCESS);
@@ -173,18 +187,22 @@ void print_exec_lists(t_minishell *data)
 {
 	int i = 0;
 	t_header_prs_tok *tmp;
+	t_prs_tok		*tmp_prs_tk;
+	
 	tmp = data->lst_prs;
+	tmp_prs_tk = tmp->prs_tok;
 	while(tmp != NULL)
 	{
-		while(tmp->prs_tok != NULL)
+		tmp_prs_tk= tmp->prs_tok;
+		while(tmp_prs_tk!= NULL)
 		{
-			printf("type:%c ", tmp->prs_tok->type, i);
+			printf("type:%c ", tmp_prs_tk->type);
 			if (tmp->prs_tok->type != COMMAND)
-				printf("word:%s\n", tmp->prs_tok->word);
+				printf("word:%s\n", tmp_prs_tk->word);
 			if (tmp->prs_tok->type == COMMAND)
-				printf("cmd:%s\n", tmp->prs_tok->cmd_flags[0]);
+				printf("cmd:%s\n", tmp_prs_tk->cmd_flags[0]);
 			i++;
-			tmp->prs_tok = tmp->prs_tok->next;
+			tmp_prs_tk = tmp_prs_tk->next;
 		}
 		printf("*****END OF A SUBLIST******\n");
 		tmp = tmp->next;
