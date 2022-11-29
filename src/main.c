@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/29 01:53:15 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/29 01:56:56 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ int main(int argc, char **argv, char **envp)
 		// after_split = ft_split_meta(line_buffer);git sg
 		// print_2d(after_split);
 		ft_lexer(&data);
-		print_list(&data.list);
+		//print_list(&data.list);
 		ft_expand(&data);
-		printf("\n*********Print after expand******\n\n");
-		print_list(&data.list);
+		//printf("\n*********Print after expand******\n\n");
+		//print_list(&data.list);
 		ft_parser(&data);
 		//init_simulation(&data);
 		//ft_execution(&data);
