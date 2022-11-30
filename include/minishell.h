@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/29 12:26:09 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/30 01:12:19 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ t_prs_tok *find_last_parsedtok(t_sublist_prs_tok *sub_list_pars);
 void add_parsedtok_sublist(t_prs_tok *parsedtok_redir, t_sublist_prs_tok *sub_list_pars);
 
 void	print_list_parsedtoken(t_minishell *data);
-void	print_list_parsedtoken2(t_sublist_prs_tok	*array_sublist);
+//void	print_list_parsedtoken2(t_sublist_prs_tok	*array_sublist);
 
 //Parse free
 void	delete_array_parsedtk(t_minishell *data);
@@ -186,6 +186,7 @@ void	print_token(t_nod_token	*token);
 void	ft_expand(t_minishell *data);
 void	expand_find(t_minishell *data, t_nod_token *current);
 char	*expand_variable(t_minishell *data , char *buf, char **s);
+char *perform_expansion(t_minishell *data , char *old_buf, char **s_arr);
 
 
 //Signals

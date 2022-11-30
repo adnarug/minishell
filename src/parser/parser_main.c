@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:13:48 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/29 21:39:13 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/30 00:53:04 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void ft_parser(t_minishell *data)
 		data->array_sublist[i] = create_sublist(&current);
 		if (data->array_sublist[i]->number_cmd != 1)
 		{
-			printf("the pipe %i has more/less than 1 command\n", i);
+			printf("the pipe %i has more/less than 1 command\n", i); //here we prompt again, and nothing will be executed. Of course we add to history
 			exit(2);
 		}
 		if (!data->array_sublist[i])

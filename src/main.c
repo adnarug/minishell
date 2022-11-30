@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/29 21:29:46 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/30 01:18:43 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@
 	Real bash 'fnieves-'
 	My bash fnieves- >>> se come las comillas simples
 	ls -a | grep out | wc -l
+	For wednesady:
+	change main.c
+	start to execute  easy errors , and problems with parsing , tokens,..
+
+	question: if we have malloc problems , how do we indicate?
+	
 */
 
 //void initializer_header_sublist(t_minishell *data)
@@ -79,13 +85,12 @@ int main(int argc, char **argv, char **envp)
 		data.line = line_buffer; //what about free line_buffer??
 		add_history(line_buffer); // is it &data.line ?? , 
 		ft_lexer(&data);
-		//print_list(&data.list);
+		print_list(&data.list);
 		ft_expand(&data);
 		printf("\n*********Print after expand******\n\n");
 		print_list(&data.list);
 		ft_parser(&data);
 		print_list_parsedtoken(&data);
-		
 		//execute_tokens(&data);
 		delete_list(&data.list); //para que no queden leaks
 		free(line_buffer);//free before here. No needed

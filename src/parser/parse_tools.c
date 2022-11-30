@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 19:21:15 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/29 12:49:04 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/30 01:12:49 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ t_sublist_prs_tok *create_sublist(t_nod_token **current) //corregido a array
 	sub_list_pars = (t_sublist_prs_tok  *)malloc(sizeof(t_sublist_prs_tok)); //we malloc first sublist
 	if(!sub_list_pars)
 		return (NULL);
-	//Probably i will need to iniziale fd values
 	sub_list_pars->prs_tok = NULL; //first element of the list of sublists
 	sub_list_pars->size_sublist = 0;
 	sub_list_pars->number_cmd = 0;
@@ -38,21 +37,14 @@ t_prs_tok *find_last_parsedtok(t_sublist_prs_tok *sub_list_pars)
 {
 	t_prs_tok *last;
 	
-	// if (!sub_list_pars)
-	// {
-	// 	printf("sublist does not exit, something wrong is happening\n");
-	// 	return (NULL);
-	// }
 	if (!sub_list_pars->prs_tok)
 	{
 		printf("sublist empty. it also shoul dnot happen becaise its covered before\n");
-		//return (sub_list_pars);
+		//return (sub_list_pars); // exit
 	}
 	last = sub_list_pars->prs_tok;
 	while (last->next) //while node does not point to null
-	{
 		last = last->next;
-	}
 	return (last);
 }
 
@@ -75,7 +67,6 @@ t_prs_tok *find_last_parsedtok(t_sublist_prs_tok *sub_list_pars)
 		sub_list_pars->prs_tok = parsedtok;
 		return ; // we need to check, if we have to return a value
 	}
-	//otherwise , find the last element and add to the end
 	last = find_last_parsedtok(sub_list_pars);
 	last->next = parsedtok;
 }
@@ -85,51 +76,51 @@ t_prs_tok *find_last_parsedtok(t_sublist_prs_tok *sub_list_pars)
 // to delete!!
 
 
-void	print_list_parsedtoken2(t_sublist_prs_tok	*array_sublist)
-{
-	int i = 0;
-	t_prs_tok *current_parsedtoken;
-	//t_sublist_prs_tok	*current_sublist;
-	printf("\n-------BEGIINING de impresion  list unica of parsed tokens----------\n");
-	if (!array_sublist)
-	{
-		printf("-------El array no apunta a nada----------\n");
-		printf("-------END from list of parsed tokens----------\n");
-		return ;
-	}
+// void	print_list_parsedtoken2(t_sublist_prs_tok	*array_sublist)
+// {
+// 	int i = 0;
+// 	t_prs_tok *current_parsedtoken;
+// 	//t_sublist_prs_tok	*current_sublist;
+// 	printf("\n-------BEGIINING de impresion  list unica of parsed tokens----------\n");
+// 	if (!array_sublist)
+// 	{
+// 		printf("-------El array no apunta a nada----------\n");
+// 		printf("-------END from list of parsed tokens----------\n");
+// 		return ;
+// 	}
 
-	int j = 0;
-	if (!array_sublist)
-	{
-		printf("La Subliste %i esta vacia y no deberia imprimir mas\n", i);
-	}
-	else //cambia l acondicion
-	{
-		printf("Start subliste %i\n", i);
-		current_parsedtoken = array_sublist->prs_tok;
-		while (current_parsedtoken)
-		{
-			printf("	node %i de Subliste %i. ", j, i);
-			if (current_parsedtoken->type == COMMAND)
-			{
-				printf(" COMMAND: \n");
-				int k = 0;
-				//printf("   fuera Argumento %i, comando:|%s| \n",k , current_parsedtoken->cmd_flags[k]);
-				while (current_parsedtoken->cmd_flags[k])
-				{
-					printf("	- Argument %i, command:|%s| \n",k , current_parsedtoken->cmd_flags[k]);
-					k++;
-				}
-			}
-			else if (ft_strchr(REDIRECT, current_parsedtoken->type))
-			{
-				printf(" REDIRECT: |%c| \n	-argument: |%s| \n", current_parsedtoken->type, current_parsedtoken->word);	
-			}
-			else
-				printf("what kind of fucking parsed token are you printing?? \n");
-			j++;
-			current_parsedtoken = current_parsedtoken->next;
-		}
-	}
-	printf("\n-------END from list of parsed tokens----------\n");
-}
+// 	int j = 0;
+// 	if (!array_sublist)
+// 	{
+// 		printf("La Subliste %i esta vacia y no deberia imprimir mas\n", i);
+// 	}
+// 	else //cambia l acondicion
+// 	{
+// 		printf("Start subliste %i\n", i);
+// 		current_parsedtoken = array_sublist->prs_tok;
+// 		while (current_parsedtoken)
+// 		{
+// 			printf("	node %i de Subliste %i. ", j, i);
+// 			if (current_parsedtoken->type == COMMAND)
+// 			{
+// 				printf(" COMMAND: \n");
+// 				int k = 0;
+// 				//printf("   fuera Argumento %i, comando:|%s| \n",k , current_parsedtoken->cmd_flags[k]);
+// 				while (current_parsedtoken->cmd_flags[k])
+// 				{
+// 					printf("	- Argument %i, command:|%s| \n",k , current_parsedtoken->cmd_flags[k]);
+// 					k++;
+// 				}
+// 			}
+// 			else if (ft_strchr(REDIRECT, current_parsedtoken->type))
+// 			{
+// 				printf(" REDIRECT: |%c| \n	-argument: |%s| \n", current_parsedtoken->type, current_parsedtoken->word);	
+// 			}
+// 			else
+// 				printf("what kind of fucking parsed token are you printing?? \n");
+// 			j++;
+// 			current_parsedtoken = current_parsedtoken->next;
+// 		}
+// 	}
+// 	printf("\n-------END from list of parsed tokens----------\n");
+// }
