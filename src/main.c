@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/30 01:18:43 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/01 00:32:48 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,29 @@
 
 //void initializer_header_sublist(t_minishell *data)
 
-//int glob_var_exit = 5; //we give this valu as test for expansion $?
+void	initializer_data_error(t_minishell *data) //still any values to inicialze (could be done in the later functions but all variables must be inizialice)
+{
+	data->prs_error = true;
+	data->lx_error = true;
+	data->ex_error = true;
+	data->exit_minishell = true;
+}
+
 
 void	initializer_data(t_minishell *data) //still any values to inicialze (could be done in the later functions but all variables must be inizialice)
 {
+	glob_var_exit = 0;
 	data->line = NULL;
 	data->list.head = NULL;
 	data->list.size = 0;
-	
-	//initializer_header_sublist(data);
 	data->array_sublist = NULL;
 	data->number_pipes = 0;
+	initializer_data_error(data);
+	
 	// ask PAvel about the other all his var to inizialice
 	tcgetattr(STDOUT_FILENO, &data->termios_default);
-	glob_var_exit = 8; //just as test
+
+	
 }
 
 /*
@@ -65,37 +74,66 @@ void debuggear(t_minishell *data)
 	exit(0);
 }
 
+/*
+	Si el prompt nos da un NULL (equivalente a EOF),
+	imprimimos exit y liberamos todo.
+	En el caso de que sea string vacio, no lo guardamos en 
+	el hitorial pero volvemos a mostrar el prompt
+*/
+void	data_input(t_minishell *data)
+{
+	data->line = readline("minishell $ ");
+	if (data->line == NULL)
+	{
+		printf("exit\n"); //atention :its printing ^D: need to be deleted
+		free_all(data);
+		exit(glob_var_exit);
+	}
+	if (ft_strcmp(data->line, "")) //if its not equal to empty string
+	{
+		add_history(data->line);
+	}
+	ft_lexer(data);
+	ft_expand(data); //put together with lexing
+}
+
 /*Add - prompt, history, env linked list (env_lst)*/
-//i think it does not free line at the end 
+
+
 int main(int argc, char **argv, char **envp)
 {
-
-	char	*line_buffer;
 	t_minishell	data;
 
+	if (argc != 1)
+	{
+		printf("minishell: %s: No such file or directory\n", argv[1]);
+		return (EXIT_FAILURE);
+	}
 	initializer_data(&data);
-	ft_env(&data, envp);
-
-	(void) (argc);
-	(void) (argv);
-	while (1)
+	ft_env(&data, envp); //could we add to inizialice
+	while (data.exit_minishell)
 	{
 		signals_main(&(data.termios_default));
-		line_buffer = readline("minishell $ ");
-		data.line = line_buffer; //what about free line_buffer??
-		add_history(line_buffer); // is it &data.line ?? , 
-		ft_lexer(&data);
-		print_list(&data.list);
-		ft_expand(&data);
+		data_input(&data);
 		printf("\n*********Print after expand******\n\n");
 		print_list(&data.list);
-		ft_parser(&data);
-		print_list_parsedtoken(&data);
-		//execute_tokens(&data);
-		delete_list(&data.list); //para que no queden leaks
-		free(line_buffer);//free before here. No needed
-		//atexit(check_leaks);
-		//system("leaks minishell");
+		if (data.lx_error)
+		{
+			ft_parser(&data);
+			print_list_parsedtoken(&data);
+			// if (data.prs_error)
+			// 	//execute_tokens(&data);
+		}
+		//free tokens and parsed tokens
 	}
-	return (0);
+	free_all(&data);
+	return (glob_var_exit);
+}
+
+
+void free_all(t_minishell *data)
+{
+	delete_list(&data->list); 
+	// and keep deleting
+	//printf ("we free all from all");
 }

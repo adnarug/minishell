@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/30 01:12:19 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/01 00:18:27 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,9 @@ t_env	*ft_lstnew_env(char *value, char *key);
 
 /* My structures */
 
-//mis funciones 
+//FREE
+void free_all(t_minishell *data);
 
-//para borrar
 
 //PARSER
 void ft_parser(t_minishell *data);
@@ -120,6 +120,7 @@ t_sublist_prs_tok *create_sublist(t_nod_token **current);
 void	parsing_tokens(t_nod_token **current, t_sublist_prs_tok *sub_list_pars);
 void creat_parsedtok_cmd(t_nod_token **current, t_sublist_prs_tok *sub_list_pars);
 int	count_arguments(t_nod_token *current);
+int	check_number_commds(t_minishell *data);
 
 
 //t_sublist_prs_tok *find_last_sublist(t_head_sublst_parstk	*lst_sublist);
@@ -128,6 +129,9 @@ void	creat_parsedtok_redir(t_nod_token **current, t_sublist_prs_tok *sub_list_pa
 //PArser tools
 t_prs_tok *find_last_parsedtok(t_sublist_prs_tok *sub_list_pars);
 void add_parsedtok_sublist(t_prs_tok *parsedtok_redir, t_sublist_prs_tok *sub_list_pars);
+void	data_input(t_minishell *data);
+
+
 
 void	print_list_parsedtoken(t_minishell *data);
 //void	print_list_parsedtoken2(t_sublist_prs_tok	*array_sublist);

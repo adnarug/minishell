@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 00:25:54 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/30 00:39:22 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/30 18:34:08 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*expand_variable(t_minishell *data, char *buf, char **s)
 
 	ptr = *s;
 	env_var = NULL;
-	(void)buf;
+	(void)buf; //??borrar 
 	while (*ptr)
 	{
 		if (is_not_end_expand(*ptr))
@@ -80,14 +80,14 @@ char	*perform_expansion(t_minishell *data, char *old_buf, char **s_arr)
 	If it finds the $ we switch to another function.
 	Any other character will be copied directly (else)
 	
-	if (*s) // for everything but $ (s++, it would give a segmentation fault)
+	if (*s) // for everything but $ (s++ would give a segmentation fault in that case)
 		s++;
 
 Deleet this
 	"'$USER'" For this case : 'fnieves-' 
 	if (change_quot_modus(&quote_mod, *s) && quote_mod && (quote_mod != *s)) 
 	echo text"'$USER'" ' $USER '   '"'$USER'"'
-	grep hi -l >> '$USER' | wc -w >> $HOME1 | echo >> $? 
+	grep hi -l >> '$USER' | wc -w >> $HOME1 | echo >> $??
 	| cd "$USER" '"'$USER'"' "'$USER'" $$  << $
 */
 
