@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 16:13:52 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/28 16:20:31 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/30 17:28:56 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	exec_bash_cmd(t_minishell *data)
 	}
 	else
 	{
-		if (execve(data->exec->exec_path, data->exec->cmd_flags, (char * const*)data->env_lst) < 0)
+		if (execve(data->exec->exec_path, data->exec->cmd_flags, data->env_argv) < 0)
 		{
 			reset_stdin_stdout(data);
 			// exec_error(CMD_NOT_FOUND, data->exec->cmd[0]);

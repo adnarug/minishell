@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/29 17:35:50 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/30 19:39:13 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	initializer_data(t_minishell *data) //still any values to inicialze (could 
 	data->number_pipes = 0;
 	// ask PAvel about the other all his var to inizialice
 	tcgetattr(STDOUT_FILENO, &data->termios_default);
-	glob_var_exit = 5; //just as test
+	// glob_var_exit = 5; //just as test
 }
 
 /*
@@ -75,6 +75,8 @@ int main(int argc, char **argv, char **envp)
 	{
 		signals_main(&(data.termios_default));
 		line_buffer = readline("minishell $ ");
+		if (line_buffer == NULL)
+			break ;
 		data.line = line_buffer; //what about free line_buffer??
 		add_history(line_buffer); // is it &data.line ?? , 
 		// after_split = ft_split_meta(line_buffer);git sg

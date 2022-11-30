@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:22:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/29 17:39:04 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/30 18:59:43 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ void	execute_tokens(t_minishell *data)
 		// ft_del_first_token(&data);
 	}
 	catch_exit_code(data);
-	// destroy_hdocs(data);
+	destroy_hdocs(data);
 	if (DEBUG == 1)
 		printf("finishes execution\n");
 	// system("leaks minishell");

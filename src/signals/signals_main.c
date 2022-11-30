@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   signals_main.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 11:45:02 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/28 14:08:36 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/30 19:42:25 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// int glob_var_exit;
 #include "../../include/minishell.h"
 
 /*
@@ -38,7 +39,7 @@ void	new_prompt(int signal)
 	rl_on_new_line();
 	//rl_replace_line("", 0);
 	rl_redisplay();
-	glob_var_exit = 1;
+	// /glob_var_exit = 1;
 }
 
 void	sigquit_main()

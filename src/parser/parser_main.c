@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:13:48 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/29 01:56:14 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/30 18:22:42 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ void ft_parser(t_minishell *data)
 	while (current)
 	{
 		data->array_sublist[i] = create_sublist(&current);
-		if (data->array_sublist[i]->number_cmd != 1)
-		{
-			printf("the pipe %i has more/less than 1 command\n", i);
-			exit(2);
-		}
+		// if (data->array_sublist[i]->number_cmd != 1)
+		// {
+		// 	printf("the pipe %i has more/less than 1 command\n", i);
+		// 	exit(2);
+		// }
 		if (!data->array_sublist[i])
 		{
 			printf("Error allocting sublist pared token\n");

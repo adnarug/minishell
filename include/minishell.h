@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/29 16:45:16 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/30 19:38:47 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 #include "struct.h"
 #include "error.h"
 
-int glob_var_exit;
+// int glob_var_exit;
 
 // typedef struct s_input
 // {
