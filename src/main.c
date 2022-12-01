@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/30 19:39:13 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/01 11:06:31 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	initializer_data(t_minishell *data) //still any values to inicialze (could 
 	data->number_pipes = 0;
 	// ask PAvel about the other all his var to inizialice
 	tcgetattr(STDOUT_FILENO, &data->termios_default);
-	// glob_var_exit = 5; //just as test
+	glob_var_exit = 5; //just as test
 }
 
 /*
@@ -47,6 +47,16 @@ void	initializer_data(t_minishell *data) //still any values to inicialze (could 
 void	check_leaks(void)
 {
 	system("leaks minishell");
+}
+
+
+void	free_all(t_minishell *data)
+{
+	// close(data->curr_fd_in);
+	// close(data->curr_fd_in);
+	free(data->exec);
+	close(data->std_in);
+	close(data->std_out);
 }
 
 void debuggear(t_minishell *data)
@@ -89,17 +99,17 @@ int main(int argc, char **argv, char **envp)
 		ft_parser(&data);
 		//init_simulation(&data);
 		// ft_execution(&data);
-		print_list_parsedtoken(&data);
+		// print_list_parsedtoken(&data);
 		// printf("\n*********Print after expand******\n\n");
 		// print_list(&data.list);
 		execute_tokens(&data);
 		delete_list(&data.list); //para que no queden leaks
-
 		free(line_buffer);//free before here. No needed
 		//ft_parser(&list, line_buffer);
-
+		free_all(&data);
 		//atexit(check_leaks);
-		//system("leaks minishell");
+		system("leaks minishell");
 	}
 	return (0);
 }
+

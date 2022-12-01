@@ -6,11 +6,11 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 00:25:54 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/30 19:39:44 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/11/30 19:47:22 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int glob_var_exit;
+
 #include "../../include/minishell.h"
 
 /*

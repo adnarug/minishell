@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 16:13:52 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/30 17:28:56 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/01 10:53:38 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	create_pipe(t_minishell *data)
 
 int	create_fork(t_minishell *data)
 {
-	// signal(SIGINT, SIG_IGN);
+	signals_parent_process();
 	data->pid = fork();
 	if (data->pid < 0)
 	{

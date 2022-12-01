@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 14:57:54 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/29 13:46:29 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/01 11:13:22 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,10 @@ void	close_fds_in_out(t_minishell *data)
 		close(data->curr_fd_in);
 	if (data->curr_fd_out != STDOUT_FILENO)
 		close(data->curr_fd_out);
+}
+
+void	free_cmd_path(t_minishell *data)
+{
+	free(data->exec->exec_path);
+	data->exec->exec_path = NULL;
 }

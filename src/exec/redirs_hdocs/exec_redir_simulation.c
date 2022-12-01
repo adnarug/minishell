@@ -6,11 +6,11 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 11:02:58 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/29 17:26:24 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/01 10:49:50 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define DEBUG 1
+#define DEBUG 0
 #include "../../../include/minishell.h"
 
 /*Openning the given < redir and swapping it with STDIN*/

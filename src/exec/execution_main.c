@@ -6,11 +6,11 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:22:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/30 18:59:43 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/01 11:56:59 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define DEBUG 1
+#define DEBUG 0
 
 #include "../../include/minishell.h"
 
@@ -126,7 +126,6 @@ void	exec_cmd(t_minishell *data, t_sublist_prs_tok *token)
 			printf("running the last command\n");
 		pipe_last_cmd(data);
 	}
-	// free_cmd_and_path(data);
 }
 
 void	init_exec(t_minishell *data)
@@ -170,7 +169,6 @@ void	execute_tokens(t_minishell *data)
 	dup_stdin_and_stdout(data);
 	data->exec->last_cmd = data->array_sublist[0]->number_cmd;
 	printf("%d\n", data->exec->last_cmd);
-
 	resolve_hdocs(data);
 	// print_list_parsedtoken(data);
 	// print_exec_lists(data);
@@ -200,12 +198,13 @@ void	execute_tokens(t_minishell *data)
 			data->array_sublist[i]->prs_tok = data->array_sublist[i]->prs_tok->next;
 		}
 		close_fds_in_out(data);
+		printf("exec path :%s", data->exec->exec_path);
+		free_cmd_path(data);
 		i++;
-		// delete_words(data);
-		// ft_del_first_token(&data);
 	}
+		// free_cmd_path(data);
 	catch_exit_code(data);
-	destroy_hdocs(data);
+	destroy_hdocs(data);	
 	if (DEBUG == 1)
 		printf("finishes execution\n");
 	// system("leaks minishell");

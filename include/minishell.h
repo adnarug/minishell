@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/30 19:38:47 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/01 11:14:46 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@
 #include "struct.h"
 #include "error.h"
 
+
+
+ int glob_var_exit;
 // int glob_var_exit;
 
 // typedef struct s_input
@@ -65,6 +68,7 @@ void	ft_free_2d(char **table);
 t_env	*ft_lstlast_mini(t_env *lst);
 void	ft_lstadd_back_mini(t_env **lst, t_env *new);
 t_env	*ft_lstnew_env(char *value, char *key);
+void	free_cmd_path(t_minishell *data);
 
 
 // DE FELIPE
@@ -279,8 +283,7 @@ void	destroy_hdocs(t_minishell *data);
 void	execute_tokens(t_minishell *data);
 	void	exec_cmd(t_minishell *data, t_sublist_prs_tok *token);
 		void	pipe_last_cmd(t_minishell *data);
-		void	pipe_transitory_cmd(t_minishell *data);
-			void	redirect_stdin_to_pipe(t_minishell *data);
+		void	pipe_transitory_cmd(t_minishell *data);			void	redirect_stdin_to_pipe(t_minishell *data);
 			void	redirect_transitory_cmd(t_minishell *data);
 			int	create_fork(t_minishell *data);
 			void	exec_bash_cmd(t_minishell *data);

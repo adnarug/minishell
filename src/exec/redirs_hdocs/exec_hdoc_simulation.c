@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 11:00:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/30 18:59:36 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/01 10:43:57 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	read_from_stdin(t_minishell *data, t_prs_tok *token)
 	lim_found = false;
 	while (lim_found == false)
 	{
-	//	ft_signals(HDOC);
+		signals_heredoc_process();
 		input = readline("> ");
 		if (!input)
 			break ;
