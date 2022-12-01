@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 00:25:54 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/30 18:34:08 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/01 20:43:27 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ char	*expand_variable(t_minishell *data, char *buf, char **s)
 	}
 	*s = --ptr;
 	node_env = ft_lst_find(data->env_lst, env_var);
+	free(env_var);
 	if (!node_env)
 		return ("");
 	return (node_env->value);
@@ -62,11 +63,11 @@ char	*perform_expansion(t_minishell *data, char *old_buf, char **s_arr)
 	if (*s == '\0')
 		new_buff = ft_strjoin_char(old_buf, DOLLAR);
 	else if (*s == DOLLAR)
-		new_buff = ft_strjoin(old_buf, "$$");
+		new_buff = ft_strjoin(old_buf, "$$"); //isi t freeing ft_strjoin the old buffer. Here no needed for $$
 	else if (*s == '?')
 		new_buff = ft_strjoin(old_buf, ft_itoa(glob_var_exit));
 	else
-		new_buff = ft_strjoin(old_buf, expand_variable(data, old_buf, &s));
+		new_buff = ft_strjoin(old_buf, expand_variable(data, old_buf, &s)); //isi t freeing ft_strjoin the old buffer??
 	*s_arr = s;
 	return (new_buff);
 }
@@ -115,7 +116,7 @@ void	expand_find(t_minishell *data, t_nod_token *current)
 		if (*s)
 			s++;
 	}
-	free(current->name); //verificar 
+	free(current->name); //verificar . i will say its ok
 	current->name = new_buff;
 }
 

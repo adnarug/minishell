@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/01 20:28:08 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/01 21:12:53 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int main(int argc, char **argv, char **envp)
 		data_input(&data);
 		ft_lexer(&data);
 		ft_expand(&data); //put together with lexing
-		print_list(&data.list);//delete later
+		//print_list(&data.list);//delete later
 		//delete_list(&data.list);
 		//print_list(&data.list);//delete later
 		if (data.lx_error)
@@ -75,9 +75,10 @@ int main(int argc, char **argv, char **envp)
 			// if (data.prs_error) Pavel execution
 			// 	//execute_tokens(&data);
 		}
-		//printf("\nParsed after if and come to delet parse and print\n\n");//delete later
-		//del_parsedtk_and_list_tok(&data);
-		//print_list_parsedtoken(&data);
+		printf("\nParsed after if and come to delet parse and print\n\n");//delete later
+		del_parsedtk_and_list_tok(&data);
+		print_list_parsedtoken(&data);
+		print_list(&data.list);//delete later
 		
 		//Just free parser function, which also will free tokens//
 	}

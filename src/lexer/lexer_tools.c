@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 14:42:53 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/01 20:10:25 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/01 21:11:38 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	delete_list(t_list_token *list)
 	del = list->head;
 	while (del)
 	{
-		print_token(del);
+		//print_token(del);
 		current = del->next;
 		free(del->name);
 		del->name = NULL;

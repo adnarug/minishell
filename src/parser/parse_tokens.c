@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 12:46:50 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/30 01:17:11 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/01 21:10:35 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@
 {
 	t_prs_tok	*parsedtok_redir;
 
-	if (!(*current)->next || (*current)->next->flag != WORD)
+	if (!(*current)->next || (*current)->next->flag != WORD) //change the error exit
 	{
 		printf("the redirection |%c| has no a file name after. Exit and free whart wver you need to free\n", (*current)->flag);
 		exit(1);
 	}
 	if (!ft_strcmp((*current)->next->name, ""))
 	{
-		printf("the redirection |%c| has a word but empty. Exit and free whart wver you need to free\n", (*current)->flag);
+		printf("the redirection |%c| has a word but empty after expansion. Exit and free whart wver you need to free\n", (*current)->flag);
 		exit(1);
 	}
 	parsedtok_redir = (t_prs_tok *)malloc(sizeof(t_prs_tok));
@@ -37,6 +37,7 @@
 		return ; // where or how do we indicate this error?
 	parsedtok_redir->type = (*current)->flag;
 	parsedtok_redir->word = (*current)->next->name;
+	(*current)->next->name = NULL; //for later free 
 	parsedtok_redir->cmd_flags = NULL;
 	parsedtok_redir->next = NULL; //the node will pointer to NULL
 	add_parsedtok_sublist(parsedtok_redir, sub_list_pars); //cambiar nombre por add_parsedtok_sublist
@@ -110,6 +111,7 @@ int	count_arguments(t_nod_token *current)
 	while (*current && (*current)->flag == WORD) //(*current && !ft_strchr(METACHAR, (*current)->flag))
 	{
 		parsedtok_cmd->cmd_flags[i++] = (*current)->name;
+		(*current)->name =  NULL;
 		*current = (*current)->next;
 	}
 	parsedtok_cmd->cmd_flags[i] = NULL; // es un 0 , un NULL o un '/0'. Null terminamos
