@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 01:33:30 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/01 19:18:45 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/01 19:22:57 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	del_parsedtk_and_list_tok(t_minishell *data)
 	}
 	free(data->array_sublist);
 	data->array_sublist = NULL;
-	//delete_list(&data->list);
+	delete_list(&data->list);
 }
 
 /*

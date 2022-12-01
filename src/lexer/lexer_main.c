@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 14:42:56 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/01 18:47:03 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/01 19:55:43 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void	initializer_lex(t_lexing *lex_struct)
 {
 	lex_struct->buff = NULL;
 	lex_struct->c_pos = 0;
+	lex_struct->type = 0;
 	// lex_struct->c = '\0'; //we can take out
 	// lex_struct->double_quote = 0;
 	// lex_struct->simple_quote = 0;
-	lex_struct->type = 0;
-	lex_struct->quote = 0;
+	//lex_struct->quote = 0;
 	//lex_struct->ptr = NULL;
 }
 

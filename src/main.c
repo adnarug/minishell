@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/01 19:17:30 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/01 20:04:32 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ void	data_input(t_minishell *data)
 	}
 	if (ft_strcmp(data->line, "")) //if its not equal to empty string
 		add_history(data->line);
-	ft_lexer(data);
-	ft_expand(data); //put together with lexing
-	print_list(&data->list);//delete later
+
 }
 
 /*Add - prompt, history, env linked list (env_lst)*/
@@ -64,19 +62,22 @@ int main(int argc, char **argv, char **envp)
 	{
 		signals_main(&(data.termios_default));
 		data_input(&data);
+		ft_lexer(&data);
+		ft_expand(&data); //put together with lexing
+		//print_list(&data.list);//delete later
+		//delete_list(&data.list);
+		//print_list(&data.list);//delete later
 		if (data.lx_error)
 		{
 			ft_parser(&data);
-			//delete_list(&data.list);
 			print_list_parsedtoken(&data);
 			//print_list(&data.list);//delete later
 			// if (data.prs_error) Pavel execution
 			// 	//execute_tokens(&data);
 		}
-		printf("\nParsed after if and come to delet parse and print\n\n");//delete later
-		del_parsedtk_and_list_tok(&data);
-		print_list_parsedtoken(&data);
-
+		//printf("\nParsed after if and come to delet parse and print\n\n");//delete later
+		//del_parsedtk_and_list_tok(&data);
+		//print_list_parsedtoken(&data);
 		
 		//Just free parser function, which also will free tokens//
 	}
