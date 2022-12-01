@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_print.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 01:57:56 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/29 13:06:13 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/01 19:02:33 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	print_list(t_list_token *list)
 	int i = 0;
 	if (!list)
 	{
-		printf("List does not exist which does not mean is leer\n");
+		printf("List of tokens does not exist and probably is empty, who knows\n");
 		return;
 	}
 	if (!list->head)
 	{
-		printf("List exists but with no nodes\n");
+		printf("List of tokens exists but with no nodes\n");
 		return;
 	}
 	temp = list->head;

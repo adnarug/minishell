@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/01 13:29:54 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/01 18:55:45 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ t_env	*ft_lstnew_env(char *value, char *key);
 //FREE
 void free_all(t_minishell *data);
 void print_error_free_exit(t_minishell *data, char *error_msg, int glb_var, bool do_exit);
-
+void	free_parsdtok_and_tok(t_minishell *data);
 
 //Initialzaier
 void	initializer_data(t_minishell *data);
@@ -143,7 +143,7 @@ void	print_list_parsedtoken(t_minishell *data);
 //void	print_list_parsedtoken2(t_sublist_prs_tok	*array_sublist);
 
 //Parse free
-void	delete_array_parsedtk(t_minishell *data);
+void	del_parsedtk_and_list_tok(t_minishell *data);
 void	free_parsed_tok(t_prs_tok	*delete);
 void	free_list_parsedtok(t_sublist_prs_tok *sublist);
 

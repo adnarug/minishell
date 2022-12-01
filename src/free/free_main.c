@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 12:03:09 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/01 13:28:49 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/01 18:51:36 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,5 @@ void free_all(t_minishell *data)
 	// and keep deleting
 	//printf ("we free all from all");
 }
+
 

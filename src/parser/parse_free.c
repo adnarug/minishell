@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 01:33:30 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/01 18:29:20 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/01 19:18:45 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 hay que apuntar a null , despues de hacer un free. es  una buna practica para no tener que liarla 
 por hacer 2 free al mismo pointer
 Tengo que hacer free a los strings maloqueados de la lista de tokens, y de los parsed tokens??
+grep hi -l >> '$USER' | wc -w > $HOME
 */
 
 /*
@@ -24,8 +25,10 @@ Tengo que hacer free a los strings maloqueados de la lista de tokens, y de los p
 	We call the fucntion free_list_parsedtok, for each 
 	sublist of nodes. After we also free the array of pipes.
 	All strings will point to NULL after be free.
+	After free, the list of parsed tokens, we will 
+	also free the list of tokens.
 */
-void	delete_array_parsedtk(t_minishell *data)
+void	del_parsedtk_and_list_tok(t_minishell *data)
 {
 	int i = 0;
 	while (data->array_sublist[i])
@@ -35,8 +38,7 @@ void	delete_array_parsedtk(t_minishell *data)
 	}
 	free(data->array_sublist);
 	data->array_sublist = NULL;
-	//Delete also the whole list of previous tokens.
-	delete_list(&data->list); //delete the tokens ??
+	//delete_list(&data->list);
 }
 
 /*
@@ -59,8 +61,8 @@ void free_list_parsedtok(t_sublist_prs_tok *sublist)
 		free_parsed_tok(delete);
 		delete = current;
 	}
-	free(sublist->exec_path);
-	sublist->exec_path = NULL;
+	//free(sublist->exec_path);
+	//sublist->exec_path = NULL;
 }
 
 /*
@@ -71,15 +73,20 @@ void free_parsed_tok(t_prs_tok	*delete)
 {
 	int i;
 	
-	i = 0;
+
 	free(delete->word);
 	delete->word = NULL;
-	while (delete->cmd_flags[i])
+	if (delete->cmd_flags)
 	{
-		free(delete->cmd_flags[i]);
-		delete->cmd_flags[i] = NULL;
-		i++;
+		i = 0;
+		while (delete->cmd_flags[i])
+		{
+			free(delete->cmd_flags[i]);
+			delete->cmd_flags[i] = NULL;
+			i++;
+		}
+		free(delete->cmd_flags);
+		delete->next = NULL;	
 	}
-	free(delete->cmd_flags);
-	delete->next = NULL;
+
 }

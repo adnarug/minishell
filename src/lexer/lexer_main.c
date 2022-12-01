@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 14:42:56 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/01 17:14:27 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/01 18:47:03 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ void	ft_lexer(t_minishell *data) //(t_list_token *list, char *line)
 	data->line = ft_strtrim((const char *)data->line, SPACE_STRNG);
 	initializer_lex(&lex_struct);
 	if(!are_quote_closed(data))
-	{
 		print_error_free_exit(data, ERROR_QUOT, QUOTE_MISSING, true);
-	}
 	//ft_isclose_quote(data, &lex_struct);  //	Maybe we can change the order of execution
 	while (data->line[lex_struct.c_pos]) //anador && no hay error
 	{
