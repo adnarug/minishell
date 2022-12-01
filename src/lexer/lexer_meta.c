@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 13:50:12 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/01 19:59:43 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/01 20:27:56 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	lex_redirect(t_minishell *data, t_lexing *lex_struct)
 		if (redir_repeted)
 			lex_struct->type = APPEND;
 	}
-	lex_struct->buff = ft_strjoin_char(lex_struct->buff,
-			data->line[lex_struct->c_pos]);
+	// lex_struct->buff = ft_strjoin_char(lex_struct->buff,
+	// 		data->line[lex_struct->c_pos]); //why do i need this i f i gacve already the name metachar. Delete
 	lex_struct->c_pos = lex_struct->c_pos + 1 + redir_repeted;
 }
 
@@ -62,7 +62,7 @@ void	lexer_meta(t_minishell *data, t_lexing *lex_struct)
 	}
 	lex_struct->buff = ft_strdup("Metachar"); //ponemos este valor para que creee el nodo
 	new_token = create_tok(lex_struct);
-	free(lex_struct->buff);
-	lex_struct->buff = NULL;
 	add_toke_list(&(data->list), new_token);
+	//free(lex_struct->buff);
+	lex_struct->buff = NULL;
 }

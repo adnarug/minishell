@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 13:47:21 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/27 16:19:02 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/01 20:24:28 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	lexer_word(t_minishell *data, t_lexing *lex_struct)
 	//*end = temp;
 	lex_struct->type = WORD;
 	new_token = create_tok(lex_struct);
-	free(lex_struct->buff);
+	//free(lex_struct->buff);
 	lex_struct->buff = NULL;
 	add_toke_list(&(data->list), new_token);
 	lex_struct->c_pos = lex_struct->c_pos + end - start; //numero de posiciones a a umentar 

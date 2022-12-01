@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/01 20:04:32 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/01 20:28:08 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int main(int argc, char **argv, char **envp)
 		data_input(&data);
 		ft_lexer(&data);
 		ft_expand(&data); //put together with lexing
-		//print_list(&data.list);//delete later
+		print_list(&data.list);//delete later
 		//delete_list(&data.list);
 		//print_list(&data.list);//delete later
 		if (data.lx_error)
