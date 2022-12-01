@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 13:07:04 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/01 12:19:58 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/01 18:40:24 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,4 @@ void	initializer_data(t_minishell *data) //still any values to inicialze (could 
 	
 	// ask PAvel about the other all his var to inizialice
 	tcgetattr(STDOUT_FILENO, &data->termios_default);
-
 }

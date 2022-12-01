@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 14:42:53 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/27 16:20:17 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/01 18:44:31 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,20 +90,11 @@ void	delete_list(t_list_token *list)
 	{
 		current = del->next;
 		free(del->name);
+		del->name = NULL;
 		free(del);
+		del = NULL;
 		del = current;
 	}
 	list->head = NULL;
-}
-
-/*
-	inizialice values for token list (creo que no es necesaria. Borrar)
-*/
-void init_list_tok(t_list_token *list)
-{
-
-	list->head = NULL;
-	//printf("till here ft_lexer ok \n");
-	list->size = 0;
 }
 

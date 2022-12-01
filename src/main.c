@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/01 17:09:16 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/01 17:53:28 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 	In malloquing , if an error , exit and free with global erorr = 1
 	update all the error en lexing, and checqu all the malloc will be free , properly
+	Create the parser free, list
 	question: if we have malloc problems , how do we indicate?
 
 grep hi -l >> '$USER' | wc -w > $HOME | echo >> $? | cd "$USER" '"'$USER'"' "'$USER'" $$  << $
@@ -43,8 +44,8 @@ void	data_input(t_minishell *data)
 		add_history(data->line);
 	ft_lexer(data);
 	ft_expand(data); //put together with lexing
-	//printf("\n*********Print after expand******\n\n");//delete later
-	//print_list(&data->list);//delete later
+	printf("\n*********Print after expand******\n\n");//delete later
+	print_list(&data->list);//delete later
 }
 
 /*Add - prompt, history, env linked list (env_lst)*/
@@ -71,7 +72,7 @@ int main(int argc, char **argv, char **envp)
 			// if (data.prs_error)
 			// 	//execute_tokens(&data);
 		}
-		//free tokens and parsed tokens
+		//Just free parser function, which also will free tokens//
 	}
 	free_all(&data);
 	return (glob_var_exit);

@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 11:46:51 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/29 01:52:53 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/01 18:34:18 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,15 @@ int	change_quot_modus(char *quote, char c)
 	if (*quote == QUOTE_OFF)
 	{
 		*quote = c;
-		return 1; // el modo se ha cambiado
+		return 1;
 	}
 	else 
 	{
 		if ((*quote == SINGLE_QUOTE || *quote == DOUBLE_QUOTE ) && *quote == c)
 			*quote = QUOTE_OFF;
-		return 1; // el modo se ha cambiado
+		return 1;
 	}
-	return 0; // el modo no se ha cambiado, se trata de quotes dentro de otros quotes
+	return 0;
 }
 
  /*
@@ -76,42 +76,42 @@ int are_quote_closed(t_minishell *data)
 	return (1);
 }
 
-// 2 fucntions below not needed
-void	find_2nd_quote(t_minishell *data, t_lexing *lex_struct)
-{
-	char *point_2nd_quote;
-	int pos_2nd_quote;
-	char c;
+// // 2 fucntions below not needed
+// void	find_2nd_quote(t_minishell *data, t_lexing *lex_struct)
+// {
+// 	char *point_2nd_quote;
+// 	int pos_2nd_quote;
+// 	char c;
 	
-	c = data->line[lex_struct->c_pos]; //no sabemos si es simple o doble
-	point_2nd_quote = ft_strchr(data->line + lex_struct->c_pos + 1, c);
-	if (!point_2nd_quote) //usar funcion strchr
-	{
-		printf("quote ( %c ) not closed. we have to free and  Salimos\n", c);
-		exit(1);
-	}
-	pos_2nd_quote = point_2nd_quote - data->line - lex_struct->c_pos + 1;
-	//lex_struct->simple_quote = 0; //este puedo borrar
-	lex_struct->quote = 0;
-	lex_struct->c_pos = lex_struct->c_pos + pos_2nd_quote - 1; //nos da el lgar de la posicion de la comilla
-}
+// 	c = data->line[lex_struct->c_pos]; //no sabemos si es simple o doble
+// 	point_2nd_quote = ft_strchr(data->line + lex_struct->c_pos + 1, c);
+// 	if (!point_2nd_quote) //usar funcion strchr
+// 	{
+// 		printf("quote ( %c ) not closed. we have to free and  Salimos\n", c);
+// 		exit(1);
+// 	}
+// 	pos_2nd_quote = point_2nd_quote - data->line - lex_struct->c_pos + 1;
+// 	//lex_struct->simple_quote = 0; //este puedo borrar
+// 	lex_struct->quote = 0;
+// 	lex_struct->c_pos = lex_struct->c_pos + pos_2nd_quote - 1; //nos da el lgar de la posicion de la comilla
+// }
 
-/*
-	First check if  every quote is closed
-*/
+// /*
+// 	First check if  every quote is closed
+// */
 
-void ft_isclose_quote(t_minishell *data, t_lexing *lex_struct) //esta funcion y la de arriba las podemos quitar
-{
-	while (data->line[lex_struct->c_pos])
-	{
-		if (data->line[lex_struct->c_pos] == SINGLE_QUOTE || data->line[lex_struct->c_pos] == DOUBLE_QUOTE)
-		{
-			//lex_struct->simple_quote = 1;
-			lex_struct->quote = data->line[lex_struct->c_pos]; //asignamos el valor de quote a buscar 
-			find_2nd_quote(data, lex_struct); // damos el valor que nos interese , o varios, devuelve la posicion
-		}
-		lex_struct->c_pos += 1;
-	}
-	lex_struct->c_pos = 0;
-	lex_struct->quote = 0;
-}
+// void ft_isclose_quote(t_minishell *data, t_lexing *lex_struct) //esta funcion y la de arriba las podemos quitar
+// {
+// 	while (data->line[lex_struct->c_pos])
+// 	{
+// 		if (data->line[lex_struct->c_pos] == SINGLE_QUOTE || data->line[lex_struct->c_pos] == DOUBLE_QUOTE)
+// 		{
+// 			//lex_struct->simple_quote = 1;
+// 			lex_struct->quote = data->line[lex_struct->c_pos]; //asignamos el valor de quote a buscar 
+// 			find_2nd_quote(data, lex_struct); // damos el valor que nos interese , o varios, devuelve la posicion
+// 		}
+// 		lex_struct->c_pos += 1;
+// 	}
+// 	lex_struct->c_pos = 0;
+// 	lex_struct->quote = 0;
+// }
