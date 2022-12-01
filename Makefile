@@ -17,6 +17,8 @@ SRC_FILES = main				\
 			signals/signals_termios	\
 			signals/signals_child_process \
 			signals/signals_parent_process \
+			initializer/initializer_main \
+			free/free_main \
 			exec/execution_main \
 			exec/cmd_exec/path_check \
 			exec/redirs_hdocs/exec_redir_simulation \
@@ -72,6 +74,8 @@ $(OBJF):
 	@mkdir -p $(OBJ_DIR)/lexer/
 	@mkdir -p $(OBJ_DIR)/expand/
 	@mkdir -p $(OBJ_DIR)/signals/
+	@mkdir -p $(OBJ_DIR)/initializer/
+	@mkdir -p $(OBJ_DIR)/free/
 	@mkdir -p $(OBJ_DIR)/env/
 	@mkdir -p $(OBJ_DIR)/utils/
 	@mkdir -p $(OBJ_DIR)/builtins/

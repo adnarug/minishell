@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/30 18:27:04 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/01 11:56:03 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,10 @@ typedef struct s_sublist_prs_tok
 	//struct s_sublist_prs_tok		*next_sublist; //not needed with the array
 }	t_sublist_prs_tok;
 
-
+/*
+	lx_error, and errors in general will be false 
+	if there is an error. True , everything ok.
+*/
 typedef struct s_minishell
 {
 	char				*line;

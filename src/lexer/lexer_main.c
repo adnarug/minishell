@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 14:42:56 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/27 16:00:10 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/01 17:14:27 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ void	ft_lexer(t_minishell *data) //(t_list_token *list, char *line)
 	initializer_lex(&lex_struct);
 	if(!are_quote_closed(data))
 	{
-		printf("quote not closed.free  exit\n");
-		exit(1);
+		print_error_free_exit(data, ERROR_QUOT, QUOTE_MISSING, true);
 	}
 	//ft_isclose_quote(data, &lex_struct);  //	Maybe we can change the order of execution
 	while (data->line[lex_struct.c_pos]) //anador && no hay error
@@ -56,6 +55,8 @@ void	ft_lexer(t_minishell *data) //(t_list_token *list, char *line)
 		else
 			lexer_word(data, &lex_struct);
 	}
+	if (!data->lx_error)
+		glob_var_exit = (EXIT_FAILURE);
 	//system("leaks minishell");
 }
  

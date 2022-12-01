@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/01 00:18:27 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/01 13:29:54 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,12 @@ t_env	*ft_lstnew_env(char *value, char *key);
 
 //FREE
 void free_all(t_minishell *data);
+void print_error_free_exit(t_minishell *data, char *error_msg, int glb_var, bool do_exit);
+
+
+//Initialzaier
+void	initializer_data(t_minishell *data);
+void	initializer_data_error(t_minishell *data);
 
 
 //PARSER

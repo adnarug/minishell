@@ -6,14 +6,20 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 11:33:33 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/30 21:15:58 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/01 15:39:50 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERROR_H
 #define ERROR_H
 
+/* Error messages*/
+#define ERROR_PRINTED 	"error\n"
+#define ERROR_QUOT 		"quote(s) not closed\n"
 
+
+/* Error return values */
+# define QUOTE_MISSING		1
 
 #endif
 
