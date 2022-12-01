@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/01 11:06:31 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/01 13:33:27 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,19 @@ void debuggear(t_minishell *data)
 	exit(0);
 }
 
+void	track_history(t_minishell *data)
+{
+	data->line = readline("minishell % ");
+	if (!data->line)
+	{
+		printf("exit\n");
+		free_all(data);
+		exit(glob_var_exit);
+	}
+	if (ft_strlen(data->line) != 0)
+		add_history(data->line);
+}
+
 /*Add - prompt, history, env linked list (env_lst)*/
 //i think it does not free line at the end 
 int main(int argc, char **argv, char **envp)
@@ -88,7 +101,6 @@ int main(int argc, char **argv, char **envp)
 		if (line_buffer == NULL)
 			break ;
 		data.line = line_buffer; //what about free line_buffer??
-		add_history(line_buffer); // is it &data.line ?? , 
 		// after_split = ft_split_meta(line_buffer);git sg
 		// print_2d(after_split);
 		ft_lexer(&data);
@@ -108,8 +120,10 @@ int main(int argc, char **argv, char **envp)
 		//ft_parser(&list, line_buffer);
 		free_all(&data);
 		//atexit(check_leaks);
+		add_history(line_buffer); // is it &data.line ?? , 
 		system("leaks minishell");
 	}
+	clear_history();
 	return (0);
 }
 

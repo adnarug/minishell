@@ -50,6 +50,9 @@ SRC_FILES = main				\
 DEF_COLOR = \033[0;80m
 GREEN = \033[0;92m
 
+INCREADH 	=	-I /Users/$(USER)/.brew/opt/readline/include
+INCREADL 	=	-lreadline -L /Users/$(USER)/.brew/opt/readline/lib
+
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 
@@ -60,11 +63,11 @@ OBJF = .cache_exists
 $(NAME): $(OBJ)
 	@make -C libft/
 	@ar rcs $(NAME) $(OBJ)
-	@$(CC) $(FLAGS) $(OBJ) libft/libft.a minishell.a -lreadline -o minishell
+	@$(CC) $(FLAGS) $(OBJ) ${INCREADL} libft/libft.a minishell.a -lreadline -o minishell
 	@echo "$(GREEN)minishell compiled$(DEF_COLOR)"
 
 $(OBJ_DIR)%.o	:	$(SRC_DIR)%.c | $(OBJF)
-	@$(CC) $(FLAGS) -c $< -o $@
+	@$(CC) $(FLAGS) ${INCREADH} -c $< -o $@
 
 $(OBJF):
 	@mkdir -p $(OBJ_DIR)

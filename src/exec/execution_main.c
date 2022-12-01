@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:22:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/01 11:56:59 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/01 13:19:47 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,6 @@ void	execute_tokens(t_minishell *data)
 		reset_params(data);
 		// printf("%c\n", data->array_sublist[i]->prs_tok->type);
 		resolve_redir(data->array_sublist[i], data);
-		printf("chec\n");
 		if (data->array_sublist[i] ==  NULL)
 		{
 			printf("does it come here|\n");
