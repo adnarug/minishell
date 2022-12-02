@@ -1,7 +1,8 @@
 NAME = minishell.a
 SRC_DIR = src/
 OBJ_DIR = obj/
-FLAGS = -Wextra -g -Wall # -Werror  #-fsanitize=address
+FLAGS = -Wextra -g -Wall  # -Werror  #-fsanitize=address
+LEAKS = -Wno-gnu-include-next -I/LeakSanitizer/include -L./LeakSanitizer/ -llsan -lc++
 LIBFT = libft/
 CC = gcc
 SRC_FILES = main				\
@@ -61,7 +62,7 @@ OBJF = .cache_exists
 
 $(NAME): $(OBJ)
 	@make -C libft/
-	@ar rcs $(NAME) $(OBJ)
+	@ar rcs $(NAME)  $(OBJ)
 	@$(CC) $(FLAGS) $(OBJ) libft/libft.a minishell.a -lreadline -o minishell
 	@echo "$(GREEN)minishell compiled$(DEF_COLOR)"
 

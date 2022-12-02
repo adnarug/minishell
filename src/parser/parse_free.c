@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 01:33:30 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/01 21:02:30 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/02 12:10:56 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,15 @@ grep hi -l >> '$USER' | wc -w > $HOME
 */
 void	del_parsedtk_and_list_tok(t_minishell *data)
 {
+	del_array_list_prsdtok(data);
+	delete_list(&data->list);
+}
+
+void	del_array_list_prsdtok(t_minishell *data)
+{
 	int i = 0;
+	if (!data->array_sublist)
+		return ;
 	while (data->array_sublist[i])
 	{
 		free_list_parsedtok(data->array_sublist[i]);
@@ -38,10 +46,7 @@ void	del_parsedtk_and_list_tok(t_minishell *data)
 	}
 	free(data->array_sublist);
 	data->array_sublist = NULL;
-	//print_list_parsedtoken(data);
-	delete_list(&data->list);
 }
-
 /*
 	It will run throght each parsed node , commands or redirect,
 	of the list and and delete them. 
@@ -62,8 +67,8 @@ void free_list_parsedtok(t_sublist_prs_tok *sublist)
 		free_parsed_tok(delete);
 		delete = current;
 	}
-	//free(sublist->exec_path);
-	//sublist->exec_path = NULL;
+	free(sublist->exec_path);
+	sublist->exec_path = NULL;
 }
 
 /*
@@ -73,7 +78,6 @@ void free_list_parsedtok(t_sublist_prs_tok *sublist)
 void free_parsed_tok(t_prs_tok	*delete)
 {
 	int i;
-	
 
 	free(delete->word);
 	delete->word = NULL;
@@ -89,5 +93,4 @@ void free_parsed_tok(t_prs_tok	*delete)
 		free(delete->cmd_flags);
 		delete->next = NULL;	
 	}
-
 }

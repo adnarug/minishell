@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/01 18:55:45 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/02 13:22:38 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ t_env	*ft_lstnew_env(char *value, char *key);
 void free_all(t_minishell *data);
 void print_error_free_exit(t_minishell *data, char *error_msg, int glb_var, bool do_exit);
 void	free_parsdtok_and_tok(t_minishell *data);
+void	del_array_list_prsdtok(t_minishell *data);
+
 
 //Initialzaier
 void	initializer_data(t_minishell *data);
@@ -126,7 +128,7 @@ t_sublist_prs_tok *create_sublist(t_nod_token **current);
 void	parsing_tokens(t_nod_token **current, t_sublist_prs_tok *sub_list_pars);
 void creat_parsedtok_cmd(t_nod_token **current, t_sublist_prs_tok *sub_list_pars);
 int	count_arguments(t_nod_token *current);
-int	check_number_commds(t_minishell *data);
+int	check_number_commds(t_minishell *data); //for Pasha
 
 
 //t_sublist_prs_tok *find_last_sublist(t_head_sublst_parstk	*lst_sublist);

@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 13:07:04 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/01 18:40:24 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/02 14:43:03 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 
 void	initializer_data_error(t_minishell *data) //still any values to inicialze (could be done in the later functions but all variables must be inizialice)
 {
-	data->prs_error = true;
-	data->lx_error = true;
-	data->ex_error = true;
+	data->prs_error = false;
+	data->lx_error = false;
+	data->ex_error = true; //put to false and true at the beggining of the function
 	data->exit_minishell = true;
 }
 

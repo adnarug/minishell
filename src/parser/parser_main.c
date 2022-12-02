@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:13:48 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/30 18:46:49 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/02 14:49:24 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html
 	If it is not so, will not be executed, 
 	and prompt again (return 0)
 	returns 1 if number of commands is only 1.
-	This function has to be executed after the heredocs
+	This function has to be executed after the heredocs.
+	Pasha will need it.
 */
 int	check_number_commds(t_minishell *data)
 {
@@ -54,11 +55,7 @@ void ft_parser(t_minishell *data)
 	int i;
 
 	i = 0;
-	if (!data->list.head) //we had no input and/or the list of tokens is empty
-	{
-		printf("no tokens to parse\n");
-		return ;
-	}
+	data->prs_error = true;
 	data->array_sublist = (t_sublist_prs_tok **)malloc(sizeof(t_sublist_prs_tok *) * (data->number_pipes + 2));
 	if (!data->array_sublist)
 	{
@@ -71,10 +68,12 @@ void ft_parser(t_minishell *data)
 		data->array_sublist[i] = create_sublist(&current);
 		if (!data->array_sublist[i])
 		{
-			printf("Error allocting sublist pared token\n");
+			printf("error malloc sublist pared token\n"); //i do not to take ito account the subproblems with memory. Here , is already checking
 			exit(3);
 		}
 		i++;
 	}
 	data->array_sublist[i] = NULL;
+	if (!data->prs_error)
+		glob_var_exit = (EXIT_FAILURE);
 }

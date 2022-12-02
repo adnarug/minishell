@@ -6,24 +6,12 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 11:46:51 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/01 18:34:18 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/02 12:22:14 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-
-void	change_quot_modus2(char *quote, char c) //old fucntion
-{
-
-	if (*quote == QUOTE_OFF)
-		*quote = c;
-	else 
-	{
-		if ((*quote == SINGLE_QUOTE || *quote == DOUBLE_QUOTE ) && *quote == c)
-			*quote = QUOTE_OFF;
-	}
-}
 
 /*
 	Knowing that all quotation marks are correctly closed,
@@ -114,4 +102,17 @@ int are_quote_closed(t_minishell *data)
 // 	}
 // 	lex_struct->c_pos = 0;
 // 	lex_struct->quote = 0;
+// }
+
+
+// void	change_quot_modus2(char *quote, char c) //old fucntion
+// {
+
+// 	if (*quote == QUOTE_OFF)
+// 		*quote = c;
+// 	else 
+// 	{
+// 		if ((*quote == SINGLE_QUOTE || *quote == DOUBLE_QUOTE ) && *quote == c)
+// 			*quote = QUOTE_OFF;
+// 	}
 // }

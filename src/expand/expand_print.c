@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 01:57:56 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/01 19:02:33 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/02 12:14:00 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	print_list_parsedtoken(t_minishell *data)
 	printf("\n-------BEGIINING from list of parsed tokens----------\n");
 	if (!data->array_sublist)
 	{
-		printf("-------El array no apunta a nada----------\n");
+		printf("	The array of list of parsed tok does not exist	\n");
 		printf("-------END from list of parsed tokens----------\n");
 		return ;
 	}

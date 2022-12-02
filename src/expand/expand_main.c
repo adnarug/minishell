@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 00:25:54 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/01 20:43:27 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/02 13:21:08 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*expand_variable(t_minishell *data, char *buf, char **s)
 
 	ptr = *s;
 	env_var = NULL;
-	(void)buf; //??borrar 
+	// (void)buf; //??borrar 
 	while (*ptr)
 	{
 		if (is_not_end_expand(*ptr))
@@ -63,11 +63,11 @@ char	*perform_expansion(t_minishell *data, char *old_buf, char **s_arr)
 	if (*s == '\0')
 		new_buff = ft_strjoin_char(old_buf, DOLLAR);
 	else if (*s == DOLLAR)
-		new_buff = ft_strjoin(old_buf, "$$"); //isi t freeing ft_strjoin the old buffer. Here no needed for $$
+		new_buff = ft_strjoin(old_buf, "$$");
 	else if (*s == '?')
 		new_buff = ft_strjoin(old_buf, ft_itoa(glob_var_exit));
 	else
-		new_buff = ft_strjoin(old_buf, expand_variable(data, old_buf, &s)); //isi t freeing ft_strjoin the old buffer??
+		new_buff = ft_strjoin(old_buf, expand_variable(data, old_buf, &s));
 	*s_arr = s;
 	return (new_buff);
 }
@@ -80,7 +80,6 @@ char	*perform_expansion(t_minishell *data, char *old_buf, char **s_arr)
 		If it is fulfilled, it will copy quotes inside other quotes, of different type. 
 	If it finds the $ we switch to another function.
 	Any other character will be copied directly (else)
-	
 	if (*s) // for everything but $ (s++ would give a segmentation fault in that case)
 		s++;
 
@@ -88,8 +87,7 @@ Deleet this
 	"'$USER'" For this case : 'fnieves-' 
 	if (change_quot_modus(&quote_mod, *s) && quote_mod && (quote_mod != *s)) 
 	echo text"'$USER'" ' $USER '   '"'$USER'"'
-	grep hi -l >> '$USER' | wc -w >> $HOME1 | echo >> $??
-	| cd "$USER" '"'$USER'"' "'$USER'" $$  << $
+	grep hi -l >> '$USER' | wc -w >> $HOME1 | echo >> $?? | cd "$USER" '"'$USER'"' "'$USER'" $$  << $
 */
 
 void	expand_find(t_minishell *data, t_nod_token *current)
@@ -100,7 +98,7 @@ void	expand_find(t_minishell *data, t_nod_token *current)
 
 	quote_mod = 0;
 	s = current->name;
-	new_buff = ft_strdup(""); //free?
+	new_buff = ft_strdup("");
 	while (*s)
 	{
 		if (*s == SINGLE_QUOTE || *s == DOUBLE_QUOTE)
@@ -116,7 +114,7 @@ void	expand_find(t_minishell *data, t_nod_token *current)
 		if (*s)
 			s++;
 	}
-	free(current->name); //verificar . i will say its ok
+	free(current->name);
 	current->name = new_buff;
 }
 

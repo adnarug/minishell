@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/01 21:12:53 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/02 14:43:49 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,17 @@ int main(int argc, char **argv, char **envp)
 		printf("minishell: %s: No such file or directory\n", argv[1]);
 		return (EXIT_FAILURE);
 	}
-	initializer_data(&data);
+	initializer_data(&data); //do we need to inizialez all here??
 	ft_env(&data, envp); //could we add to inizialice
 	while (data.exit_minishell)
 	{
 		signals_main(&(data.termios_default));
 		data_input(&data);
 		ft_lexer(&data);
-		ft_expand(&data); //put together with lexing
+		ft_expand(&data); //should not give any error beside memmry alloc
 		//print_list(&data.list);//delete later
-		//delete_list(&data.list);
 		//print_list(&data.list);//delete later
+		//atexit(check_leaks);
 		if (data.lx_error)
 		{
 			ft_parser(&data);
@@ -75,14 +75,14 @@ int main(int argc, char **argv, char **envp)
 			// if (data.prs_error) Pavel execution
 			// 	//execute_tokens(&data);
 		}
-		printf("\nParsed after if and come to delet parse and print\n\n");//delete later
+		// printf("\nParsed after if and come to delet parse and print\n\n");//delete later
 		del_parsedtk_and_list_tok(&data);
-		print_list_parsedtoken(&data);
-		print_list(&data.list);//delete later
-		
+		//print_list_parsedtoken(&data);
+		//print_list(&data.list);//delete later
 		//Just free parser function, which also will free tokens//
 	}
-	free_all(&data);
+	//free_all(&data);
+	//clear_history();
 	return (glob_var_exit);
 }
 
