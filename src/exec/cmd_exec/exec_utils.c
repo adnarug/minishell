@@ -6,11 +6,11 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 14:57:54 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/02 13:47:21 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/02 18:10:21 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# define DEBUG 1
+# define DEBUG 0
 #include "../../../include/minishell.h"
 
 void	reset_params(t_minishell *data)

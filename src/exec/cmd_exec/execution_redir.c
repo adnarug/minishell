@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 11:26:06 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/28 16:20:43 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/02 18:12:45 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,7 @@ void	exec_last_builtin(t_minishell *data)
 		close(data->curr_fd_out);
 	}
 	// g_exit_code = data->builtins->funcs[builtin](data);
-	if (exec_builtin(data) == 0)
-		printf("Executed last builtin\n");
+	exec_builtin(data);
 }
 
 void	redirect_transitory_cmd(t_minishell *data)

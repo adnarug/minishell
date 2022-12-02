@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:46:17 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/30 19:02:41 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/02 18:11:10 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	destroy_hdocs(t_minishell *data)
 			perror(NULL);
 			exit(EXIT_FAILURE);
 		}
-		printf("path to hdoc %s\n", path_to_hdoc);
 		if (unlink(path_to_hdoc) != 0)
 		{
 			perror(NULL);
