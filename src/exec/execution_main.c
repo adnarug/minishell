@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:22:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/01 13:19:47 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/02 13:50:34 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ void	init_exec(t_minishell *data)
 	data->exec->cmd_flags = NULL;
 	data->curr_fd_in = STDIN_FILENO;
 	data->curr_fd_out = STDOUT_FILENO;
+
 	data->exec->no_cmd = false;
 	data->exec->is_builtin = false;
 	data->exec->exec_path = NULL;
@@ -149,7 +150,7 @@ void	init_exec(t_minishell *data)
 	data->pipe[1] = -1;
 }
 
-int count_size(t_minishell *data)
+void count_size(t_minishell *data)
 {
 	int counter;
 
@@ -157,21 +158,20 @@ int count_size(t_minishell *data)
 	while (data->array_sublist[counter] != NULL)
 		counter++;
 	data->array_sublist[0]->number_cmd = counter;
+	// if (counter == 0)
+	// 	print_error_free_exit(data, MALLOC_ERR, MALLOC_ERR_NO, true);
 }
-/*TODO: line 190*/
-void	execute_tokens(t_minishell *data)
+
+int	ft_execution(t_minishell *data)
 {
 	int		i;
 
 	i = 0;
 	count_size(data);
 	init_exec(data);
-	dup_stdin_and_stdout(data);
+	dup_stdin_and_stdout(data);//need to free t_exec
 	data->exec->last_cmd = data->array_sublist[0]->number_cmd;
-	printf("%d\n", data->exec->last_cmd);
 	resolve_hdocs(data);
-	// print_list_parsedtoken(data);
-	// print_exec_lists(data);
 	while (data->array_sublist[i] != NULL)
 	{
 		reset_params(data);
@@ -189,7 +189,8 @@ void	execute_tokens(t_minishell *data)
 				printf("current type:%c\n", data->array_sublist[i]->prs_tok->type);
 			if (data->array_sublist[i]->prs_tok->type == COMMAND)
 			{
-				printf("enters exec");
+				if (DEBUG == 1)
+					printf("enters exec");
 				exec_cmd(data, data->array_sublist[i]);
 				data->exec->cmd_num++;
 				break;
@@ -197,14 +198,16 @@ void	execute_tokens(t_minishell *data)
 			data->array_sublist[i]->prs_tok = data->array_sublist[i]->prs_tok->next;
 		}
 		close_fds_in_out(data);
-		printf("exec path :%s", data->exec->exec_path);
+		if (DEBUG == 1)
+			printf("exec path :%s", data->exec->exec_path);
 		free_cmd_path(data);
 		i++;
 	}
-		// free_cmd_path(data);
+	// free_cmd_path(data);
 	catch_exit_code(data);
 	destroy_hdocs(data);	
 	if (DEBUG == 1)
 		printf("finishes execution\n");
 	// system("leaks minishell");
+	return (EXIT_SUCCESS);
 }

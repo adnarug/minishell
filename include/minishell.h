@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/01 11:14:46 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/02 12:13:03 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_env	*ft_lstlast_mini(t_env *lst);
 void	ft_lstadd_back_mini(t_env **lst, t_env *new);
 t_env	*ft_lstnew_env(char *value, char *key);
 void	free_cmd_path(t_minishell *data);
+void	free_all(t_minishell *data);
 
 
 // DE FELIPE
@@ -280,7 +281,6 @@ void	destroy_hdocs(t_minishell *data);
 
 
 //RM SIMUL FUNCT
-void	execute_tokens(t_minishell *data);
 	void	exec_cmd(t_minishell *data, t_sublist_prs_tok *token);
 		void	pipe_last_cmd(t_minishell *data);
 		void	pipe_transitory_cmd(t_minishell *data);			void	redirect_stdin_to_pipe(t_minishell *data);
@@ -297,4 +297,8 @@ void	close_fds_in_out(t_minishell *data);
 void	exec_transitory_builtin(t_minishell *data);
 void	exec_last_builtin(t_minishell *data);
 void	redirect_last_cmd(t_minishell *data);
+//Error
+void print_error_free_exit(t_minishell *data, char *error_msg, int glb_var, bool do_exit);
+void exec_exit(t_minishell *data, char *error_msg, int glb_var, bool do_exit);
+
 #endif 

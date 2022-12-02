@@ -1,7 +1,7 @@
-NAME = minishell.a
+NAME = minishell
 SRC_DIR = src/
 OBJ_DIR = obj/
-FLAGS = -Wextra -g -Wall # -Werror  #-fsanitize=address
+FLAGS = -Wextra -g -Wall -Wno-gnu-include-next -I/LeakSanitizer/include -L./LeakSanitizer/ -llsan -lc++ # -Werror  #-fsanitize=address
 LIBFT = libft/
 CC = gcc
 SRC_FILES = main				\
@@ -38,14 +38,11 @@ SRC_FILES = main				\
 			builtins/export \
 			builtins/pwd \
 			builtins/unset \
-			parser/parser_main		\
-			parser/parse_tools	\
-			parser/parse_tokens	\
+			parser/parser_main \
+			parser/parse_tools \
+			parser/parse_tokens \
 			parser/parse_free \
-			# exec/execution_main \
-			# exec/exec_init_simulation \
-			# exec/cmd_exec/path_check \
-
+			destroyer/exit_functions 
 
 DEF_COLOR = \033[0;80m
 GREEN = \033[0;92m
@@ -62,8 +59,7 @@ OBJF = .cache_exists
 
 $(NAME): $(OBJ)
 	@make -C libft/
-	@ar rcs $(NAME) $(OBJ)
-	@$(CC) $(FLAGS) $(OBJ) ${INCREADL} libft/libft.a minishell.a -lreadline -o minishell
+	@$(CC) $(FLAGS) $(OBJ) ${INCREADL} libft/libft.a -lreadline -o minishell
 	@echo "$(GREEN)minishell compiled$(DEF_COLOR)"
 
 $(OBJ_DIR)%.o	:	$(SRC_DIR)%.c | $(OBJF)
@@ -83,6 +79,7 @@ $(OBJF):
 	@mkdir -p $(OBJ_DIR)/exec/pipex/
 	@mkdir -p $(OBJ_DIR)/exec/redirs_hdocs/
 	@mkdir -p $(OBJ_DIR)/exec/
+	@mkdir -p $(OBJ_DIR)/destroyer/
 
 run: all
 	@./minishell

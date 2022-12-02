@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/01 13:33:27 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/02 13:58:11 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,16 +114,18 @@ int main(int argc, char **argv, char **envp)
 		// print_list_parsedtoken(&data);
 		// printf("\n*********Print after expand******\n\n");
 		// print_list(&data.list);
-		execute_tokens(&data);
+		ft_execution(&data);
 		delete_list(&data.list); //para que no queden leaks
+		add_history(line_buffer); // is it &data.line ?? , 
 		free(line_buffer);//free before here. No needed
 		//ft_parser(&list, line_buffer);
 		free_all(&data);
 		//atexit(check_leaks);
-		add_history(line_buffer); // is it &data.line ?? , 
-		system("leaks minishell");
 	}
 	clear_history();
+	free_all(&data);
+	ft_lst_free(data.env_lst);
+	ft_free_2d(data.env_argv);
+	system("leaks minishell");
 	return (0);
 }
-

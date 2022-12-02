@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 11:00:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/01 10:43:57 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/02 13:44:19 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int create_hdoc_files(t_minishell *data)
 {
 	int		i;
 	char	*hdoc_index;
-	int		fd;
+
 	
 	i = 0;
 	data->hdoc->fd_tmp = malloc(sizeof(int) * (data->hdoc->num_hdocs));
@@ -128,7 +128,7 @@ void init_hdocs(t_minishell *data)
 {
 	data->hdoc = malloc(sizeof(t_hdocs));
 	if (data->hdoc == NULL)
-		return ;
+		exec_exit(data, MALLOC_ERR, MALLOC_ERR_NO, true);
 	data->hdoc->num_hdocs = 0;
 	data->hdoc->index = 0;
 	data->hdoc->fd_tmp = NULL;
@@ -142,7 +142,6 @@ node with the hdoc. */
 int resolve_hdocs(t_minishell	*data)
 {
 	int	i;
-	t_prs_tok	*hdoc_for_exec;
 
 	i = 0;
 	init_hdocs(data);
@@ -155,7 +154,6 @@ int resolve_hdocs(t_minishell	*data)
 	else
 		data->hdoc->is_hdoc = true;
 	create_hdoc_files(data);
-
 	if (DEBUG == 1)
 		printf("num of heredocs %i\n", data->hdoc->num_hdocs);
 	find_hdoc_nodes(data);

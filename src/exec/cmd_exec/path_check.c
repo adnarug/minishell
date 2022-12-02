@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 08:18:02 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/01 11:57:40 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/02 13:57:28 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ char	*check_paths(char **path_to_builtins, char *command)
 		
 		if (access(string_to_check, F_OK) == 0)
 		{
-			
 			return (string_to_check);
 		}
 		else
@@ -57,8 +56,8 @@ char	*check_paths(char **path_to_builtins, char *command)
 			i++;
 		}
 	}
-	free(string_to_check);
-	printf("Error\nCorrect path not found");
+	if (DEBUG == 1)
+		printf("Error\nCorrect path not found");
 	return (NULL);
 }
 

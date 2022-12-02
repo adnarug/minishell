@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 11:59:00 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/01 10:58:35 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/02 13:48:33 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	no_print_ctrlc(struct termios *per_default)
 {
 	struct termios new_settings;
 
-	printf("signal will not appear\n");
 	tcgetattr(STDOUT_FILENO, per_default);// ya lo hemos hecho en la inicializacion. borrar y Verificar cuando todas las senales esten completas
 	tcgetattr(STDOUT_FILENO, &new_settings);
 	new_settings.c_lflag &= ~ECHOCTL;
@@ -49,6 +48,5 @@ void	no_print_ctrlc(struct termios *per_default)
 
 void	reset_print_ctrlc(struct termios *per_default)
 {
-	printf("reseting behaviour\n");
 	tcsetattr(STDOUT_FILENO, TCSAFLUSH, per_default);
 }
