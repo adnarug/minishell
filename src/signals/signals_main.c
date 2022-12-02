@@ -6,9 +6,10 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 11:45:02 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/01 10:37:12 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/02 14:59:26 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../include/minishell.h"
 
@@ -39,7 +40,7 @@ void	new_prompt(int signal)
 	(void)signal;
 	write(1, "\n", 1);
 	rl_on_new_line();
-	//rl_replace_line("", 0);
+	rl_replace_line("", 0);
 	rl_redisplay();
 	glob_var_exit = 1;
 }

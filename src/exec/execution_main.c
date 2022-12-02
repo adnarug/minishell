@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_main.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:22:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/29 15:16:51 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/02 15:18:58 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	exec_builtin(t_minishell *data)
 		return (EXIT_SUCCESS);
 	}
 	// PWD
-	if (ft_strncmp(token, "pwd", ft_strlen("pwd")) == 0)
+	if (ft_strncmp(data->exec->cmd_flags[0], "pwd", ft_strlen("pwd")) == 0)
 	{
 		builtin_pwd(data->exec->cmd_flags[0]);
 		return (EXIT_SUCCESS);
@@ -81,7 +81,7 @@ int	exec_builtin(t_minishell *data)
 		return (EXIT_SUCCESS);
 	}
 
-	return (EXIT_SUCCESS);
+	return (EXIT_FAILURE);
 }
 
 static int	is_builtin(t_prs_tok *token)
@@ -109,7 +109,7 @@ void	exec_cmd(t_minishell *data, t_sublist_prs_tok *token)
 		find_correct_paths(token->prs_tok, data);
 	else
 	{
-		printf("builtin detected\n");
+		// printf("builtin detected\n");
 		data->exec->is_builtin = true;
 	}
 	if (DEBUG == 1)
@@ -126,7 +126,6 @@ void	exec_cmd(t_minishell *data, t_sublist_prs_tok *token)
 			printf("running the last command\n");
 		pipe_last_cmd(data);
 	}
-	// free_cmd_and_path(data);
 }
 
 void	init_exec(t_minishell *data)
@@ -137,6 +136,7 @@ void	init_exec(t_minishell *data)
 	data->exec->cmd_flags = NULL;
 	data->curr_fd_in = STDIN_FILENO;
 	data->curr_fd_out = STDOUT_FILENO;
+
 	data->exec->no_cmd = false;
 	data->exec->is_builtin = false;
 	data->exec->exec_path = NULL;
@@ -150,7 +150,7 @@ void	init_exec(t_minishell *data)
 	data->pipe[1] = -1;
 }
 
-int count_size(t_minishell *data)
+void count_size(t_minishell *data)
 {
 	int counter;
 
@@ -158,47 +158,56 @@ int count_size(t_minishell *data)
 	while (data->array_sublist[counter] != NULL)
 		counter++;
 	data->array_sublist[0]->number_cmd = counter;
+	// if (counter == 0)
+	// 	print_error_free_exit(data, MALLOC_ERR, MALLOC_ERR_NO, true);
 }
 
-void	execute_tokens(t_minishell *data)
+int	ft_execution(t_minishell *data)
 {
 	int		i;
 
 	i = 0;
 	count_size(data);
 	init_exec(data);
-	dup_stdin_and_stdout(data);
+	dup_stdin_and_stdout(data);//need to free t_exec
 	data->exec->last_cmd = data->array_sublist[0]->number_cmd;
-	printf("%d\n", data->exec->last_cmd);
-	// print_exec_lists(data);
-	// print_exec_lists(data);
-	
-	// resolve_hdocs(data);
-	// print_exec_lists(data);
+	resolve_hdocs(data);
 	while (data->array_sublist[i] != NULL)
 	{
 		reset_params(data);
 		// printf("%c\n", data->array_sublist[i]->prs_tok->type);
-		// resolve_redir(data->array_sublist[i]->prs_tok, data->array_sublist[i]);
-		if (!data->array_sublist[i])
+		resolve_redir(data->array_sublist[i], data);
+		if (data->array_sublist[i] ==  NULL)
 		{
+			printf("does it come here|\n");
 			reset_stdin_stdout(data);
 			// set_global_exit_code(data);
 		}
-		else if (data->array_sublist[i]->prs_tok->type == COMMAND)//flag for no cmd to be set somewhere
+		while (data->array_sublist[i]->prs_tok != NULL)//flag for no cmd to be set somewhere
 		{
 			if (DEBUG == 1)
-				printf("command for exec :%s\n", data->array_sublist[i]->prs_tok->cmd_flags[0]);
-			exec_cmd(data, data->array_sublist[i]);
-			data->exec->cmd_num++;
+				printf("current type:%c\n", data->array_sublist[i]->prs_tok->type);
+			if (data->array_sublist[i]->prs_tok->type == COMMAND)
+			{
+				if (DEBUG == 1)
+					printf("enters exec");
+				exec_cmd(data, data->array_sublist[i]);
+				data->exec->cmd_num++;
+				break;
+			}
+			data->array_sublist[i]->prs_tok = data->array_sublist[i]->prs_tok->next;
 		}
 		close_fds_in_out(data);
+		if (DEBUG == 1)
+			printf("exec path :%s", data->exec->exec_path);
+		free_cmd_path(data);
 		i++;
-		// delete_words(data);
-		// ft_del_first_token(&data);
 	}
+	// free_cmd_path(data);
 	catch_exit_code(data);
-	// destroy_hdocs(data);
-	printf("finishes execution\n");
+	destroy_hdocs(data);	
+	if (DEBUG == 1)
+		printf("finishes execution\n");
 	// system("leaks minishell");
+	return (EXIT_SUCCESS);
 }

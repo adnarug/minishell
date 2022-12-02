@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 08:18:02 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/29 13:45:55 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/02 13:57:28 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ char	**add_path_sign(char **path_to_builtins)
 		builtin_paths_final[i] = ft_strjoin(path_to_builtins[i], "/");
 		i++;
 	}
+	ft_free_2d(path_to_builtins);
 	builtin_paths_final[i] = NULL;
 	return (builtin_paths_final);
 }
@@ -42,12 +43,21 @@ char	*check_paths(char **path_to_builtins, char *command)
 	while (path_to_builtins[i] != NULL)
 	{
 		string_to_check = ft_strjoin(path_to_builtins[i], command);
+		if (string_to_check == NULL)
+			return (NULL);
+		
 		if (access(string_to_check, F_OK) == 0)
+		{
 			return (string_to_check);
+		}
 		else
+		{
+			free(string_to_check);
 			i++;
+		}
 	}
-	printf("Error\nCorrect path not found");
+	if (DEBUG == 1)
+		printf("Error\nCorrect path not found");
 	return (NULL);
 }
 
@@ -85,5 +95,6 @@ int	find_correct_paths(t_prs_tok *parameters, t_minishell *data)
 		printf("****%s\n", data->exec->exec_path);
 	if (data->exec->exec_path == NULL)
 		printf("Error\nPlease check cmd:");
+	ft_free_2d(path_to_builtins);
 	return (EXIT_SUCCESS);
 }

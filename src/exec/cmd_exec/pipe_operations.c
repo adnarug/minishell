@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 16:06:37 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/29 13:44:42 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/01 10:54:04 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	pipe_last_cmd(t_minishell *data)
 			return ;
 		if (data->pid == 0)
 		{
-			// ft_signals(CHILD_PROCESS);
+			signals_child_process(&data->termios_default);
 			// printf("fdin: %d fdout: %d pid:%d stdin:%d\n", data->std_in, data->std_out, data->pid, STDIN_FILENO);
 			redirect_last_cmd(data);
 			if (DEBUG == 1)
@@ -65,7 +65,7 @@ void	pipe_transitory_cmd(t_minishell *data)
 		{
 			if (DEBUG == 1)
 				printf("*******Trans comand\n");
-			// ft_signals(CHILD_PROCESS);
+			signals_child_process(&data->termios_default);
 			redirect_transitory_cmd(data);
 			exec_bash_cmd(data);
 		}

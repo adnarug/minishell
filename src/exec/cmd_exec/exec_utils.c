@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 14:57:54 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/29 13:46:29 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/02 13:47:21 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,18 @@ void	dup_stdin_and_stdout(t_minishell *data)
 	data->std_in = dup(STDIN_FILENO);
 	if (!data->std_in)
 	{
-		// free(data->fd);
-		exit(EXIT_FAILURE);
+		free(data->exec);
+		// data->exec = NULL;
+		// exec_exit(data, "Segmentation fault\n", 1, true);
+		exit (EXIT_FAILURE);
 	}
 	data->std_out = dup(STDOUT_FILENO);
 	if (!data->std_out)
 	{
-		// free(data->fd);
-		exit(EXIT_FAILURE);
+		free(data->exec);
+		// data->exec = NULL;
+		// exec_exit(data, "Segmentation fault\n", 1, true);
+		exit (EXIT_FAILURE);
 	}
 }
 
@@ -64,4 +68,10 @@ void	close_fds_in_out(t_minishell *data)
 		close(data->curr_fd_in);
 	if (data->curr_fd_out != STDOUT_FILENO)
 		close(data->curr_fd_out);
+}
+
+void	free_cmd_path(t_minishell *data)
+{
+	free(data->exec->exec_path);
+	data->exec->exec_path = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/02 14:43:49 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/02 15:16:09 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,18 @@ void	data_input(t_minishell *data)
 	}
 	if (ft_strcmp(data->line, "")) //if its not equal to empty string
 		add_history(data->line);
-
 }
+
+void	free_all(t_minishell *data)
+{
+	// close(data->curr_fd_in);
+	// close(data->curr_fd_in);
+	free(data->exec);
+	close(data->std_in);
+	close(data->std_out);
+}
+
+
 
 /*Add - prompt, history, env linked list (env_lst)*/
 
@@ -70,10 +80,10 @@ int main(int argc, char **argv, char **envp)
 		if (data.lx_error)
 		{
 			ft_parser(&data);
-			print_list_parsedtoken(&data);
+			//print_list_parsedtoken(&data);
 			//print_list(&data.list);//delete later
-			// if (data.prs_error) Pavel execution
-			// 	//execute_tokens(&data);
+			if (data.prs_error)
+				ft_execution(&data);
 		}
 		// printf("\nParsed after if and come to delet parse and print\n\n");//delete later
 		del_parsedtk_and_list_tok(&data);

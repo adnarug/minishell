@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:13:48 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/02 14:49:24 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/02 15:09:37 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html
 	This function has to be executed after the heredocs.
 	Pasha will need it.
 */
-int	check_number_commds(t_minishell *data)
+int	check_number_commds(t_minishell *data) //if pahs doesnt use it delet it
 {
 	int	i;
 	
@@ -42,7 +42,7 @@ int	check_number_commds(t_minishell *data)
 	{
 		if (data->array_sublist[i]->number_cmd != 1)
 		{
-			printf("the pipe %i has more/less than 1 command\n", i);
+			printf("the pipe %i has more/less than 1 command\n", i); //add an error
 			return (0);
 		}
 	}
