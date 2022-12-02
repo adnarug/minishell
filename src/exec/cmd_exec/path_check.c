@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 08:18:02 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/02 13:57:28 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/02 18:57:16 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	**add_path_sign(char **path_to_builtins)
 
 	i = 0;
 	line_count = count_strings(path_to_builtins);
-	builtin_paths_final = malloc(sizeof(char *) * line_count);
+	builtin_paths_final = malloc(sizeof(char *) * (line_count + 1));
 	if (builtin_paths_final == NULL)
 		return (NULL);
 	while (path_to_builtins[i] != NULL)

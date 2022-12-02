@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 12:03:09 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/02 15:13:14 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/02 18:37:09 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,15 @@
 // 	//printf ("we free all from all");
 // }
 
+
+void	free_all(t_minishell *data)
+{
+	// close(data->curr_fd_in);
+	// close(data->curr_fd_in);
+	del_array_list_prsdtok(data);
+	delete_list(&data->list); 
+	free(data->exec);
+	close(data->std_in);
+	close(data->std_out);
+}
 

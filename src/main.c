@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/02 15:16:09 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/02 19:01:55 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,6 @@ void	data_input(t_minishell *data)
 	}
 	if (ft_strcmp(data->line, "")) //if its not equal to empty string
 		add_history(data->line);
-}
-
-void	free_all(t_minishell *data)
-{
-	// close(data->curr_fd_in);
-	// close(data->curr_fd_in);
-	free(data->exec);
-	close(data->std_in);
-	close(data->std_out);
 }
 
 
@@ -91,7 +82,7 @@ int main(int argc, char **argv, char **envp)
 		//print_list(&data.list);//delete later
 		//Just free parser function, which also will free tokens//
 	}
-	//free_all(&data);
+	free_all(&data);
 	//clear_history();
 	return (glob_var_exit);
 }

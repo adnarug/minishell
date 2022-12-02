@@ -1,7 +1,7 @@
 NAME = minishell
 SRC_DIR = src/
 OBJ_DIR = obj/
-FLAGS = -Wextra -g -Wall  # -Werror  #-fsanitize=address
+FLAGS =   #-fsanitize=address #-Wextra -g -Wall  -Werror
 LEAKS = -Wno-gnu-include-next -I/LeakSanitizer/include -L./LeakSanitizer/ -llsan -lc++
 #FLAGS = -Wextra -g -Wall -Wno-gnu-include-next -I/LeakSanitizer/include -L./LeakSanitizer/ -llsan -lc++ # -Werror  #-fsanitize=address
 LIBFT = libft/
@@ -20,7 +20,6 @@ SRC_FILES = main				\
 			signals/signals_child_process \
 			signals/signals_parent_process \
 			initializer/initializer_main \
-			free/free_main \
 			exec/execution_main \
 			exec/cmd_exec/path_check \
 			exec/redirs_hdocs/exec_redir_simulation \
@@ -40,13 +39,14 @@ SRC_FILES = main				\
 			builtins/env \
 			builtins/exit \
 			builtins/export \
-			builtins/pwd \
-			builtins/unset \
-			parser/parser_main \
-			parser/parse_tools \
-			parser/parse_tokens \
-			parser/parse_free \
-			destroyer/exit_functions 
+			builtins/pwd 				\
+			builtins/unset				\
+			parser/parser_main 			\
+			parser/parse_tools 			\
+			parser/parse_tokens 		\
+			parser/parse_free 			\
+			destroyer/exit_functions 	\
+			destroyer/free_main			\
 
 DEF_COLOR = \033[0;80m
 GREEN = \033[0;92m
@@ -67,7 +67,7 @@ $(NAME): $(OBJ)
 	@echo "$(GREEN)minishell compiled$(DEF_COLOR)"
 
 $(OBJ_DIR)%.o	:	$(SRC_DIR)%.c | $(OBJF)
-	@$(CC) $(FLAGS) ${INCREADH} -c $< -o $@
+	@$(CC) $(FLAGS) $(LEAKS) ${INCREADH} -c $< -o $@
 
 $(OBJF):
 	@mkdir -p $(OBJ_DIR)
@@ -76,7 +76,6 @@ $(OBJF):
 	@mkdir -p $(OBJ_DIR)/expand/
 	@mkdir -p $(OBJ_DIR)/signals/
 	@mkdir -p $(OBJ_DIR)/initializer/
-	@mkdir -p $(OBJ_DIR)/free/
 	@mkdir -p $(OBJ_DIR)/env/
 	@mkdir -p $(OBJ_DIR)/utils/
 	@mkdir -p $(OBJ_DIR)/builtins/
