@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 16:06:37 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/01 10:54:04 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/03 15:45:15 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	pipe_transitory_cmd(t_minishell *data)
 			redirect_transitory_cmd(data);
 			exec_bash_cmd(data);
 		}
+		if ( data->pid > 0)
+			signals_child_process(&data->termios_default);
 		redirect_stdin_to_pipe(data);
 	}
 }

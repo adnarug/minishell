@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 16:13:52 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/01 10:53:38 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/03 17:21:25 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	create_fork(t_minishell *data)
 
 void	exec_bash_cmd(t_minishell *data)
 {
+	//struct stat sb;
+	
 	if (data->ex_error == true)
 	{
 		reset_stdin_stdout(data);

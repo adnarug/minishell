@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 11:00:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/03 17:11:42 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/03 17:19:30 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,12 @@ static void read_to_hdoc(t_minishell *data, t_prs_tok *token)
 	else if (pid == 0)
 		read_from_stdin(data, token);
 	waitpid(pid, &status, 0);
-	/*
 	if (WIFEXITED(status))
 	{
-		g_exit_code = WEXITSTATUS(status);
-		if (g_exit_code == EXIT_FAILURE)
-			data->parse_error = true;
-	}*/
+		glob_var_exit = WEXITSTATUS(status);
+		if (glob_var_exit == EXIT_FAILURE)
+			data->prs_error = true;
+	}
 }
 
 /*Finds all nodes of t_prs_tok with hdocs, creates
@@ -110,7 +109,7 @@ static t_prs_tok	*find_hdoc_nodes(t_minishell *data)
 	while(data->array_sublist[i] != NULL)
 	{
 		tmp_prs_tk= data->array_sublist[i]->prs_tok;
-		while(tmp_prs_tk!= NULL)
+		while(tmp_prs_tk != NULL)
 		{
 			if (tmp_prs_tk->type == HEREDOC)
 			{
@@ -119,7 +118,7 @@ static t_prs_tok	*find_hdoc_nodes(t_minishell *data)
 			}
 			tmp_prs_tk = tmp_prs_tk->next;
 		}
-		counter++;
+		i++;
 	}
 	return (NULL);
 }

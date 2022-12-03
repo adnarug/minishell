@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:22:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/02 23:05:01 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/03 17:19:54 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 char **init_builtins_arr(char **builtins)
 {
 	builtins[0] = "cd";
-	builtins[1] = "echo";
+	builtins[1] = "check";
 	builtins[2] = "exit";
 	builtins[3] = "unset";
 	builtins[4] = "env";
@@ -101,17 +101,29 @@ static int	is_builtin(t_prs_tok *token)
 	return(0);
 }
 
+int is_executable(t_minishell *data)
+{
+	
+	if (access(data->exec->cmd_flags[0], F_OK | X_OK) == 0 && ft_strchr(data->exec->cmd_flags[0], '/') != NULL)
+	{
+		// printf("executable\n");
+		// printf("exec: %s", data->exec->cmd_flags[0]);
+		// printf("data->execPath %s\n", data->exec->exec_path);
+		data->exec->exec_path = data->exec->cmd_flags[0];
+		return (1);
+	}
+		return (0);
+}
+
 void	exec_cmd(t_minishell *data, t_sublist_prs_tok *token)
 {
-	// extract_cmd_and_path(data, token); let say we have the cmd and the path to it
 	data->exec->cmd_flags = token->prs_tok->cmd_flags;
-	if (is_builtin(token->prs_tok) == 0)
+	if (is_builtin(token->prs_tok) == 0 && is_executable(data) == 0)
 		find_correct_paths(token->prs_tok, data);
-	else
-	{
-		// printf("builtin detected\n");
+	else if (is_builtin(token->prs_tok) == 1)
 		data->exec->is_builtin = true;
-	}
+	if (data->exec->exec_path == NULL)
+		ft_putstr_fd("bash: : command not found\n", 2);
 	if (DEBUG == 1)
 		printf("\ndata->exec_path:%s data->cmd_flags:%s\n", data->exec->exec_path, data->exec->cmd_flags[0]);
 	if (data->exec->cmd_num < data->exec->last_cmd)
@@ -213,3 +225,5 @@ int	ft_execution(t_minishell *data)
 	// system("leaks minishell");
 	return (EXIT_SUCCESS);
 }
+
+

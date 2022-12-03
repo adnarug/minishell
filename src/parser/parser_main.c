@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:13:48 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/02 15:09:37 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/03 17:32:39 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 /*\
 https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html
 < test2 grep hi | wc -w > test2_result
-
+<< 1 << 2 hello > t1 > t2 world | t3 >> shouldnt >> t4 open
+< file ls > out | < hoomen cat > out2 | grep $HOME4 | echo "$PWD" > out3
 */
 
 /*

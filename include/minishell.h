@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/03 17:11:34 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/03 17:20:37 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 # include <sys/types.h>
 # include <sys/wait.h>
+#include <sys/stat.h>
 
 # include <fcntl.h>
 # include <readline/readline.h>
@@ -53,7 +54,7 @@
 void rl_replace_line (const char *text, int clear_undo);
 
 void	execute(char *line_buffer);
-int		builtin_echo(char **args_echo);
+// int		builtin_echo(t_minishell *data);
 int		builtin_pwd(char *args_cd);
 char	**dup_matrix(char **matrix);
 t_env	*ft_node_init(char *envp);

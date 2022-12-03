@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/03 17:12:21 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/03 17:43:05 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int main(int argc, char **argv, char **envp)
 		data_input(&data);
 		ft_lexer(&data);
 		ft_expand(&data); //should not give any error beside memmry alloc
-		//print_list(&data.list);//delete later
+		// print_list(&data.list);//delete later
 		//print_list(&data.list);//delete later
 		//atexit(check_leaks);
 		if (data.lx_error)
