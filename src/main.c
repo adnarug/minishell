@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/02 20:31:42 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/03 17:12:21 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,16 @@ grep hi -l >> '$USER' | wc -w > $HOME | echo >> $? | cd "$USER" '"'$USER'"' "'$U
 */
 void	data_input(t_minishell *data)
 {
+	//printf("prompt again from main\n");
 	data->line = readline("minishell $ ");
 	if (data->line == NULL)
 	{
-		write(2, ERROR_PRINTED, ft_strlen(ERROR_PRINTED)); //is it ok?
-		data->exit_minishell = false;
-		data->lx_error = false;
-		//free_all(data);
-		exit(glob_var_exit);
+		print_error_free_exit(data, ERROR_PRINTED, 1, true);
+		// write(2, ERROR_PRINTED, ft_strlen(ERROR_PRINTED)); //is it ok?
+		// data->exit_minishell = false;
+		// data->lx_error = false;
+		// //free_all(data);
+		// exit(glob_var_exit);
 	}
 	if (ft_strcmp(data->line, "")) //if its not equal to empty string
 		add_history(data->line);

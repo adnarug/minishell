@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 11:45:02 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/02 14:59:26 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/03 13:12:15 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void	sigquit_main()
 	struct sigaction	sigac;
 
 	sigac.sa_handler = SIG_IGN;
-	sigemptyset(&sigac.sa_mask);
 	sigac.sa_flags = SA_RESTART;
+	sigemptyset(&sigac.sa_mask);
 	sigaction(SIGQUIT, &sigac, NULL);
 }
 
@@ -72,8 +72,8 @@ void	sigint_main()
 	struct sigaction	sigac;
 
 	sigac.sa_handler = &new_prompt;
-	sigemptyset(&sigac.sa_mask);
 	sigac.sa_flags = SA_RESTART;
+	sigemptyset(&sigac.sa_mask);
 	sigaction(SIGINT, &sigac, NULL);
 }
 
@@ -93,6 +93,7 @@ void	sigint_main()
 
 void	signals_main(struct termios *per_default)
 {
+	//printf("call signals from main proces\n");
 	no_print_ctrlc(per_default);
 	sigint_main(); //seguir aqui sabado
 	sigquit_main();

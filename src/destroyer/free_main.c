@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 12:03:09 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/02 18:37:09 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/03 14:59:00 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,6 @@
 // }
 
 
-// void free_all(t_minishell *data)
-// {
-// 	del_array_list_prsdtok(data);
-// 	delete_list(&data->list); 
-// 	// and keep deleting, env list and so on
-// 	//printf ("we free all from all");
-// }
-
 
 void	free_all(t_minishell *data)
 {
@@ -60,4 +52,3 @@ void	free_all(t_minishell *data)
 	close(data->std_in);
 	close(data->std_out);
 }
-

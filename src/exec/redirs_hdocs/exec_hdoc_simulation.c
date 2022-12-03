@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_hdoc_simulation.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 11:00:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/02 13:44:19 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/03 17:11:42 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ static void	read_from_stdin(t_minishell *data, t_prs_tok *token)
 	char	*input;
 	bool	lim_found;
 
+	signals_heredoc_process(); //now is not prompting twice miishell. Add to Pasha. No impact. still prompting twice
 	lim_found = false;
 	while (lim_found == false)
 	{
-		signals_heredoc_process();
 		input = readline("> ");
-		if (!input)
+		if (input  == NULL)
 			break ;
 		if (ft_strcmp(input, token->word) == 0)
 			lim_found = true;

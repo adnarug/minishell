@@ -1,7 +1,7 @@
 NAME = minishell
 SRC_DIR = src/
 OBJ_DIR = obj/
-FLAGS =   #-fsanitize=address #-Wextra -g -Wall  -Werror
+FLAGS =   -Wextra -g -Wall  -Werror #-fsanitize=address #
 LEAKS = -Wno-gnu-include-next -I/LeakSanitizer/include -L./LeakSanitizer/ -llsan -lc++
 #FLAGS = -Wextra -g -Wall -Wno-gnu-include-next -I/LeakSanitizer/include -L./LeakSanitizer/ -llsan -lc++ # -Werror  #-fsanitize=address
 LIBFT = libft/
@@ -66,8 +66,10 @@ $(NAME): $(OBJ)
 	@$(CC) $(FLAGS) $(OBJ) ${INCREADL} libft/libft.a -lreadline -o minishell
 	@echo "$(GREEN)minishell compiled$(DEF_COLOR)"
 
+# @$(CC) $(FLAGS) $(LEAKS) ${INCREADH} -c $< -o $@
 $(OBJ_DIR)%.o	:	$(SRC_DIR)%.c | $(OBJF)
-	@$(CC) $(FLAGS) $(LEAKS) ${INCREADH} -c $< -o $@
+	@$(CC) $(FLAGS) ${INCREADH} -c $< -o $@
+
 
 $(OBJF):
 	@mkdir -p $(OBJ_DIR)

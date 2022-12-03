@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 00:25:54 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/02 15:01:39 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/03 17:10:58 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 	We pass the pointer to the adress of the string
 */
 
-char	*expand_variable(t_minishell *data, char *buf, char **s)
+char	*expand_variable(t_minishell *data,  char **s)
 {
 	char	*env_var;
 	t_env	*node_env;
@@ -68,7 +68,7 @@ char	*perform_expansion(t_minishell *data, char *old_buf, char **s_arr)
 	else if (*s == '?')
 		new_buff = ft_strjoin(old_buf, ft_itoa(glob_var_exit));
 	else
-		new_buff = ft_strjoin(old_buf, expand_variable(data, old_buf, &s));
+		new_buff = ft_strjoin(old_buf, expand_variable(data, &s));
 	*s_arr = s;
 	return (new_buff);
 }
