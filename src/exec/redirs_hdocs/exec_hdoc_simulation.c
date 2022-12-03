@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_hdoc_simulation.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 11:00:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/03 17:19:30 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/03 18:25:49 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,9 @@ int resolve_hdocs(t_minishell	*data)
 		return (EXIT_SUCCESS);
 	}
 	else
+	{
 		data->hdoc->is_hdoc = true;
+	}
 	create_hdoc_files(data);
 	if (DEBUG == 1)
 		printf("num of heredocs %i\n", data->hdoc->num_hdocs);

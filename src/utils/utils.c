@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:54:13 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/02 18:55:51 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/03 18:12:40 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**dup_env_matrix(char **matrix)
 	i = 0;
 	// if (matrix == NULL || *matrix == NULL)
 	// 	return (NULL); // exit code?
-	duplicate_matrix = malloc(sizeof(char *) * (count_strings(matrix) + 1));//protection
+	duplicate_matrix = malloc(sizeof(char *) * (count_strings(matrix)));//protection
 	// if (duplicate_matrix == NULL)
 	// 	return NULL;
 	while (matrix[i] != NULL)

@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 10:51:50 by pguranda          #+#    #+#             */
-/*   Updated: 2022/11/08 11:42:15 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/03 18:21:26 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,11 @@ int	builtin_exit(char **token)
 	int		flag_exit_noargs;
 	int		return_code;
 
+	return_code = 0;
 	flag_exit_noargs = 1;
 	return_code = check_exit_args(&flag_exit_noargs, token);
 	if (flag_exit_noargs == 1)
 		write(2, "exit\n", 5);
 	exit(return_code);
-	return (return_code);
+	
 }

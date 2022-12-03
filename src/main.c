@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/03 17:43:05 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/03 18:15:01 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,10 @@ int main(int argc, char **argv, char **envp)
 		//print_list(&data.list);//delete later
 		//Just free parser function, which also will free tokens//
 	}
+
 	free_all(&data);
-	//clear_history();
+	clear_history();
+	system("leaks minishell");
 	return (glob_var_exit);
 }
 

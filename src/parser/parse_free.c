@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 01:33:30 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/02 12:10:56 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/03 18:30:08 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ void	del_parsedtk_and_list_tok(t_minishell *data)
 {
 	del_array_list_prsdtok(data);
 	delete_list(&data->list);
+	free(data->line);
+	data->line = NULL;
+	
 }
 
 void	del_array_list_prsdtok(t_minishell *data)

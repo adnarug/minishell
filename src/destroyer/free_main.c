@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 12:03:09 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/03 14:59:00 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/03 18:31:39 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,11 @@ void	free_all(t_minishell *data)
 {
 	// close(data->curr_fd_in);
 	// close(data->curr_fd_in);
-	del_array_list_prsdtok(data);
-	delete_list(&data->list); 
+	ft_lst_free(data->env_lst);
+	ft_free_2d(data->env_argv);
+	del_parsedtk_and_list_tok(data);
+	// del_array_list_prsdtok(data);
+	// delete_list(&data->list); 
 	free(data->exec);
 	close(data->std_in);
 	close(data->std_out);
