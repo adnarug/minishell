@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 14:57:54 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/02 18:10:21 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/03 16:05:25 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ void	catch_exit_code(t_minishell *data)
 {
 	int	status;
 
-	// status = g_exit_code;
+	status = glob_var_exit;
 
 	waitpid(data->pid, &status, 0);
-	// if (WIFEXITED(status))
-	// 	g_exit_code = WEXITSTATUS(status);
+	if (WIFEXITED(status))
+		glob_var_exit = WEXITSTATUS(status);
 }
 
 void	close_fds_in_out(t_minishell *data)

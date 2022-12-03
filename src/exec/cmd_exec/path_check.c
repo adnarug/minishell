@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 08:18:02 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/02 13:57:28 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/03 15:46:34 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	find_correct_paths(t_prs_tok *parameters, t_minishell *data)
 	if (DEBUG == 1)
 		printf("****%s\n", data->exec->exec_path);
 	if (data->exec->exec_path == NULL)
-		printf("Error\nPlease check cmd:");
+		return (EXIT_FAILURE);
 	ft_free_2d(path_to_builtins);
 	return (EXIT_SUCCESS);
 }

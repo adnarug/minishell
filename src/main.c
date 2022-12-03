@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/02 15:16:09 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/03 15:59:21 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,13 @@ int main(int argc, char **argv, char **envp)
 		data_input(&data);
 		ft_lexer(&data);
 		ft_expand(&data); //should not give any error beside memmry alloc
-		//print_list(&data.list);//delete later
+		// print_list(&data.list);//delete later
 		//print_list(&data.list);//delete later
 		//atexit(check_leaks);
 		if (data.lx_error)
 		{
 			ft_parser(&data);
-			//print_list_parsedtoken(&data);
+			// print_list_parsedtoken(&data);
 			//print_list(&data.list);//delete later
 			if (data.prs_error)
 				ft_execution(&data);
