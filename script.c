@@ -4,7 +4,7 @@ int	main(void)
 {
 	while (1)
 	{
-		printf("imprimo y epsero\n");
+		printf("print and wait\n");
 		sleep (4);
 	}
 }

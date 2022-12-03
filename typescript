@@ -1,0 +1,69 @@
+Script started on Fri Dec  2 23:25:43 2022
+[1m[7m%[27m[1m[0m                                                                                                              ]2;fnieves-@2-A-4:~/Documents/Proyectos/minishell proyecto/minishell]1;..cto/minishell[0m[27m[24m[J[01;32m➜  [36mminishell[00m [01;34mgit:([31mjoined_hdoc[34m) [33m✗[00m [K[?1h=[?2004hmmake run[?1l>[?2004l
+]2;make run]1;make[?2004hminishell $ [?2004l
+exit
+[1m[7m%[27m[1m[0m                                                                                                              ]2;fnieves-@2-A-4:~/Documents/Proyectos/minishell proyecto/minishell]1;..cto/minishell[0m[27m[24m[J[01;32m➜  [36mminishell[00m [01;34mgit:([31mjoined_hdoc[34m) [33m✗[00m [K[?1h=[?2004h../minishell[1m [0m[0m [?1l>[?2004l
+]2;./minishell]1;./minishell[?2004hminishell $ << stop
+[?2004l[?2004h> mi
+[?2004l[?2004h> mama
+[?2004l[?2004h> [?2004l
+[?2004hminishell $ << stop
+[?2004l[?2004h> mi
+[?2004l[?2004h> m[?2004l
+minishell $ [?2004hminishell $ md
+[?2004lError
+Please check cmd:Please check cmd:[?2004hminishell $ ls
+[?2004l$USER		a.out		minishell	script		test
+LeakSanitizer	include		minishell.a	script.c	text.txt
+Makefile	libft		obj		src		typescript
+[?2004hminishell $ << stop
+[?2004l[?2004h> kfjf
+[?2004lminishell $ [?2004hminishell $ 
+[?2004l[?2004hminishell $ 
+[?2004l[?2004hminishell $ << stop
+[?2004l[?2004h> mi [?2004l[?2004hminishell $ << stop
+[?2004l[?2004h> kdd
+[?2004l[?2004h> [?2004l[?2004hminishell $ [?2004l
+exit
+[1m[7m%[27m[1m[0m                                                                                                              ]2;fnieves-@2-A-4:~/Documents/Proyectos/minishell proyecto/minishell]1;..cto/minishell[0m[27m[24m[J[01;31m➜  [36mminishell[00m [01;34mgit:([31mjoined_hdoc[34m) [33m✗[00m [K[?1h=[?2004hmmake run [?1l>[?2004l
+]2;make run]1;make[?2004hminishell $ [?2004l
+exit
+[1]    14000 quit       make run
+[1m[7m%[27m[1m[0m                                                                                                              ]2;fnieves-@2-A-4:~/Documents/Proyectos/minishell proyecto/minishell]1;..cto/minishell[0m[27m[24m[J[01;31m➜  [36mminishell[00m [01;34mgit:([31mjoined_hdoc[34m) [33m✗[00m [K[?1h=[?2004hffg[?1l>[?2004l
+]2;fg]1;fgfg: no current job
+[1m[7m%[27m[1m[0m                                                                                                              ]2;fnieves-@2-A-4:~/Documents/Proyectos/minishell proyecto/minishell]1;..cto/minishell[0m[27m[24m[J[01;31m➜  [36mminishell[00m [01;34mgit:([31mjoined_hdoc[34m) [33m✗[00m [K[?1h=[?2004hmmake  m  ../minishell[1m [0m[0m [?1l>[?2004l
+]2;./minishell]1;./minishell[?2004hminishell $ ./minishell
+[?2004lError
+Please check cmd:Please check cmd:[?2004hminishell $ ) [33m✗[00m [K[?1h=[?2004h../minishell[1m [0m[0m [?1l>[?2004l
+]2;./minishell]1;./minishell[?2004hminishell $ << stop
+[?2004l[?2004h> mi
+[?2004l[?2004h> mama
+[?2004l[?2004h> [?2004l
+[?2004hminishell $ << stop
+[?2004l[?2004h> mi
+[?2004l[?2004h> m[?2004l
+minishell $ [?2004hminishell $ md
+[?2004lError
+Please check cmd:Please check cmd:[?2004hminishell $ ls
+[?2004l$USER		a.out		minishell	script		test
+LeakSanitizer	include		minishell.a	script.c	text.txt
+Makefile	libft		obj		src		typescript
+[?2004hminishell $ << stop
+[?2004l[?2004h> kfjf
+[?2004lminishell $ [?2004hminishell $ 
+[?2004l[?2004hminishell $ 
+[?2004l[?2004hminishell $ << stop
+[?2004l[?2004h> mi [?2004l[?2004hminishell $ << stop
+[?2004l[?2004h> kdd
+[?2004l[?2004h> [?2004l[?2004hminishell $ [?2004l
+exit
+[1m[7m%[27m[1m[0m                                                                                                              ]2;fnieves-@2-A-4:~/Documents/Proyectos/minishell proyecto/minishell]1;..cto/minishell[0m[27m[24m[J[01;31m➜  [36mminishell[00m [01;34mgit:([31mjoined_hdoc[34m) [33m✗[00m [K[?1h=[?2004hmmake run [?1l>[?2004l
+]2;make run]1;make[?2004hminishell $ [?2004l
+exit
+[1]    14000 quit       make run
+[1m[7m%[27m[1m[0m                                                                                                              ]2;fnieves-@2-A-4:~/Documents/Proyectos/minishell proyecto/minishell]1;..cto/minishell[0m[27m[24m[J[01;31m➜  [36mminishell[00m [01;34mgit:([31mjoined_hdoc[34m) [33m✗[00m [K[?1h=[?2004hffg[?1l>[?2004l
+]2;fg]1;fgfg: no current job
+[1m[7m%[27m[1m[0m                                                                                                              ]2;fnieves-@2-A-4:~/Documents/Proyectos/minishell proyecto/minishell]1;..cto/minishell[0m[27m[24m[J[01;31m➜  [36mminishell[00m [01;34mgit:([31mjoined_hdoc[34m) [33m✗[00m [K[?1h=[?2004hmmake  m  ../minishell[1m [0m[0m [?1l>[?2004l
+]2;./minishell]1;./minishell[?2004hminishell $ ./minishell
+[?2004lError
+Please check cmd:Please check cmd:[?2004hminishell $ 

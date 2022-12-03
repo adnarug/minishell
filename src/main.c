@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/02 19:01:55 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/02 20:31:42 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ int main(int argc, char **argv, char **envp)
 			if (data.prs_error)
 				ft_execution(&data);
 		}
-		// printf("\nParsed after if and come to delet parse and print\n\n");//delete later
 		del_parsedtk_and_list_tok(&data);
 		//print_list_parsedtoken(&data);
 		//print_list(&data.list);//delete later

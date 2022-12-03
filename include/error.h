@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 11:33:33 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/02 15:03:07 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/02 20:38:42 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define ERROR_H
 
 /* Error messages*/
-#define ERROR_PRINTED 	"error\n"
+#define ERROR_PRINTED 	"exit\n"
 #define ERROR_QUOT 		"quote(s) not closed\n"
 
 # define MALLOC_ERR "Failed at allocating memory.\n"

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:35:53 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/02 12:29:23 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/02 23:08:22 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void print_error_free_exit(t_minishell *data, char *error_msg, int glb_var, bool
 	glob_var_exit = glb_var;
 	if (do_exit)
 		exit(glob_var_exit);
+	data->lx_error = false;
+	data->prs_error = false;
 }
 
 void exec_exit(t_minishell *data, char *error_msg, int glb_var, bool do_exit)

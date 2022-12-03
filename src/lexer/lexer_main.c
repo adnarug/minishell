@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 14:42:56 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/02 13:16:52 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/02 20:27:26 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ void	ft_lexer(t_minishell *data) //(t_list_token *list, char *line)
 {
 	t_lexing lex_struct;
 	
-	data->lx_error = true; //we do this at the beggining of each function
 	data->line = ft_strtrim((const char *)data->line, SPACE_STRNG);
+	if (ft_strlen(data->line))
+		data->lx_error = true; //we do this at the beggining of each function
 	initializer_lex(&lex_struct);
 	if(!are_quote_closed(data))
 		print_error_free_exit(data, ERROR_QUOT, QUOTE_MISSING, false);
@@ -56,5 +57,4 @@ void	ft_lexer(t_minishell *data) //(t_list_token *list, char *line)
 	}
 	if (!data->lx_error) //will happen if quotes are not closed
 		glob_var_exit = (EXIT_FAILURE);
-	//system("leaks minishell");
 }

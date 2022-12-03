@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:22:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/02 15:18:58 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/02 23:05:01 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,8 @@ int	ft_execution(t_minishell *data)
 	dup_stdin_and_stdout(data);//need to free t_exec
 	data->exec->last_cmd = data->array_sublist[0]->number_cmd;
 	resolve_hdocs(data);
+	if (!data->array_sublist)//added by Felipe
+		return 0 ;
 	while (data->array_sublist[i] != NULL)
 	{
 		reset_params(data);

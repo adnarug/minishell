@@ -99,13 +99,13 @@ Parsing
     cd ..
     cd .
     cd /Users
-    cd //
+>>> cd //						Pasha
     cd '//'
     cd //////
     cd ./././
 	cd '/etc'
 	cd '/var'
->>>  cd "$PWD/prompt"
+	cd "$PWD/prompt"
 	cd "$PWD" === cd /Users/fnieves-
 	cd '$PWD' === cd $PWD
 	
@@ -118,23 +118,31 @@ Parsing
 	cd $OLDPWD/builtins
 	cd .. | echo "something"
 	cd / | echo "something"
-	cd .. | pwd
+>>>	cd .. | pwd    				Pasha
 </details>
 
 
 <details>
  <summary> echo </summary>
 
-	echo $ $
+>>>	echo $ $											Pasha. Space betwee nodes. happen again below
+
+bash-3.2$ echo yotu	
+yotu
+bash-3.2$ echo yo tu 
+yo tu
+bash-3.2$ echo yo      tu 
+yo tu
+
 	ECHO
 	echo rhobebou
 	echo "bonjour"
 	echo -n bonjour
 	echo -nn bonjour
-	echo -n -n -n bonjour
+>>>	echo -n -n -n bonjour			Pasha
 	echo "-n" bonjour
 	echo text"$USER"
->>>	echo text"'$USER'" ' $USER '  
+>>>	echo text"'$USER'" ' $USER '  						Pasha (2 spaces , probably like above)
 	echo "text"   "$USER"    "$USER"
 	echo               text "$USER"            "$USER"text
 	echo ''''''''''$USER''''''''''
@@ -153,7 +161,7 @@ Parsing
 	echo $?
 	echo $PWD/file
 	echo "$PWD/file"
-	echo "text" "text$USER" ... "$USER"
+>>>	echo "text" "text$USER" ... "$USER" 			spaces again
 	echo $PWD
 </details>
 
