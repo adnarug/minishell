@@ -1,7 +1,7 @@
 NAME = minishell
 SRC_DIR = src/
 OBJ_DIR = obj/
-FLAGS =   -Wextra -g -Wall #-Wno-gnu-include-next -I/LeakSanitizer/include -L./LeakSanitizer/ -llsan -lc++ #-fsanitize=address # -Werror
+FLAGS =   -Wextra -g #-Wall -Wno-gnu-include-next -I/LeakSanitizer/include -L./LeakSanitizer/ -llsan -lc++ #-fsanitize=address # -Werror
 #LEAKS = -Wno-gnu-include-next -I/LeakSanitizer/include -L./LeakSanitizer/ -llsan -lc++
 #FLAGS = -Wextra -g -Wall -Wno-gnu-include-next -I/LeakSanitizer/include -L./LeakSanitizer/ -llsan -lc++ # -Werror  #-fsanitize=address
 LIBFT = libft/
@@ -39,6 +39,7 @@ SRC_FILES = main				\
 			builtins/env \
 			builtins/exit \
 			builtins/export \
+			builtins/export_utils \
 			builtins/pwd 				\
 			builtins/unset				\
 			parser/parser_main 			\

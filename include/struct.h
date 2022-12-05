@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 20:45:57 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/05 10:02:53 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/05 16:45:45 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_env
 {
 	char		*key;
 	char		*value;
+	char		*equal;
 	struct s_env *next;
 }	t_env;
 

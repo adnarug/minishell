@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:22:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/05 12:07:05 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/05 16:47:56 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,31 +38,35 @@ int	exec_builtin(t_minishell *data)
 	// cmd_flags = ft_split(token, ' ');
 	if (ft_strncmp(data->exec->cmd_flags[0], "cd", ft_strlen("cd")) == 0)
 	{
+		printf("*****my cd\n");
 		glob_var_exit = builtin_cd(env, data->exec->cmd_flags);
 		return (EXIT_SUCCESS);
 	}
 	//ENV
 	if (ft_strncmp(data->exec->cmd_flags[0], "env", ft_strlen("env")) == 0)
 	{
+		printf("*****my env\n");
 		glob_var_exit = builtin_env(env, data->exec->cmd_flags[0]);
 		return (EXIT_SUCCESS);
 	}
 	//ECHO
 	if (ft_strncmp(data->exec->cmd_flags[0], "echo", ft_strlen("echo")) == 0)
 	{
-		printf("*****finds echo\n");
+		printf("*****my echo\n");
 		glob_var_exit = builtin_echo(data);
 		return (EXIT_SUCCESS);
 	}
 	// PWD
 	if (ft_strncmp(data->exec->cmd_flags[0], "pwd", ft_strlen("pwd")) == 0)
 	{
+		printf("*****my pwd\n");
 		glob_var_exit = builtin_pwd(data->exec->cmd_flags[0]);
 		return (EXIT_SUCCESS);
 	}
 	//UNSET
 	if (ft_strncmp(data->exec->cmd_flags[0], "unset", ft_strlen("unset")) == 0)
 	{
+		printf("*****my unset\n");
 		glob_var_exit = builtin_unset(env, data->exec->cmd_flags);
 		return (EXIT_SUCCESS);
 	}
@@ -70,7 +74,8 @@ int	exec_builtin(t_minishell *data)
 	if (ft_strncmp(data->exec->cmd_flags[0], "export", ft_strlen("export ")) == 0)
 	{
 		// token += ft_strlen("export ");
-		glob_var_exit = builtin_export(env, data->exec->cmd_flags);
+		printf("*****my export\n");
+		glob_var_exit = builtin_export(data);
 		return (EXIT_SUCCESS);
 	}
 	
@@ -78,7 +83,7 @@ int	exec_builtin(t_minishell *data)
 	// exit_args = ft_split(token, ' ');
 	if (ft_strncmp(data->exec->cmd_flags[0], "exit", ft_strlen("exit")) == 0)
 	{
-		printf("*****finds exit\n");
+		printf("*****my exit\n");
 		glob_var_exit = builtin_exit(data);
 		return (EXIT_SUCCESS);
 	}

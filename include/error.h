@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 11:33:33 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/05 14:00:30 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/05 16:43:28 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define EXIT_NUM_ARG 255
 # define INVALID_EXIT_ARG 255
 # define INVALID_ARG 22
+# define EXPORT_ERROR				8
 
 /* Error return values */
 # define QUOTE_MISSING		1

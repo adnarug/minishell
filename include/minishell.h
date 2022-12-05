@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/05 13:29:59 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/05 16:47:48 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,7 +270,7 @@ long long	ft_atol(const char *str, bool *error);
 int			builtin_env(t_env *env, char *argv) ;
 int			builtin_cd(t_env *env, char **argv);
 int			builtin_unset(t_env *env, char **argv);
-int			builtin_export(t_env *envp, char **argv);
+int			builtin_export(t_minishell *data);
 int			builtin_exit(t_minishell *data);
 
 //Execution 
@@ -317,5 +317,7 @@ void print_error_free_exit(t_minishell *data, char *error_msg, int glb_var, bool
 void exec_exit(t_minishell *data, char *error_msg, int glb_var, bool do_exit);
 void my_strerror(char *err_cmd, int err_num);
 void cmd_str_error(char *err_cmd, char *err_msg);
+char	*make_key(char *s, int *i);
+void	true_env(t_minishell *data);
 
 #endif 
