@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_main.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:22:46 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/03 17:19:54 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/05 12:07:05 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 char **init_builtins_arr(char **builtins)
 {
 	builtins[0] = "cd";
-	builtins[1] = "check";
+	builtins[1] = "echo";
 	builtins[2] = "exit";
 	builtins[3] = "unset";
 	builtins[4] = "env";
@@ -38,46 +38,48 @@ int	exec_builtin(t_minishell *data)
 	// cmd_flags = ft_split(token, ' ');
 	if (ft_strncmp(data->exec->cmd_flags[0], "cd", ft_strlen("cd")) == 0)
 	{
-		builtin_cd(env, data->exec->cmd_flags);
+		glob_var_exit = builtin_cd(env, data->exec->cmd_flags);
 		return (EXIT_SUCCESS);
 	}
 	//ENV
 	if (ft_strncmp(data->exec->cmd_flags[0], "env", ft_strlen("env")) == 0)
 	{
-		builtin_env(env, data->exec->cmd_flags[0]);
+		glob_var_exit = builtin_env(env, data->exec->cmd_flags[0]);
 		return (EXIT_SUCCESS);
 	}
 	//ECHO
 	if (ft_strncmp(data->exec->cmd_flags[0], "echo", ft_strlen("echo")) == 0)
 	{
-		builtin_echo(data->exec->cmd_flags);
+		printf("*****finds echo\n");
+		glob_var_exit = builtin_echo(data);
 		return (EXIT_SUCCESS);
 	}
 	// PWD
 	if (ft_strncmp(data->exec->cmd_flags[0], "pwd", ft_strlen("pwd")) == 0)
 	{
-		builtin_pwd(data->exec->cmd_flags[0]);
+		glob_var_exit = builtin_pwd(data->exec->cmd_flags[0]);
 		return (EXIT_SUCCESS);
 	}
 	//UNSET
 	if (ft_strncmp(data->exec->cmd_flags[0], "unset", ft_strlen("unset")) == 0)
 	{
-		builtin_unset(env, data->exec->cmd_flags);
+		glob_var_exit = builtin_unset(env, data->exec->cmd_flags);
 		return (EXIT_SUCCESS);
 	}
 	// EXPORT
-	if (ft_strnstr(data->exec->cmd_flags[0], "export", ft_strlen("export ")) != NULL)
+	if (ft_strncmp(data->exec->cmd_flags[0], "export", ft_strlen("export ")) == 0)
 	{
 		// token += ft_strlen("export ");
-		builtin_export(env, data->exec->cmd_flags);
+		glob_var_exit = builtin_export(env, data->exec->cmd_flags);
 		return (EXIT_SUCCESS);
 	}
 	
 	//EXIT
 	// exit_args = ft_split(token, ' ');
-	if (ft_strnstr(token, "exit", ft_strlen("exit")) != NULL)
+	if (ft_strncmp(data->exec->cmd_flags[0], "exit", ft_strlen("exit")) == 0)
 	{
-		builtin_exit(data->exec->cmd_flags);
+		printf("*****finds exit\n");
+		glob_var_exit = builtin_exit(data);
 		return (EXIT_SUCCESS);
 	}
 
@@ -122,8 +124,8 @@ void	exec_cmd(t_minishell *data, t_sublist_prs_tok *token)
 		find_correct_paths(token->prs_tok, data);
 	else if (is_builtin(token->prs_tok) == 1)
 		data->exec->is_builtin = true;
-	if (data->exec->exec_path == NULL)
-		ft_putstr_fd("bash: : command not found\n", 2);
+	if (data->exec->exec_path == NULL && data->exec->is_builtin == false)
+		my_strerror(data->exec->cmd_flags[0], CMD_NOT_FOUND);
 	if (DEBUG == 1)
 		printf("\ndata->exec_path:%s data->cmd_flags:%s\n", data->exec->exec_path, data->exec->cmd_flags[0]);
 	if (data->exec->cmd_num < data->exec->last_cmd)

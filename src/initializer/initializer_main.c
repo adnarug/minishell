@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initializer_main.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 13:07:04 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/03 13:46:10 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/05 10:03:58 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	initializer_data_error(t_minishell *data) //still any values to inicialze (
 {
 	data->prs_error = false;
 	data->lx_error = false;
-	data->ex_error = true; //put to false and true at the beggining of the function
-	data->exit_minishell = true;
+	data->ex_error = false; //put to false and true at the beggining of the function
+	data->exit_minishell = false;
 }
 
 

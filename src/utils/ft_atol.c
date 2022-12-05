@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 13:39:22 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/25 13:43:16 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/05 13:54:57 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ static int	ft_isnum(char c)
 	return (0);
 }
 
-long int	ft_atol(const char *str)
+long long	ft_atol(const char *str, bool *error)
 {
 	int				i;
-	long int		result_integer;
+	long long		result_integer;
 	int				sign;
 
 	i = 0;
@@ -48,5 +48,11 @@ long int	ft_atol(const char *str)
 		result_integer = result_integer * 10 + str[i] - '0';
 		i++;
 	}
+	if (((result_integer * sign) > 9223372036854775807) || \
+	 ((result_integer * sign) < -922337203685477589))
+	 {
+		*error = true;
+		return (255);
+	 }
 	return (result_integer * sign);
 }

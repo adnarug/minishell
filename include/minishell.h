@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:16:01 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/03 17:20:37 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/05 13:29:59 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ t_env	*ft_lstlast_mini(t_env *lst);
 void	ft_lstadd_back_mini(t_env **lst, t_env *new);
 t_env	*ft_lstnew_env(char *value, char *key);
 void	free_cmd_path(t_minishell *data);
+int counter_2d(char **cmd_flags);
 //void	free_all(t_minishell *data);
 
 
@@ -233,7 +234,7 @@ void	check_leaks(void);
 
 
 void		execute(char *line_buffer);
-int			builtin_echo(char **args_echo);
+int	builtin_echo(t_minishell *data);
 int			builtin_pwd(char *args_cd);
 char		**dup_env_matrix(char **matrix);
 t_env		*ft_node_init(char *envp);
@@ -263,14 +264,14 @@ void	print_env_lst_export(t_env *env_lst);
 
 //Refactored libft
 char		**split_into_key_value(char *string);
-long int	ft_atol(const char *str);
+long long	ft_atol(const char *str, bool *error);
 
 //Builtins
 int			builtin_env(t_env *env, char *argv) ;
 int			builtin_cd(t_env *env, char **argv);
 int			builtin_unset(t_env *env, char **argv);
 int			builtin_export(t_env *envp, char **argv);
-int			builtin_exit(char	**token);
+int			builtin_exit(t_minishell *data);
 
 //Execution 
 int			cmd_exec(t_prs_tok *token, t_minishell *data);
@@ -314,5 +315,7 @@ void	redirect_last_cmd(t_minishell *data);
 //Error
 void print_error_free_exit(t_minishell *data, char *error_msg, int glb_var, bool do_exit);
 void exec_exit(t_minishell *data, char *error_msg, int glb_var, bool do_exit);
+void my_strerror(char *err_cmd, int err_num);
+void cmd_str_error(char *err_cmd, char *err_msg);
 
 #endif 

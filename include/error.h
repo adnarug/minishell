@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 11:33:33 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/02 20:38:42 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/05 14:00:30 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@
 
 # define MALLOC_ERR "Failed at allocating memory.\n"
 # define MALLOC_ERR_NO 12
+# define CMD_NOT_FOUND 127 
+# define EXIT_NUM_ARG 255
+# define INVALID_EXIT_ARG 255
+# define INVALID_ARG 22
 
 /* Error return values */
 # define QUOTE_MISSING		1

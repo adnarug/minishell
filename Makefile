@@ -1,7 +1,7 @@
 NAME = minishell
 SRC_DIR = src/
 OBJ_DIR = obj/
-FLAGS =   -Wextra -g -Wall -Wno-gnu-include-next -I/LeakSanitizer/include -L./LeakSanitizer/ -llsan -lc++ #-fsanitize=address # -Werror
+FLAGS =   -Wextra -g -Wall #-Wno-gnu-include-next -I/LeakSanitizer/include -L./LeakSanitizer/ -llsan -lc++ #-fsanitize=address # -Werror
 #LEAKS = -Wno-gnu-include-next -I/LeakSanitizer/include -L./LeakSanitizer/ -llsan -lc++
 #FLAGS = -Wextra -g -Wall -Wno-gnu-include-next -I/LeakSanitizer/include -L./LeakSanitizer/ -llsan -lc++ # -Werror  #-fsanitize=address
 LIBFT = libft/
@@ -47,6 +47,7 @@ SRC_FILES = main				\
 			parser/parse_free 			\
 			destroyer/exit_functions 	\
 			destroyer/free_main			\
+			destroyer/error_print		
 
 DEF_COLOR = \033[0;80m
 GREEN = \033[0;92m

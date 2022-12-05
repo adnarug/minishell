@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:26:30 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/03 18:15:01 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/05 10:07:07 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int main(int argc, char **argv, char **envp)
 	}
 	initializer_data(&data); //do we need to inizialez all here??
 	ft_env(&data, envp); //could we add to inizialice
-	while (data.exit_minishell)
+	while (data.exit_minishell == false)
 	{
 		signals_main(&(data.termios_default));
 		data_input(&data);
@@ -86,7 +86,7 @@ int main(int argc, char **argv, char **envp)
 
 	free_all(&data);
 	clear_history();
-	system("leaks minishell");
+	// system("leaks minishell");
 	return (glob_var_exit);
 }
 
