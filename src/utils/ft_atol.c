@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 13:39:22 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/05 13:54:57 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/10 16:29:08 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ long long	ft_atol(const char *str, bool *error)
 		i++;
 	}
 	if (((result_integer * sign) > 9223372036854775807) || \
-	 ((result_integer * sign) < -922337203685477589))
-	 {
+	((result_integer * sign) < -922337203685477589))
+	{
 		*error = true;
 		return (255);
-	 }
+	}
 	return (result_integer * sign);
 }

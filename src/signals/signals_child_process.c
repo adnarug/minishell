@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals_child_process.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fnieves <fnieves@42heilbronn.de>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 12:06:36 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/03 17:11:52 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/10 14:48:22 by fnieves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 	which are those desired by the exercise.
 */
 
-void	sigint_child()
+void	sigint_child(void)
 {
 	struct sigaction	sigac;
 
@@ -30,10 +30,10 @@ void	sigint_child()
 	sigaction(SIGINT, &sigac, NULL);
 }
 
-void	sigquit_child()
+void	sigquit_child(void)
 {
 	struct sigaction	sigac;
-	
+
 	sigac.sa_handler = SIG_DFL;
 	sigac.sa_flags = SA_RESTART;
 	sigemptyset(&sigac.sa_mask);
@@ -54,16 +54,13 @@ void	sigquit_child()
 
 void	signals_child_process(struct termios *per_default)
 {
-	//printf("mode child signals\n");
 	reset_print_ctrlc(per_default);
 	sigint_child();
 	sigquit_child();
 }
 
-void	signals_heredoc_process()
+void	signals_heredoc_process(void)
 {
-	//printf("modus heredoc signals. Print C and slash and do nothing with slash\n");
-	//reset_print_ctrlc(per_default);
 	sigint_child();
 	sigquit_parent();
 }

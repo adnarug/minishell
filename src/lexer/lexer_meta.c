@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_meta.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fnieves <fnieves@42heilbronn.de>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 13:50:12 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/02 13:14:20 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/10 14:00:33 by fnieves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	lexer_meta(t_minishell *data, t_lexing *lex_struct)
 
 	if (ft_isredirect(data->line[lex_struct->c_pos]))
 		lex_redirect(data, lex_struct);
-	else //find a pipe
+	else
 	{
 		lex_struct->type = PIPE;
 		lex_struct->c_pos += 1;

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signals_parent_process.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fnieves <fnieves@42heilbronn.de>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 15:49:08 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/20 22:24:39 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/10 14:48:53 by fnieves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	sigint_parent()
+void	sigint_parent(void)
 {
 	struct sigaction	sigac;
 
@@ -22,7 +22,7 @@ void	sigint_parent()
 	sigaction(SIGINT, &sigac, NULL);
 }
 
-void	sigquit_parent()
+void	sigquit_parent(void)
 {
 	struct sigaction	sigac;
 
@@ -38,7 +38,7 @@ void	sigquit_parent()
 		be ignored.
 */
 
-void	signals_parent_process()
+void	signals_parent_process(void)
 {
 	sigint_parent();
 	sigquit_parent();

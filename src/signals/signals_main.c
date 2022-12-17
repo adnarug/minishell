@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signals_main.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 11:45:02 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/03 13:12:15 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/12/10 16:28:35 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../include/minishell.h"
 
 /*
-
 	rl_on_new_line();
 	show new prompt and take new  input (prebuild function)
 	
@@ -42,10 +40,10 @@ void	new_prompt(int signal)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	glob_var_exit = 1;
+	g_glob_var_exit = 1;
 }
 
-void	sigquit_main()
+void	sigquit_main(void)
 {
 	struct sigaction	sigac;
 
@@ -67,7 +65,7 @@ void	sigquit_main()
 	sigaction(SIGINT, &sigac, NULL) -> it does the bussines
 */
 
-void	sigint_main()
+void	sigint_main(void)
 {
 	struct sigaction	sigac;
 
@@ -93,8 +91,7 @@ void	sigint_main()
 
 void	signals_main(struct termios *per_default)
 {
-	//printf("call signals from main proces\n");
 	no_print_ctrlc(per_default);
-	sigint_main(); //seguir aqui sabado
+	sigint_main();
 	sigquit_main();
 }

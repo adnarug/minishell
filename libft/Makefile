@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+         #
+#    By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/30 15:24:44 by pguranda          #+#    #+#              #
-#    Updated: 2022/11/08 13:06:46 by fnieves-         ###   ########.fr        #
+#    Updated: 2022/12/10 16:15:02 by pguranda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRCS	=	ft_atoi.c 		ft_bzero.c 		ft_calloc.c\
 			ft_putnbr_fd.c	ft_lstnew.c		ft_lstadd_front.c\
 			ft_lstsize.c	ft_lstlast.c	ft_lstadd_back.c\
 			ft_lstdelone.c	ft_lstclear.c	ft_lstiter.c\
-			ft_lstmap.c 	split_meta.c	ft_strjoin_char.c\
+			ft_lstmap.c 	ft_strjoin_char.c\
 			
 OBJ		=	$(SRCS:%.c=%.o)
 

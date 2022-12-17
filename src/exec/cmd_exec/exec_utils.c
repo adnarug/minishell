@@ -6,11 +6,10 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 14:57:54 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/03 16:05:25 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/13 22:45:30 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# define DEBUG 0
 #include "../../../include/minishell.h"
 
 void	reset_params(t_minishell *data)
@@ -21,26 +20,20 @@ void	reset_params(t_minishell *data)
 	data->exec->no_cmd = false;
 	data->curr_fd_in = STDIN_FILENO;
 	data->curr_fd_out = STDOUT_FILENO;
-
 }
 
-//To be done somewhere else
 void	dup_stdin_and_stdout(t_minishell *data)
 {
 	data->std_in = dup(STDIN_FILENO);
 	if (!data->std_in)
 	{
 		free(data->exec);
-		// data->exec = NULL;
-		// exec_exit(data, "Segmentation fault\n", 1, true);
 		exit (EXIT_FAILURE);
 	}
 	data->std_out = dup(STDOUT_FILENO);
 	if (!data->std_out)
 	{
 		free(data->exec);
-		// data->exec = NULL;
-		// exec_exit(data, "Segmentation fault\n", 1, true);
 		exit (EXIT_FAILURE);
 	}
 }
@@ -53,13 +46,26 @@ void	reset_stdin_stdout(t_minishell *data)
 
 void	catch_exit_code(t_minishell *data)
 {
+	int	i;
 	int	status;
+	int	pid_check;
 
-	status = glob_var_exit;
-
-	waitpid(data->pid, &status, 0);
-	if (WIFEXITED(status))
-		glob_var_exit = WEXITSTATUS(status);
+	i = 0;
+	status = g_glob_var_exit;
+	while (i < data->number_pipes + 1)
+	{
+		pid_check = waitpid(0, &status, 0);
+		if (status != 0)
+			reset_stdin_stdout(data);
+		if (pid_check == data->last_pid)
+		{
+			if (WIFEXITED(status))
+				g_glob_var_exit = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				g_glob_var_exit = WTERMSIG(status);
+		}
+		i++;
+	}
 }
 
 void	close_fds_in_out(t_minishell *data)
@@ -68,10 +74,4 @@ void	close_fds_in_out(t_minishell *data)
 		close(data->curr_fd_in);
 	if (data->curr_fd_out != STDOUT_FILENO)
 		close(data->curr_fd_out);
-}
-
-void	free_cmd_path(t_minishell *data)
-{
-	free(data->exec->exec_path);
-	data->exec->exec_path = NULL;
 }

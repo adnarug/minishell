@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:54:13 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/03 18:12:40 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/13 20:16:56 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,17 @@ char	**dup_env_matrix(char **matrix)
 	char	**duplicate_matrix;
 
 	i = 0;
-	// if (matrix == NULL || *matrix == NULL)
-	// 	return (NULL); // exit code?
-	duplicate_matrix = malloc(sizeof(char *) * (count_strings(matrix)));//protection
-	// if (duplicate_matrix == NULL)
-	// 	return NULL;
+	if (matrix == NULL || *matrix == NULL)
+		return (NULL);
+	duplicate_matrix = malloc(sizeof(char *) * (count_strings(matrix) + 1));
+	if (duplicate_matrix == NULL)
+		return (NULL);
 	while (matrix[i] != NULL)
 	{
 		duplicate_matrix[i] = ft_strdup(matrix[i]);
 		i++;
 	}
 	duplicate_matrix[i] = NULL;
-
 	return (duplicate_matrix);
 }
 
@@ -51,10 +50,8 @@ int	count_strings(char **array)
 void	ft_free_2d(char **table)
 {
 	int	i;
-	size_t len;
 
 	i = 0;
-	len = count_strings(table);
 	while (table[i] != NULL)
 	{
 		free(table[i]);
@@ -65,15 +62,14 @@ void	ft_free_2d(char **table)
 	table = NULL;
 }
 
-// Temp functions for testing TO BE DELETED
+// Temp functions for testing 
 void	print_2d(char **array)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (array == NULL || array[i] == NULL)
 	{
-		printf("Trying to print an empty 2d\n");
 		return ;
 	}
 	while (array[i] != NULL)
@@ -85,13 +81,13 @@ void	print_2d(char **array)
 }
 
 /* returns the value of the difference found in two strings, 0 if equal */
-int	ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp(const char *str1, const char *str2)
 {
 	const unsigned char	*buf1;
 	const unsigned char	*buf2;
 
-	buf1 = (const unsigned char *)s1;
-	buf2 = (const unsigned char *)s2;
+	buf1 = (const unsigned char *)str1;
+	buf2 = (const unsigned char *)str2;
 	if (*buf1 != *buf2)
 		return (*buf1 - *buf2);
 	while (*buf1 && *buf2)

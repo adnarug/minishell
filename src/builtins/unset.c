@@ -6,22 +6,26 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:12:12 by pguranda          #+#    #+#             */
-/*   Updated: 2022/10/28 11:03:37 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/13 22:55:15 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/*Unseting the env variable, but removing the node t_env*/
+/*Unseting the env variable, execpt the last on*/
 
 static int	check_node(t_env *node_to_offset)
 {
-	if (node_to_offset->key == NULL || ft_strncmp(node_to_offset->key, "_", ft_strlen(node_to_offset->key)) == 0)
+	if (node_to_offset->key == NULL || \
+		ft_strncmp(node_to_offset->key, "_", \
+			ft_strlen(node_to_offset->key)) == 0)
+	{
 		return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
 
-int	builtin_unset(t_env *env, char **argv)//working with string, to be implemented with a 2d array
+int	builtin_unset(t_minishell *data, t_env *env, char **argv)
 {
 	int		i;
 	int		len;
@@ -32,19 +36,19 @@ int	builtin_unset(t_env *env, char **argv)//working with string, to be implement
 	if (argv == NULL || len == 0)
 		return (EXIT_FAILURE);
 	i++;
-	
 	while (i < len)
 	{
 		target_node = ft_lst_find(env, argv[i]);
 		if (target_node == NULL)
 		{
+			strerr_unset("unset", argv[i]);
+			g_glob_var_exit = 1;
 			i++;
 			continue ;
 		}
-		fflush(stdout);
 		if (check_node(target_node) == EXIT_SUCCESS)
-			ft_lstdelone_env(target_node, env);
+			data->env_lst = ft_lstdelone_env(target_node, env);
 		i++;
 	}
-	return (EXIT_SUCCESS);
+	return (g_glob_var_exit);
 }

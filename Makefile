@@ -1,9 +1,7 @@
 NAME = minishell
 SRC_DIR = src/
 OBJ_DIR = obj/
-FLAGS =   -Wextra -g #-Wall -Wno-gnu-include-next -I/LeakSanitizer/include -L./LeakSanitizer/ -llsan -lc++ #-fsanitize=address # -Werror
-#LEAKS = -Wno-gnu-include-next -I/LeakSanitizer/include -L./LeakSanitizer/ -llsan -lc++
-#FLAGS = -Wextra -g -Wall -Wno-gnu-include-next -I/LeakSanitizer/include -L./LeakSanitizer/ -llsan -lc++ # -Werror  #-fsanitize=address
+FLAGS = -Wall -Wextra -Werror
 LIBFT = libft/
 CC = gcc
 SRC_FILES = main				\
@@ -14,13 +12,11 @@ SRC_FILES = main				\
 			lexer/lexer_meta	\
 			expand/expand_main		\
 			expand/expand_tools	\
-			expand/expand_print \
 			signals/signals_main \
 			signals/signals_termios	\
 			signals/signals_child_process \
 			signals/signals_parent_process \
 			initializer/initializer_main \
-			exec/execution_main \
 			exec/cmd_exec/path_check \
 			exec/redirs_hdocs/exec_redir_simulation \
 			exec/redirs_hdocs/exec_hdoc_simulation \
@@ -29,9 +25,14 @@ SRC_FILES = main				\
 			exec/cmd_exec/exec_tools \
 			exec/cmd_exec/exec_utils \
 			exec/cmd_exec/execution_redir \
+			exec/cmd_exec/exec_builtins \
+			exec/execution_utils \
+			exec/execution_main \
 			env/env_main \
 			env/initializer_env \
 			utils/lst_utils \
+			utils/lst_utils_1 \
+			utils/lst_utils_2 \
 			utils/ft_atol \
 			utils/utils \
 			builtins/cd \
@@ -40,15 +41,18 @@ SRC_FILES = main				\
 			builtins/exit \
 			builtins/export \
 			builtins/export_utils \
-			builtins/pwd 				\
-			builtins/unset				\
-			parser/parser_main 			\
-			parser/parse_tools 			\
-			parser/parse_tokens 		\
-			parser/parse_free 			\
-			destroyer/exit_functions 	\
+			builtins/pwd	\
+			builtins/unset	\
+			parser/parser_main	\
+			parser/parse_tools	\
+			parser/parse_tokens	\
+			parser/parse_free	\
+			parser/distribute_parser	\
+			parser/merge_parstok		\
+			destroyer/exit_functions	\
 			destroyer/free_main			\
-			destroyer/error_print		
+			destroyer/error_print		\
+
 
 DEF_COLOR = \033[0;80m
 GREEN = \033[0;92m
@@ -68,10 +72,8 @@ $(NAME): $(OBJ)
 	@$(CC) $(FLAGS) $(OBJ) ${INCREADL} libft/libft.a -lreadline -o minishell
 	@echo "$(GREEN)minishell compiled$(DEF_COLOR)"
 
-# @$(CC) $(FLAGS) $(LEAKS) ${INCREADH} -c $< -o $@
 $(OBJ_DIR)%.o	:	$(SRC_DIR)%.c | $(OBJF)
 	@$(CC) $(FLAGS) ${INCREADH} -c $< -o $@
-
 
 $(OBJF):
 	@mkdir -p $(OBJ_DIR)
@@ -92,7 +94,7 @@ $(OBJF):
 
 run: all
 	@./minishell
-	
+
 clean:
 	@rm -r $(OBJ_DIR)
 	@make clean -C $(LIBFT)

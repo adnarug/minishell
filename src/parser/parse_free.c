@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: fnieves <fnieves@42heilbronn.de>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 01:33:30 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/12/03 18:30:08 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/13 18:58:18 by fnieves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-/*
-hay que apuntar a null , despues de hacer un free. es  una buna practica para no tener que liarla 
-por hacer 2 free al mismo pointer
-Tengo que hacer free a los strings maloqueados de la lista de tokens, y de los parsed tokens??
-grep hi -l >> '$USER' | wc -w > $HOME
-*/
 
 /*
 	From general struct t_minishell, we start deleting 
@@ -34,12 +27,13 @@ void	del_parsedtk_and_list_tok(t_minishell *data)
 	delete_list(&data->list);
 	free(data->line);
 	data->line = NULL;
-	
 }
 
 void	del_array_list_prsdtok(t_minishell *data)
 {
-	int i = 0;
+	int		i;
+
+	i = 0;
 	if (!data->array_sublist)
 		return ;
 	while (data->array_sublist[i])
@@ -50,50 +44,51 @@ void	del_array_list_prsdtok(t_minishell *data)
 	free(data->array_sublist);
 	data->array_sublist = NULL;
 }
+
 /*
 	It will run throght each parsed node , commands or redirect,
 	of the list and and delete them. 
 */
-
-void free_list_parsedtok(t_sublist_prs_tok *sublist)
+void	free_list_parsedtok(t_sublist_prs_tok *sublist)
 {
 	t_prs_tok	*current;
 	t_prs_tok	*delete;
-	
+
 	if (!sublist)
 		return ;
 	current = sublist->prs_tok;
 	delete = current;
-	while(current)
+	while (current)
 	{
 		current = current->next;
 		free_parsed_tok(delete);
+		delete->next = NULL;
+		free(delete);
 		delete = current;
 	}
-	free(sublist->exec_path);
-	sublist->exec_path = NULL;
+	free(sublist);
+	sublist = NULL;
 }
 
 /*
 	Inside each node, free , the words for redirecc
 	and the whole array of commands.
 */
-void free_parsed_tok(t_prs_tok	*delete)
+void	free_parsed_tok(t_prs_tok	*delete)
 {
-	int i;
+	int	i;
 
 	free(delete->word);
 	delete->word = NULL;
-	if (delete->cmd_flags)
+	if (!delete->cmd_flags)
+		return ;
+	i = 0;
+	while (delete->cmd_flags[i])
 	{
-		i = 0;
-		while (delete->cmd_flags[i])
-		{
-			free(delete->cmd_flags[i]);
-			delete->cmd_flags[i] = NULL;
-			i++;
-		}
-		free(delete->cmd_flags);
-		delete->next = NULL;	
+		free(delete->cmd_flags[i]);
+		delete->cmd_flags[i] = NULL;
+		i++;
 	}
+	free(delete->cmd_flags);
+	delete->cmd_flags = NULL;
 }

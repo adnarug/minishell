@@ -6,7 +6,7 @@
 /*   By: pguranda <pguranda@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 11:26:06 by pguranda          #+#    #+#             */
-/*   Updated: 2022/12/02 18:12:45 by pguranda         ###   ########.fr       */
+/*   Updated: 2022/12/10 19:52:26 by pguranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,33 +19,14 @@
 void	exec_transitory_builtin(t_minishell *data)
 {
 	if (data->curr_fd_in != STDIN_FILENO)
-	{
-		if (dup2(data->curr_fd_in, STDIN_FILENO) < 0)
-		{
-			printf("error1\n");
-			perror(NULL);
-			exit (EXIT_FAILURE);
-		}
-		close(data->curr_fd_in);
-	}
+		run_dup2(data->curr_fd_in, STDIN_FILENO);
 	if (data->curr_fd_out != STDOUT_FILENO)
-	{
-		if (dup2(data->curr_fd_out, STDOUT_FILENO) < 0)
-		{
-			printf("error2\n");
-			perror(NULL);
-			exit (EXIT_FAILURE);
-		}
-		close(data->curr_fd_out);
-	}
+		run_dup2(data->curr_fd_out, STDOUT_FILENO);
 	else
-	{
 		dup2(data->pipe[1], STDOUT_FILENO);
-	}
-	exec_builtin(data);
-	// g_exit_code = data->builtins->funcs[builtin](data);
-	dup2(data->pipe[0], STDIN_FILENO);
 	close(data->pipe[1]);
+	g_glob_var_exit = exec_builtin(data);
+	dup2(data->pipe[0], STDIN_FILENO);
 	close(data->pipe[0]);
 	dup2(data->std_out, STDOUT_FILENO);
 }
@@ -75,8 +56,7 @@ void	exec_last_builtin(t_minishell *data)
 		}
 		close(data->curr_fd_out);
 	}
-	// g_exit_code = data->builtins->funcs[builtin](data);
-	exec_builtin(data);
+	g_glob_var_exit = exec_builtin(data);
 }
 
 void	redirect_transitory_cmd(t_minishell *data)
@@ -111,7 +91,6 @@ void	redirect_last_cmd(t_minishell *data)
 	{
 		if (dup2(data->curr_fd_in, STDIN_FILENO) < 0)
 		{
-			printf("error1\n");
 			perror (NULL);
 			exit (EXIT_FAILURE);
 		}
@@ -121,7 +100,6 @@ void	redirect_last_cmd(t_minishell *data)
 	{
 		if (dup2(data->curr_fd_out, STDOUT_FILENO) < 0)
 		{
-			printf("Error2\n");
 			perror (NULL);
 			exit (EXIT_FAILURE);
 		}
